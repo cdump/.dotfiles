@@ -66,7 +66,7 @@ settings = {
                 rule_any = {
                     class = {
                         "Firefox", "chrome", "Chromium", "Keepassx", "keepassxc",
-                    }
+                    },
                 },
 				properties = {
 					border_width = 0
@@ -635,6 +635,17 @@ awful.rules.rules = {
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen
      }
+    },
+
+    {
+        rule_any = {
+            class = {
+                "Keepassx", "keepassxc",
+            }
+        },
+        properties = {
+            floating = true
+        },
     }
 }
 
