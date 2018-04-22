@@ -1,0 +1,27 @@
+[user]
+    name = Maxim Andreev
+    email = andreevmaxim@gmail.com
+
+[push]
+    default = current
+
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+
+[alias]
+    a = add
+    l = log
+    s = status
+    d = diff
+    f = fetch --all
+    c = commit
+    co = checkout
+    contributors = shortlog --summary --numbered
+    tags = tag -l
+    branches = branch -a
+    remotes = remote -v
+
+[diff "bin"]
+    textconv= hexdump -v -C

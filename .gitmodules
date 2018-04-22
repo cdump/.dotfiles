@@ -1,0 +1,9 @@
+[submodule ".zsh_antigen"]
+	path = .zsh_antigen
+	url = https://github.com/zsh-users/antigen.git
+[submodule ".config/awesome/moex"]
+	path = .config/awesome/moex
+	url = https://github.com/cdump/awesome-moex
+[submodule ".config/awesome/calendar"]
+	path = .config/awesome/calendar
+	url = https://github.com/cdump/awesome-calendar.git
