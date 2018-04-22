@@ -438,6 +438,12 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "j", function () awful.client.focus.byidx( 1) end), -- focus next by index (client)
     awful.key({ modkey,           }, "k", function () awful.client.focus.byidx(-1) end), -- focus previous by index (client)
 
+    awful.key({ }, "XF86MonBrightnessUp", function () my_widgets.bright_change(1) end),
+    awful.key({ }, "XF86MonBrightnessDown", function () my_widgets.bright_change(-1) end),
+    awful.key({ }, "XF86AudioMute", function () my_widgets.volume_change(0) end),
+    awful.key({ }, "XF86AudioRaiseVolume", function () my_widgets.volume_change(1) end),
+    awful.key({ }, "XF86AudioLowerVolume", function () my_widgets.volume_change(-11) end),
+
     -- Standard program
     awful.key({ modkey, }, "F2", function () awful.spawn(settings.apps.mail) end),
     awful.key({ modkey, }, "F3", function () awful.spawn(settings.apps.torrent) end),

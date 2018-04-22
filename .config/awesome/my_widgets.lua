@@ -81,24 +81,58 @@ function text_widgets_updatetext(name, value)
 	widgets[name].update(value)
 end
 
+function volume_change(change)
+    local current = exec("pactl list sinks|grep -E '^\\s+Volume:' | awk '{print $5}' | tr -d '%'")
+    if current == nil then
+        return
+    end
+    current = tonumber(current)
+
+    if change == 0 then
+        awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")
+    end
+
+
+    local muted = exec("pactl list sinks|grep -E '^\\s+Mute:' | awk '{print $2}'")
+    if muted == "yes" then
+        text_widgets_updatetext("volume", "MT")
+        return
+    end
+
+    local new = current
+    local step = 5
+    if change ~= nil then
+        if change > 0 then new = current + step end
+        if change < 0 then new = current - step end
+        if new < 0 then new = 0 end
+        if new > 100 then new = 100 end
+        if new ~= current then
+            awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ "..new.."%")
+        end
+    end
+	text_widgets_updatetext("volume", new)
+
+end
+
 function bright_change(change)
 	local step = 10
-	local current_bright = exec("cat /sys/class/backlight/*/brightness")
-	local max_bright = exec("cat /sys/class/backlight/*/max_brightness")
-	if current_bright == nil then
+	local current = exec("cat /sys/class/backlight/*/brightness")
+	local max = exec("cat /sys/class/backlight/*/max_brightness")
+	if current == nil then
 		return
 	end
-    current_bright = tonumber(current_bright) * 100 / max_bright
-	local new_bright = current_bright + step * (change == 0 and 0 or change/math.abs(change))
-	if new_bright < 0 then
-		new_bright = 0
-	end
-	if new_bright > 100 then
-		new_bright = 100
-	end
-    local real_new_bright = math.floor(new_bright * max_bright / 100)
-	awful.spawn("bash -c 'echo " .. real_new_bright .. " | sudo tee /sys/class/backlight/*/brightness'")
-	text_widgets_updatetext("bright", math.floor(new_bright))
+    current = tonumber(current)
+
+    local new = current * 100 / max
+    if change ~= nil then
+        current = tonumber(current) * 100 / max
+        local new = current + step * (change == 0 and 0 or change/math.abs(change))
+        if new < 0 then new = 0 end
+        if new > 100 then new = 100 end
+        local real_new = math.floor(new * max / 100)
+        awful.spawn("bash -c 'echo " .. real_new .. " | sudo tee /sys/class/backlight/*/brightness'")
+    end
+	text_widgets_updatetext("bright", math.floor(new) .. "%")
 end
 
 function update_weather()
@@ -117,8 +151,11 @@ end
 ----------------- // PUBLIC FUNCTIONS ------------------
 
 
-return {init = function(beautiful, settings)
+return {
+    bright_change = bright_change,
+    volume_change = volume_change,
 
+    init = function(beautiful, settings)
 	widgets = {
         ["netspeed"] = { bg = '#111111', fg = '#888888', ticon='' },
         ["keyboard"] = { bg = '#181818', fg = '#aaaaaa', widget = awful.widget.keyboardlayout() },
@@ -148,9 +185,9 @@ return {init = function(beautiful, settings)
 	)
 
 	widgets.volume.buttons = awful.util.table.join(
-		awful.button({ }, 1, function() awful.spawn(settings.apps.volume .. " mute") end),
-		awful.button({ }, 4, function() awful.spawn(settings.apps.volume .. " volup") end),
-		awful.button({ }, 5, function() awful.spawn(settings.apps.volume .. " voldown") end)
+		awful.button({ }, 1, function() volume_change(0) end),
+		awful.button({ }, 4, function() volume_change(1) end),
+		awful.button({ }, 5, function() volume_change(-1) end)
 	)
 
 	widgets.bright.buttons = awful.util.table.join(
@@ -209,8 +246,8 @@ return {init = function(beautiful, settings)
 		-- [3] = {"futures", "SiU6", "Si" }
 	})
 
-	awful.spawn(settings.apps.volume .. " osd")
-	bright_change(0);
+	volume_change(nil);
+	bright_change(nil);
 
 	-- DateTime & Calendar
 	calendar.addCalendarToWidget(widgets.clock.widget)
