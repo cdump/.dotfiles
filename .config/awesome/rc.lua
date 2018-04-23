@@ -239,9 +239,7 @@ beautiful.border_width = 1
 beautiful.bg_normal = "#1f1f1f"
 beautiful.fg_normal = "#aaaaaa"
 beautiful.bg_focus = "#2f2f2f"
-beautiful.font = "Dejavu Sans 7"
--- beautiful.font = "DejaVu Sans Mono for PowerLine 6"
--- beautiful.font = "Arimo for PowerLine 7"
+beautiful.font = "Dejavu Sans 9"
 -- }}}
 
 -- {{{ Helper functions
@@ -313,8 +311,8 @@ local taglist_buttons = gears.table.join(
     awful.button({ modkey }, 1, function(t) if client.focus then client.focus:move_to_tag(t) end end),
     awful.button({ }, 3, awful.tag.viewtoggle),
     awful.button({ modkey }, 3, function(t) if client.focus then client.focus:toggle_tag(t) end end),
-    awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
-    awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
+    awful.button({ }, 5, function(t) awful.tag.viewnext(t.screen) end),
+    awful.button({ }, 4, function(t) awful.tag.viewprev(t.screen) end)
 )
 
 local tasklist_buttons = gears.table.join(

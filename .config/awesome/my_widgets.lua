@@ -250,7 +250,7 @@ return {
 	bright_change(nil);
 
 	-- DateTime & Calendar
-	calendar.addCalendarToWidget(widgets.clock.widget)
+	calendar.addToWidget(widgets.clock.widget)
 
 	timer_weather:connect_signal("timeout", update_weather)
 	timer_weather:start()
