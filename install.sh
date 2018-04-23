@@ -12,6 +12,9 @@ ln -s -T ~/.dotfiles/.vimrc ~/.vimrc
 ln -s -T ~/.dotfiles/.zshrc ~/.zshrc
 ln -s -T ~/.dotfiles/.zsh_antigen ~/.zsh_antigen
 
+mkdir -p ~/.urxvt/ext
+ln -s -T ~/.dotfiles/.urxvt/ext/font-size ~/.urxvt/ext/font-size
+
 mkdir ~/.themes
 ln -s -T ~/.dotfiles/.themes/absolute ~/.themes/absolute
 

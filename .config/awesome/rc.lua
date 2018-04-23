@@ -517,7 +517,7 @@ globalkeys = gears.table.join(
 		local c = client.focus
 		if not c then return end
 
-        local t = awful.tag.add(c.class,{screen=c.screen, volatile=true})
+        local t = awful.tag.add(c.class,{screen=c.screen, volatile=true, layout=awful.layout.suit.tile.top})
         c:tags({t})
         t:view_only()
 	end),

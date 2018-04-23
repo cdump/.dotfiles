@@ -44,6 +44,9 @@ URxvt*cursorBlink: false
 URxvt*borderless: 1
 URxvt*termName: xterm-256color
 
+URxvt.keysym.C-slash:  font-size:show
+URxvt.perl-ext-common: ...,font-size
+
 Xft.lcdfilter                : lcddefault
 Xft.hintstyle                : hintslight
 Xft.hinting                  : 1
