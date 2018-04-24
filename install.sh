@@ -31,5 +31,8 @@ mkdir ~/.config
 ln -s -T ~/.dotfiles/.config/awesome ~/.config/awesome
 touch ~/.awesome.local.lua
 
+mkdir ~/.config/zathura
+ln -s -T ~/.dotfiles/.config/zathura/zathurarc ~/.config/zathura/zathurarc
+
 mkdir ~/.config/htop
 cp ~/.dotfiles/.config/htop/htoprc ~/.config/htop/htoprc

@@ -1,0 +1,6 @@
+set selection-clipboard clipboard
+set default-bg "#29353b"
+set show-v-scrollbar true
+set page-padding 50
+map a adjust_window best-fit
+map z adjust_window width

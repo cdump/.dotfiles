@@ -52,5 +52,10 @@ Xft.autohint                 : 1
 Xft.antialias                : 1
 Xft.rgba                     : rgb
 
-Xft.dpi: 171
+! 25, 2560x1440
+! Xft.dpi: 117
+
+! laptop
+! Xft.dpi: 171
+
 #include ".Xresources.local"

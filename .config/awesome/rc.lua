@@ -163,7 +163,7 @@ settings = {
 			rules = {
                 rule_any = {
                     class = {
-                        "LibreOffice", "OpenOffice"
+                        "LibreOffice", "OpenOffice", "Zathura",
                     }
                 }
 			}
