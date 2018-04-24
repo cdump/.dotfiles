@@ -118,7 +118,7 @@ settings = {
 			rules = {
                 rule_any = {
                     class = {
-                        "gajim", "psi", "Skype", "xchat", "pidgin", "telegram-desktop", "Slack"
+                        "gajim", "psi", "Skype", "xchat", "pidgin", "telegram-desktop", "Slack", "TelegramDesktop",
                     }
                 }
 			}

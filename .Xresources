@@ -30,9 +30,7 @@
 *color7: #cccbca
 *color15: #fcfcfc
 
-! URxvt*font: xft:DejaVu Sans Mono for PowerLine:pixelsize=25
-! URxvt*font: xft:DejaVuSansMono Nerd Font:pixelsize=25
-URxvt*font: xft: DejaVuSansMono Nerd Font Mono:pixelsize=25
+URxvt*font: xft: DejaVuSansMono Nerd Font Mono:pixelsize=18
 URxvt*saveLines: 10000
 URxvt*cursorColor: darkgreen
 URxvt*scrollBar: True
@@ -54,10 +52,5 @@ Xft.autohint                 : 1
 Xft.antialias                : 1
 Xft.rgba                     : rgb
 
-
-! Xft.dpi: 210
 Xft.dpi: 171
-! Xcursor.size: 1
-! Xft.dpi: 108
 #include ".Xresources.local"
-
