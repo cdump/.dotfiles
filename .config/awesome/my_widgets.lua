@@ -51,7 +51,7 @@ local function get_battery_info()
     local charge = 100
     local time = "AC"
 
-	local line = exec("acpi -b") or ""
+	local line = exec("acpi -b|grep -v unavailable") or ""
 	local data = line:match("Battery #?[0-9] *: ([^\n]*)")
     if data ~= nil then
         state = data:match("([%a]*),.*"):lower()

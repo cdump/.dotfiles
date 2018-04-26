@@ -45,8 +45,8 @@ settings = {
     ["wallpaper"]  = homedir .. "/.wall.jpg",
 	["apps"]  = {
 		["terminal"]    = "urxvt",
-        -- ["browser"]     = "sh -c 'chromium-browser --force-device-scale-factor=1 || chromium --force-device-scale-factor=1'",
-		["browser"]     = "sh -c 'chromium-browser || chromium'",
+        ["browser"]     = "sh -c 'chromium-browser --force-device-scale-factor=1 || chromium --force-device-scale-factor=1'",
+		-- ["browser"]     = "sh -c 'chromium-browser || chromium'",
 		["mail"]        = "thunderbird",
 		["filemgr"]     = "pcmanfm",
 		["music"]       = "deadbeef",
@@ -163,7 +163,7 @@ settings = {
 			rules = {
                 rule_any = {
                     class = {
-                        "LibreOffice", "OpenOffice", "Zathura",
+                        "libreoffice", "Zathura",
                     }
                 }
 			}
@@ -278,24 +278,26 @@ end
 
 -- local orig_hp_tag = awful.rules.high_priority_properties.tag
 function awful.rules.high_priority_properties.tag(c, tagname, props)
+    -- naughty.notify({ preset = naughty.config.presets.critical,
+    --                  title = "new client",
+    --                  text = "name:" .. c.name .. " | class:" .. c.class })
+
 	local tag = awful.tag.find_by_name(c.screen, tagname)
-
---     -- naughty.notify({ preset = naughty.config.presets.critical,
---     --                  title = "class",
---     --                  text = c.class })
---     -- naughty.notify({ preset = naughty.config.presets.critical,
---     --                  title = "name",
---     --                  text = c.name })
-
-    local layout = nil
+    local layout = awful.layout.suit.tile.bottom
+    local index = nil
 	if tag == nil then
 		for _, v in ipairs(settings.tags) do
 			if v.name == tagname then
 				layout = v.layout
+                break
+            else
+                local t = awful.tag.find_by_name(c.screen, v.name)
+                if t ~= nil then
+                    index = t.index + 1
+                end
 			end
 		end
-        layout = layout or awful.layout.suit.tile.bottom
-        tag = awful.tag.add(tagname, {screen=c.screen, volatile=true, layout=layout})
+        tag = awful.tag.add(tagname, {screen=c.screen, volatile=true, layout=layout, index=index})
     end
 
     c:tags{ tag }
@@ -517,7 +519,7 @@ globalkeys = gears.table.join(
 		local c = client.focus
 		if not c then return end
 
-        local t = awful.tag.add(c.class,{screen=c.screen, volatile=true, layout=awful.layout.suit.tile.top})
+        local t = awful.tag.add(string.lower(c.class), {screen=c.screen, volatile=true, layout=awful.layout.suit.tile.top})
         c:tags({t})
         t:view_only()
 	end),
@@ -642,7 +644,7 @@ awful.rules.rules = {
             }
         },
         properties = {
-            floating = true
+            floating = true,
         },
     }
 }
