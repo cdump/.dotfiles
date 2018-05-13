@@ -45,8 +45,8 @@ settings = {
     ["wallpaper"]  = homedir .. "/.wall.jpg",
 	["apps"]  = {
 		["terminal"]    = "urxvt",
-        ["browser"]     = "sh -c 'chromium-browser --force-device-scale-factor=1 || chromium --force-device-scale-factor=1'",
-		-- ["browser"]     = "sh -c 'chromium-browser || chromium'",
+        -- ["browser"]     = "sh -c 'chromium-browser --force-device-scale-factor=1 || chromium --force-device-scale-factor=1'",
+		["browser"]     = "sh -c 'chromium-browser || chromium'",
 		["mail"]        = "thunderbird",
 		["filemgr"]     = "pcmanfm",
 		["music"]       = "deadbeef",
@@ -65,7 +65,7 @@ settings = {
 			rules = {
                 rule_any = {
                     class = {
-                        "Firefox", "chrome", "Chromium", "Keepassx", "keepassxc",
+                        "Firefox", "Navigator", "chrome", "Chromium", "Keepassx", "keepassxc",
                     },
                 },
 				properties = {
@@ -129,6 +129,9 @@ settings = {
 			volatile = true,
 			layout = awful.layout.suit.tile.bottom,
 			rules = {
+                except = {
+                    instance = "QuakeDD"
+                },
                 rule_any = {
                     class = {
                         "URxvt", "xterm"
@@ -438,6 +441,24 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "j", function () awful.client.focus.byidx( 1) end), -- focus next by index (client)
     awful.key({ modkey,           }, "k", function () awful.client.focus.byidx(-1) end), -- focus previous by index (client)
 
+    awful.key({ modkey, }, "`", function ()
+        local cl = nil
+        for c in awful.client.iterate(function (c)
+            return c.instance == "QuakeDD"
+        end) do
+            if c.hidden == true then
+                c.hidden = false
+                client.focus = c
+            else
+                c.hidden = true
+            end
+            cl = c
+        end
+        if not cl then
+            awful.spawn("urxvt -name QuakeDD")
+        end
+    end),
+
     awful.key({ }, "XF86MonBrightnessUp", function () my_widgets.bright_change(1) end),
     awful.key({ }, "XF86MonBrightnessDown", function () my_widgets.bright_change(-1) end),
     awful.key({ }, "XF86AudioMute", function () my_widgets.volume_change(0) end),
@@ -646,6 +667,22 @@ awful.rules.rules = {
         properties = {
             floating = true,
         },
+    },
+    {
+        rule_any = {
+            instance = {
+                "QuakeDD"
+            },
+        },
+        properties = {
+            floating = true,
+            sticky = true,
+            ontop = true,
+            above = true,
+            skip_taskbar = true,
+            width = 2560,
+            height = 400,
+        }
     }
 }
 
