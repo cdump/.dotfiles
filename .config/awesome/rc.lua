@@ -55,7 +55,7 @@ settings = {
 		["vbox"]        = "VirtualBox",
 		["notepad"]     = "leafpad",
 		["torrent"]     = "qbittorrent",
-		["volume"]      = "x",
+        ["screenshot"]  = "sh -c 'sleep 0.3 && scrot --select'",
 	},
 
 	["tags"] = {
@@ -475,6 +475,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey, }, "d", function () awful.spawn(settings.apps.music) end),
     awful.key({ modkey, }, "e", function () awful.spawn(settings.apps.filemgr) end),
     awful.key({ modkey, }, "p", function () awful.spawn(settings.apps.pass) end),
+    awful.key({ },     "Print", function () awful.spawn(settings.apps.screenshot) end),
     awful.key({ modkey, }, "Return", function () awful.spawn(settings.apps.terminal) end),
     awful.key({ modkey, }, "F12", function() lock_and_sleep() end),
     awful.key({ "Ctrl" }, "Delete", function() lock_screen() end),
