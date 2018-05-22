@@ -30,17 +30,19 @@
 *color7: #cccbca
 *color15: #fcfcfc
 
-URxvt*font: xft: DejaVuSansMono Nerd Font Mono:pixelsize=18
-URxvt*saveLines: 10000
-URxvt*cursorColor: darkgreen
-URxvt*scrollBar: True
-URxvt*scrollstyle: plain
-URxvt*scrollBar_right: True
-URxvt*scrollTtyOutput: True
-URxvt*buffered: true
-URxvt*cursorBlink: false
-URxvt*borderless: 1
-URxvt*termName: xterm-256color
+URxvt.font: xft: DejaVuSansMono Nerd Font Mono:pixelsize=18
+! URxvt.font: xft: Hack Nerd Font Mono:pixelsize=18
+URxvt.saveLines: 10000
+URxvt.cursorColor: darkgreen
+URxvt.scrollBar: True
+URxvt.scrollstyle: plain
+URxvt.scrollBar_right: True
+URxvt.scrollTtyOutput: True
+URxvt.buffered: true
+URxvt.cursorBlink: false
+URxvt.borderless: 1
+URxvt.termName: xterm-256color
+URxvt.letterSpace: -1
 
 URxvt.keysym.C-slash:  font-size:show
 URxvt.perl-ext-common: ...,font-size

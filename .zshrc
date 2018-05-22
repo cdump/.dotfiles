@@ -3,22 +3,13 @@ source ~/.zsh_antigen/antigen.zsh
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
-#antigen bundle git
+antigen bundle git
 antigen bundle encode64
 antigen bundle tmux
 antigen bundle command-not-found
+antigen bundle common-aliases
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions
-
-antigen bundle common-aliases
-# unalias cp
-# unalias mv
-# unalias rm
-# unalias ls
-alias ls='ls -F --color=auto --group-directories-first'
-
-# Syntax highlighting bundle.
-# antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Load the theme.
 POWERLEVEL9K_INSTALLATION_PATH=~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-bhilburn-SLASH-powerlevel9k.git
@@ -26,25 +17,22 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context ssh dir root_indicator)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs status command_execution_time)
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-#POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+POWERLEVEL9K_STATUS_OK=false
+
 POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND='black'
 POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND='250'
-
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='238'
 POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='250'
-
 POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='237'
 POWERLEVEL9K_DIR_DEFAULT_FOREGROUND='blue'
 POWERLEVEL9K_DIR_HOME_BACKGROUND='237'
 POWERLEVEL9K_DIR_HOME_FOREGROUND='blue'
 POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='237'
 POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='blue'
-
 POWERLEVEL9K_STATUS_ERROR_BACKGROUND='088'
 POWERLEVEL9K_STATUS_ERROR_FOREGROUND='blue'
 POWERLEVEL9K_STATUS_OK_BACKGROUND='black'
 POWERLEVEL9K_STATUS_OK_FOREGROUND='blue'
-
 POWERLEVEL9K_VCS_CLEAN_FOREGROUND='blue'
 POWERLEVEL9K_VCS_CLEAN_BACKGROUND='237'
 POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='249'
@@ -57,6 +45,10 @@ antigen theme bhilburn/powerlevel9k powerlevel9k
 # Tell Antigen that you're done.
 antigen apply
 
+unalias rm
+unalias cp
+unalias mv
+alias ls='ls -F --color=auto --group-directories-first'
 
 fpath=(~/.zsh-completions/src $fpath)
 autoload -U compinit
@@ -64,7 +56,7 @@ compinit
 
 export EDITOR=vim
 export LANG=en_US.UTF-8
-export BROWSER=chrome
+export BROWSER=chromium
 
 LISTMAX=200
 setopt MENU_COMPLETE # On an ambiguous completion, instead of listing possibilities or beeping, insert the first match immediately
