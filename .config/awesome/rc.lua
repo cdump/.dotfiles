@@ -65,7 +65,7 @@ settings = {
 			rules = {
                 rule_any = {
                     class = {
-                        "Firefox", "Navigator", "chrome", "Chromium", "Keepassx", "keepassxc",
+                        "Firefox", "Nightly", "Navigator", "chrome", "Chromium", "Keepassx", "keepassxc",
                     },
                 },
 				properties = {
@@ -361,7 +361,17 @@ awful.screen.connect_for_each_screen(function(s)
 	   awful.button({ }, 5, function () awful.layout.inc(-1) end))
 	)
 
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
+    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons, false, function (w, buttons, label, data, objects)
+        for i, o in ipairs(objects) do
+            o.tag_pos = i
+        end
+        local label_func = function(t, args)
+            local text, bg_color, bg_image, icon, other_args = awful.widget.taglist.taglist_label(t, args)
+            local new_text = "<span color='#666666' font='monospace 6'>" .. tostring(t.tag_pos) .. "</span> " .. text
+            return new_text, bg_color, bg_image, icon, other_args
+        end
+        return awful.widget.common.list_update(w, buttons, label_func, data, objects)
+    end)
 
     -- Each screen has its own tag table.
 	local tags = {}
