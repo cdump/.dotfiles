@@ -48,6 +48,7 @@ antigen apply
 unalias rm
 unalias cp
 unalias mv
+unalias gb
 alias ls='ls -F --color=auto --group-directories-first'
 
 fpath=(~/.zsh-completions/src $fpath)
