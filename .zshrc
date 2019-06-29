@@ -58,6 +58,7 @@ export EDITOR=vim
 export LANG=en_US.UTF-8
 # export BROWSER=chromium
 
+bindkey -e
 LISTMAX=200
 setopt MENU_COMPLETE # On an ambiguous completion, instead of listing possibilities or beeping, insert the first match immediately
 setopt NOTIFY        # Report status of background jobs immediately.
