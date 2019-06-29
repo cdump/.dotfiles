@@ -7,3 +7,6 @@
 [submodule ".config/awesome/calendar"]
 	path = .config/awesome/calendar
 	url = https://github.com/cdump/awesome-calendar.git
+[submodule ".zplug"]
+	path = .zplug
+	url = https://github.com/zplug/zplug

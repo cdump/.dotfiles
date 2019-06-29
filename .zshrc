@@ -1,18 +1,4 @@
-source ~/.zsh_antigen/antigen.zsh
-
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
-
-antigen bundle git
-antigen bundle encode64
-antigen bundle tmux
-antigen bundle command-not-found
-antigen bundle common-aliases
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-completions
-
-# Load the theme.
-POWERLEVEL9K_INSTALLATION_PATH=~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-bhilburn-SLASH-powerlevel9k.git
+POWERLEVEL9K_INSTALLATION_PATH=~/.zplug/repos/bhilburn/powerlevel9k/
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context ssh dir root_indicator)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs status command_execution_time)
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
@@ -40,10 +26,24 @@ POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='237'
 POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='yellow'
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='237'
 
-antigen theme bhilburn/powerlevel9k powerlevel9k
+source ~/.zplug/init.zsh
 
-# Tell Antigen that you're done.
-antigen apply
+zplug "plugins/git",   from:oh-my-zsh
+zplug "plugins/encode64",   from:oh-my-zsh
+zplug "plugins/tmux",   from:oh-my-zsh
+zplug "plugins/command-not-found",   from:oh-my-zsh
+zplug "plugins/common-aliases",   from:oh-my-zsh
+
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
+zplug "romkatv/powerlevel10k", as:theme
+
+if ! zplug check --verbose; then
+    zplug install
+fi
+
+zplug load
 
 unalias rm
 unalias cp
@@ -51,13 +51,12 @@ unalias mv
 unalias gb
 alias ls='ls -F --color=auto --group-directories-first'
 
-fpath=(~/.zsh-completions/src $fpath)
-autoload -U compinit
-compinit
+alias gdb='gdb --quiet'
+alias gd='gdb --quiet -ex r --args'
 
 export EDITOR=vim
 export LANG=en_US.UTF-8
-export BROWSER=chromium
+# export BROWSER=chromium
 
 LISTMAX=200
 setopt MENU_COMPLETE # On an ambiguous completion, instead of listing possibilities or beeping, insert the first match immediately

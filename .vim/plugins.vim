@@ -53,7 +53,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'haya14busa/incsearch.vim'
 
 " A code-completion engine
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --gocode-completer --clang-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --clang-completer' }
 
 " Plugin for toggling the display of the quickfix list and the location-list
 " Plug 'Valloric/ListToggle'
@@ -73,6 +73,9 @@ Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 " True Sublime Text style multiple selections for Vim
 Plug 'terryma/vim-multiple-cursors'
 
+Plug 'posva/vim-vue', { 'for': 'vue' }
+Plug 'isRuslan/vim-es6'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
@@ -89,7 +92,5 @@ Plug 'w0rp/ale'
 
 " Themes
 Plug 'tomasr/molokai'
-Plug 'altercation/vim-colors-solarized'
-let g:solarized_termcolors=256
 
 call plug#end()
