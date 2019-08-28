@@ -1,0 +1,12 @@
+{
+    "diagnostic.warningSign": "⚠",
+    "diagnostic.errorSign": "✗",
+    "languageserver": {
+        "clangd": {
+            "command": "/usr/bin/clangd-8",
+            "args": ["--background-index", "-log=verbose"],
+            "rootPatterns": ["compile_flags.txt", "compile_commands.json", "b"],
+            "filetypes": ["c", "cc", "cpp", "objc", "objcpp"]
+        }
+    }
+}

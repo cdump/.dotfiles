@@ -49,11 +49,14 @@ Plug 'junegunn/vim-easy-align'
 " Asynchronous build and test dispatcher
 Plug 'tpope/vim-dispatch'
 
-" incrementally highlights ALL pattern matches unlike default 'incsearch'
-Plug 'haya14busa/incsearch.vim'
-
 " A code-completion engine
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --clang-completer' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --clang-completer' }
+
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'roxma/nvim-yarp'
+" Plug 'roxma/vim-hug-neovim-rpc'
+" let g:deoplete#enable_at_startup = 1
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Plugin for toggling the display of the quickfix list and the location-list
 " Plug 'Valloric/ListToggle'
@@ -84,11 +87,8 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'ryanoasis/vim-devicons'
 
-" Vim bindings for rtags
-" Plug 'lyuts/vim-rtags'
-
 " Asynchronous Lint Engine
-Plug 'w0rp/ale'
+" Plug 'dense-analysis/ale'
 
 " Themes
 Plug 'tomasr/molokai'

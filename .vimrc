@@ -29,6 +29,7 @@ set whichwrap+=<,>,h,l,[,]  " Automatically wrap left and right
 set wildignore+=*.o,*.tmp,*.swp,*~,.git
 
 set number          " Line numbers are good
+set updatetime=300
 set scrolloff=5     " Minimal number of screen lines to keep above and below the cursor.
 set laststatus=2    " Always show status line
 set showcmd         " Show (partial) command in status line.
@@ -137,16 +138,6 @@ nmap <SID>ws <Nop>
 nnoremap <silent> <C-\> :NERDTreeFind<CR>
 
 " Alt-N switch to Nth tab
-" map 1 1gt
-" map 2 2gt
-" map 3 3gt
-" map 4 4gt
-" map 5 5gt
-" map 6 6gt
-" map 7 7gt
-" map 8 8gt
-" map 9 9gt
-
 map 1 <Plug>AirlineSelectTab1
 map 2 <Plug>AirlineSelectTab2
 map 3 <Plug>AirlineSelectTab3
@@ -164,16 +155,18 @@ let g:polyglot_disabled = ['cmake']
 
 let g:peekaboo_window = 'vert bo 50new'
 
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_error_symbol = "✗"
-let g:ycm_warning_symbol = "⚠"
-let g:ycm_always_populate_location_list = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-nnoremap <Leader>f :YcmCompleter FixIt<CR>
-nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
+" Remap for do codeAction of current line
+nmap <leader>ca  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>f  <Plug>(coc-fix-current)
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " let g:lt_quickfix_list_toggle_map = '<leader>q'
 " let g:lt_location_list_toggle_map = '<leader>L'
@@ -220,16 +213,10 @@ let g:UltiSnipsJumpForwardTrigger="<c-a>"
 " vnoremap <leader>s :s//gc<left><left><left>
 nnoremap <leader>s :w<cr>
 
-nnoremap <leader>c :tabnew <left><right>
-
 noremap <leader>q :bp\|bd #<cr>
 
 " Toggle Cursor Column
 nmap <leader>v :set invcursorcolumn<CR>
-
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
 
 map <c-p> :FZF<CR>
 nnoremap <leader>a :Ag<Space>
