@@ -97,7 +97,7 @@ set pastetoggle=<F2>
 " Toggle relativenumbers
 nnoremap <Leader><Leader>r :set relativenumber!<CR>
 
-nmap <Leader>t :TagbarToggle<CR>
+" nmap <Leader>t :TagbarToggle<CR>
 nnoremap <Leader>o :tabnew<CR>
 
 inoremap <C-c> <Esc>
@@ -138,15 +138,27 @@ nmap <SID>ws <Nop>
 nnoremap <silent> <C-\> :NERDTreeFind<CR>
 
 " Alt-N switch to Nth tab
-map 1 <Plug>AirlineSelectTab1
-map 2 <Plug>AirlineSelectTab2
-map 3 <Plug>AirlineSelectTab3
-map 4 <Plug>AirlineSelectTab4
-map 5 <Plug>AirlineSelectTab5
-map 6 <Plug>AirlineSelectTab6
-map 7 <Plug>AirlineSelectTab7
-map 8 <Plug>AirlineSelectTab8
-map 9 <Plug>AirlineSelectTab9
+if has('nvim')
+    map <M-1> <Plug>AirlineSelectTab1
+    map <M-2> <Plug>AirlineSelectTab2
+    map <M-3> <Plug>AirlineSelectTab3
+    map <M-4> <Plug>AirlineSelectTab4
+    map <M-5> <Plug>AirlineSelectTab5
+    map <M-6> <Plug>AirlineSelectTab6
+    map <M-7> <Plug>AirlineSelectTab7
+    map <M-8> <Plug>AirlineSelectTab8
+    map <M-9> <Plug>AirlineSelectTab9
+else
+    map 1 <Plug>AirlineSelectTab1
+    map 2 <Plug>AirlineSelectTab2
+    map 3 <Plug>AirlineSelectTab3
+    map 4 <Plug>AirlineSelectTab4
+    map 5 <Plug>AirlineSelectTab5
+    map 6 <Plug>AirlineSelectTab6
+    map 7 <Plug>AirlineSelectTab7
+    map 8 <Plug>AirlineSelectTab8
+    map 9 <Plug>AirlineSelectTab9
+endif
 
 "set errorformat^=%-G%f:%l:%c:\ warning:\ %m,%-G%f:%l:%c:\ note:\ %m
 let g:multi_cursor_quit_key='<C-c>'
@@ -162,11 +174,14 @@ nnoremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
 " Remap for do codeAction of current line
 nmap <leader>ca  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
-nmap <leader>f  <Plug>(coc-fix-current)
+nmap <leader>cf  <Plug>(coc-fix-current)
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+inoremap <expr> <C-j> pumvisible() ? "\<C-N>" : "\<C-j>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-P>" : "\<C-k>"
 
 " let g:lt_quickfix_list_toggle_map = '<leader>q'
 " let g:lt_location_list_toggle_map = '<leader>L'
@@ -193,20 +208,13 @@ let $FZF_DEFAULT_COMMAND = 'ag -g "" --ignore "**.a"'
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-" s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
-
 " Jump to line
 map <Leader>j <Plug>(easymotion-bd-jk)
 nmap <Leader>j <Plug>(easymotion-overwin-line)
 
-" Jump to word bidirectional
-map  <Leader>J <Plug>(easymotion-bd-w)
-nmap <Leader>J <Plug>(easymotion-overwin-w)
-
-" ultisnip
-let g:UltiSnipsExpandTrigger="<c-a>"
-let g:UltiSnipsJumpForwardTrigger="<c-a>"
+" Move to word
+map  <Leader>f <Plug>(easymotion-bd-w)
+nmap <Leader>f <Plug>(easymotion-overwin-w)
 
 " Shortcut for :%s//
 " nnoremap <leader>s :%s//gc<left><left><left>
@@ -248,34 +256,3 @@ au FileType go nmap <leader>b <Plug>(go-build)
 
 autocmd Filetype vue setlocal ts=2 sw=2 expandtab
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
-
-" function! Tabline()
-"   let s = ''
-"   for i in range(tabpagenr('$'))
-"     let tab = i + 1
-"     let buflist = tabpagebuflist(tab)
-"     let bufignore = ['NERD_tree', 'nerdtree', 'tagbar', 'codi', 'help']
-"     for b in buflist
-"       let buftype = getbufvar(b, "&filetype")
-"       if index(bufignore, buftype)==-1 "index returns -1 if the item is not contained in the list
-"         let bufnr = b
-"         break
-"       elseif b==buflist[-1]
-"         let bufnr = b
-"       endif
-"     endfor
-"     let bufname = bufname(bufnr)
-"     let bufmodified = getbufvar(bufnr, "&mod")
-"     let s .= '%' . tab . 'T'
-"     let s .= (tab == tabpagenr() ? '%#TabLineSel#' : '%#TabLine#')
-"     let s .= ' ' . tab .':'
-"     let s .= (bufname != '' ? '['. fnamemodify(bufname, ':t') . '] ' : '[No Name] ')
-"     if bufmodified
-"       let s .= '[+] '
-"     endif
-"   endfor
-"   let s .= '%#TabLineFill#'
-"   return s
-" endfunction
-" set tabline=%!Tabline()
-

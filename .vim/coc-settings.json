@@ -1,11 +1,19 @@
 {
+	"python.jediEnabled": false,
+    "python.autoComplete.extraPaths": ["./"],
+    "suggest.minTriggerInputLength": 2,
+    "suggest.detailField": "preview",
+    "suggest.snippetIndicator": "✰",
     "diagnostic.warningSign": "⚠",
     "diagnostic.errorSign": "✗",
+    "list.insertMappings": {
+        "<C-c>": "do:exit"
+    },
     "languageserver": {
         "clangd": {
             "command": "/usr/bin/clangd-8",
-            "args": ["--background-index", "-log=verbose"],
-            "rootPatterns": ["compile_flags.txt", "compile_commands.json", "b"],
+            "args": ["--background-index"],
+            "rootPatterns": ["compile_flags.txt", "compile_commands.json", "b", "build"],
             "filetypes": ["c", "cc", "cpp", "objc", "objcpp"]
         }
     }

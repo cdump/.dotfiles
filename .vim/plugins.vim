@@ -21,7 +21,7 @@ Plug 'inkarkat/vim-mark'
 Plug 'tomtom/tcomment_vim'
 
 " Display tags in a window, ordered by class etc.
-Plug 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
 
 " Surround.vim is all about surroundings: parentheses, brackets, quotes, XML tags, and more
 Plug 'tpope/vim-surround'
@@ -57,6 +57,8 @@ Plug 'tpope/vim-dispatch'
 " Plug 'roxma/vim-hug-neovim-rpc'
 " let g:deoplete#enable_at_startup = 1
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" :CocInstall coc-python
+" :CocInstall coc-snippets
 
 " Plugin for toggling the display of the quickfix list and the location-list
 " Plug 'Valloric/ListToggle'
