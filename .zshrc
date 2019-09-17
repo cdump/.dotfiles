@@ -67,6 +67,7 @@ setopt HIST_IGNORE_ALL_DUPS
 unsetopt share_history
 HISTFILE=~/.zsh_history
 SAVEHIST=5000
+zstyle ':completion:*' menu yes select search
 
 # Mc
 export MC_SKIN=xoria256_patched
@@ -96,6 +97,7 @@ sum() {
 }
 
 export GOPATH=$HOME/devel/go
-export PATH=$PATH:/usr/lib/go-1.10/bin:$GOPATH/bin
+export PATH=/home/user/.local/bin/:/opt/gotools/bin:/usr/lib/go-1.12/bin:$GOPATH/bin:$PATH
+export CUDACXX=/usr/local/cuda/bin/nvcc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
