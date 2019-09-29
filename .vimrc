@@ -4,8 +4,8 @@ language C          " Show VIM messages in English
 " =============== Plugins Initialization ===============
 " Load vim-plug
 if empty(glob("~/.vim/autoload/plug.vim"))
-	execute '!mkdir -p ~/.vim/autoload'
-	execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+    silent '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 source ~/.vim/plugins.vim
 
@@ -21,7 +21,6 @@ set hidden          " Hides buffer with unsaved changes
 set history=1000    " Store lots of :cmdline history
 set nostartofline   " Stop certain movements from always going to the first character of a line
 
-" set nowrap          " Nowrap long lines
 set wrap            " Wrap long lines
 set linebreak       " Do not break the words
 set whichwrap+=<,>,h,l,[,]  " Automatically wrap left and right
@@ -41,7 +40,11 @@ set wildmenu        " Enable wildmenu
 set wildmode=longest:full,full
 set backspace=indent,eol,start  " proper backspacing
 set nrformats-=octal    " 0-prefixed numbers are still decimal
+let &t_SI.="\e[6 q" " '|' cursor in insert mode
+let &t_SR.="\e[2 q"
+let &t_EI.="\e[2 q"
 " set autochdir       " Set the working directory to wherever the open file lives
+
 
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
@@ -92,13 +95,12 @@ cabbrev Q q
 cabbrev WQ wq
 cabbrev Wq wq
 
-set pastetoggle=<F2>
+set pastetoggle=<Leader>p
 
 " Toggle relativenumbers
-nnoremap <Leader><Leader>r :set relativenumber!<CR>
+ nnoremap <Leader><Leader>r :set relativenumber!<CR>
 
 " nmap <Leader>t :TagbarToggle<CR>
-nnoremap <Leader>o :tabnew<CR>
 
 inoremap <C-c> <Esc>
 
@@ -160,7 +162,6 @@ else
     map 9 <Plug>AirlineSelectTab9
 endif
 
-"set errorformat^=%-G%f:%l:%c:\ warning:\ %m,%-G%f:%l:%c:\ note:\ %m
 let g:multi_cursor_quit_key='<C-c>'
 
 let g:polyglot_disabled = ['cmake']
@@ -170,7 +171,7 @@ let g:peekaboo_window = 'vert bo 50new'
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>d  :<C-u>CocList diagnostics<cr>
 " Remap for do codeAction of current line
 nmap <leader>ca  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
@@ -223,12 +224,13 @@ nnoremap <leader>s :w<cr>
 
 noremap <leader>q :bp\|bd #<cr>
 
+
 " Toggle Cursor Column
 nmap <leader>v :set invcursorcolumn<CR>
 
 map <c-p> :FZF<CR>
 nnoremap <leader>a :Ag<Space>
-nmap <leader>b :Buffers<CR>
+nmap ; :Buffers<CR>
 
 command! -bang Colors
   \ call fzf#vim#colors({'right': '10%', 'options': '--reverse'}, <bang>0)
@@ -236,8 +238,6 @@ command! -bang Colors
 command! -bang Buffers
   \ call fzf#vim#buffers({'right': '15%', 'options': '--reverse'}, <bang>0)
 
-
-inoremap <c-l> %"PRIu64"<Space>
 
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
@@ -247,12 +247,6 @@ au Syntax * RainbowParenthesesLoadBraces
 " EasyAlign
 vmap <Enter> <Plug>(EasyAlign)
 let g:easy_align_delimiters = { '\': { 'pattern': '\\' } }
-
-" vim-go
-" au FileType go nmap <Leader>i <Plug>(go-info)
-" au FileType go nmap <Leader>d <Plug>(go-doc)
-au FileType go nmap <leader>r <Plug>(go-run)
-au FileType go nmap <leader>b <Plug>(go-build)
 
 autocmd Filetype vue setlocal ts=2 sw=2 expandtab
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
