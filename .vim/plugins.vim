@@ -49,19 +49,12 @@ Plug 'junegunn/vim-easy-align'
 " Asynchronous build and test dispatcher
 Plug 'tpope/vim-dispatch'
 
-" A code-completion engine
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --go-completer --clang-completer' }
-
-" Plug 'Shougo/deoplete.nvim'
-" Plug 'roxma/nvim-yarp'
-" Plug 'roxma/vim-hug-neovim-rpc'
-" let g:deoplete#enable_at_startup = 1
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " :CocInstall coc-python
 " :CocInstall coc-snippets
 
-" Plugin for toggling the display of the quickfix list and the location-list
-" Plug 'Valloric/ListToggle'
+" Toggling the display of the quickfix list and the location-list
+Plug 'Valloric/ListToggle'
 
 " Better Rainbow Parentheses
 Plug 'kien/rainbow_parentheses.vim'
@@ -90,7 +83,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'ryanoasis/vim-devicons'
 
 " Asynchronous Lint Engine
-" Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 
 " Themes
 Plug 'tomasr/molokai'

@@ -67,7 +67,7 @@ setopt HIST_IGNORE_ALL_DUPS
 unsetopt share_history
 HISTFILE=~/.zsh_history
 SAVEHIST=5000
-zstyle ':completion:*' menu yes select search
+zstyle ':completion:*' menu yes select # search
 
 # Mc
 export MC_SKIN=xoria256_patched
@@ -101,3 +101,19 @@ export PATH=/home/user/.local/bin/:/opt/gotools/bin:/usr/lib/go-1.12/bin:$GOPATH
 export CUDACXX=/usr/local/cuda/bin/nvcc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# # >>> conda initialize >>>
+# # !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/home/user/.anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/home/user/.anaconda3/etc/profile.d/conda.sh" ]; then
+#         . "/home/user/.anaconda3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/home/user/.anaconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# # <<< conda initialize <<<
+

@@ -166,14 +166,42 @@ let g:multi_cursor_quit_key='<C-c>'
 
 let g:polyglot_disabled = ['cmake']
 
-let g:peekaboo_window = 'vert bo 50new'
+let g:peekaboo_window = 'vert bo 150new'
+
+" let g:ale_open_list = 1
+
+let g:ale_linters = {'go': ['golangci-lint']}
+let g:ale_go_golangci_lint_package = 1
+
+let g:ale_c_clangd_executable = '/usr/bin/clangd-8'
+let g:ale_c_clang_executable  = '/usr/bin/clang-8'
+let g:ale_c_clangformat_executable = '/usr/bin/clang-format-8'
+" let g:ale_c_clangtidy_executable = '/usr/bin/clang-tidy-8'
+" let g:ale_c_clangtidy_checks = ['cppcoreguidelines']
+let g:ale_cpp_clangd_executable = g:ale_c_clangd_executable
+let g:ale_cpp_clang_executable  = g:ale_c_clang_executable
+let g:ale_cpp_clangformat_executable = g:ale_c_clangformat_executable
+" let g:ale_cpp_clangtidy_executable = g:ale_c_clangtidy_executable
+" let g:ale_cpp_clangtidy_checks = g:ale_c_clangtidy_checks
+
+let g:ale_c_build_dir_names = ['b', 'build', 'bin']
+let g:ale_c_parse_compile_commands = 1
+
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
+let g:airline#extensions#ale#enabled = 1
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+highlight ALEWarningSign cterm=bold ctermfg=222 ctermbg=235
+highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=235
+
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> <leader>d  :<C-u>CocList diagnostics<cr>
+" nnoremap <silent> <leader>d  :<C-u>CocList diagnostics<cr>
 " Remap for do codeAction of current line
-nmap <leader>ca  <Plug>(coc-codeaction)
+" nmap <leader>ca  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
 nmap <leader>cf  <Plug>(coc-fix-current)
 
@@ -184,9 +212,17 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-j> pumvisible() ? "\<C-N>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-P>" : "\<C-k>"
 
-" let g:lt_quickfix_list_toggle_map = '<leader>q'
-" let g:lt_location_list_toggle_map = '<leader>L'
-" nnoremap <leader>l :lnext<CR>
+
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" inoremap <expr> <cr>umvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" " Or use `complete_info` if your vim support it, like:
+" " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" :
+" " "\<C-g>u\<CR>"
+"
+
+let g:lt_quickfix_list_toggle_map = '<leader>Q'
+let g:lt_location_list_toggle_map = '<leader>l'
 
 let g:gitgutter_max_signs = 1000
 
@@ -195,9 +231,12 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
 
 let g:airline_theme='bubblegum'
 
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let g:NERDTreeWinSize = 30
@@ -217,9 +256,6 @@ nmap <Leader>j <Plug>(easymotion-overwin-line)
 map  <Leader>f <Plug>(easymotion-bd-w)
 nmap <Leader>f <Plug>(easymotion-overwin-w)
 
-" Shortcut for :%s//
-" nnoremap <leader>s :%s//gc<left><left><left>
-" vnoremap <leader>s :s//gc<left><left><left>
 nnoremap <leader>s :w<cr>
 
 noremap <leader>q :bp\|bd #<cr>
@@ -230,7 +266,7 @@ nmap <leader>v :set invcursorcolumn<CR>
 
 map <c-p> :FZF<CR>
 nnoremap <leader>a :Ag<Space>
-nmap ; :Buffers<CR>
+" nmap ; :Buffers<CR>
 
 command! -bang Colors
   \ call fzf#vim#colors({'right': '10%', 'options': '--reverse'}, <bang>0)
