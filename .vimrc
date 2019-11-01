@@ -286,11 +286,6 @@ command! -bang Buffers
   \ call fzf#vim#buffers({'right': '15%', 'options': '--reverse'}, <bang>0)
 
 
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-
 " EasyAlign
 vmap <Enter> <Plug>(EasyAlign)
 let g:easy_align_delimiters = { '\': { 'pattern': '\\' } }

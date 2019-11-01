@@ -20,9 +20,6 @@ Plug 'inkarkat/vim-mark'
 " An extensible & universal comment plugin that also handles embedded filetypes
 Plug 'tomtom/tcomment_vim'
 
-" Display tags in a window, ordered by class etc.
-" Plug 'majutsushi/tagbar'
-
 " Surround.vim is all about surroundings: parentheses, brackets, quotes, XML tags, and more
 Plug 'tpope/vim-surround'
 
@@ -32,11 +29,6 @@ Plug 'honza/vim-snippets'
 
 " Vim motion on speed!
 Plug 'Lokaltog/vim-easymotion'
-
-" Interactive command execution in Vim
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-" Powerful shell implemented by vim
-Plug 'Shougo/vimshell.vim'
 
 " Shows a git diff in the 'gutter' (sign column)
 Plug 'airblade/vim-gitgutter'
@@ -57,7 +49,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Valloric/ListToggle'
 
 " Better Rainbow Parentheses
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1
+let g:rainbow_conf = {'separately': { 'nerdtree': 0 } }
 
 " Allows to configure % to match more than just single characters
 Plug 'vim-scripts/matchit.zip'
@@ -71,8 +65,8 @@ Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 " True Sublime Text style multiple selections for Vim
 Plug 'terryma/vim-multiple-cursors'
 
-Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'isRuslan/vim-es6'
+" Plug 'posva/vim-vue', { 'for': 'vue' }
+" Plug 'isRuslan/vim-es6'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
