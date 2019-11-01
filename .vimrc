@@ -174,21 +174,28 @@ let g:ale_linters = {'go': ['golangci-lint']}
 let g:ale_go_golangci_lint_package = 1
 
 let g:ale_c_clangd_executable = '/usr/bin/clangd-8'
-let g:ale_c_clang_executable  = '/usr/bin/clang-8'
-let g:ale_c_clangformat_executable = '/usr/bin/clang-format-8'
-" let g:ale_c_clangtidy_executable = '/usr/bin/clang-tidy-8'
-" let g:ale_c_clangtidy_checks = ['cppcoreguidelines']
 let g:ale_cpp_clangd_executable = g:ale_c_clangd_executable
-let g:ale_cpp_clang_executable  = g:ale_c_clang_executable
+
+let g:ale_c_clang_executable  = '/usr/bin/clang-8'
+let g:ale_cpp_clang_executable = g:ale_c_clang_executable
+
+let g:ale_cpp_clangcheck_executable = '/usr/bin/clang-check-8'
+let g:ale_cpp_clangcheck_executable = g:ale_cpp_clangcheck_executable
+
+let g:ale_c_clangformat_executable = '/usr/bin/clang-format-8'
 let g:ale_cpp_clangformat_executable = g:ale_c_clangformat_executable
+
+" let g:ale_c_clangtidy_executable = '/usr/bin/clang-tidy-8'
 " let g:ale_cpp_clangtidy_executable = g:ale_c_clangtidy_executable
+
+" let g:ale_c_clangtidy_checks = ['cppcoreguidelines']
 " let g:ale_cpp_clangtidy_checks = g:ale_c_clangtidy_checks
 
 let g:ale_c_build_dir_names = ['b', 'build', 'bin']
 let g:ale_c_parse_compile_commands = 1
 
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚠'
+let g:ale_sign_error = ' ✗'
+let g:ale_sign_warning = ' ⚠'
 let g:airline#extensions#ale#enabled = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -199,10 +206,7 @@ highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=235
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-" nnoremap <silent> <leader>d  :<C-u>CocList diagnostics<cr>
-" Remap for do codeAction of current line
-" nmap <leader>ca  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
+nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>cf  <Plug>(coc-fix-current)
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
@@ -232,11 +236,18 @@ let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-
-
 let g:airline_theme='bubblegum'
 
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
+
+" after a re-source, fix syntax matching issues (concealing brackets):
+if exists('g:loaded_webdevicons')
+    call webdevicons#refresh()
+endif
+
+highlight Directory ctermfg=113
+
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let g:NERDTreeWinSize = 30
