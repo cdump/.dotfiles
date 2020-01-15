@@ -12,7 +12,7 @@ ln -s -T ~/.dotfiles/.tmux.conf ~/.tmux.conf
 ln -s -T ~/.dotfiles/.vim ~/.vim
 ln -s -T ~/.dotfiles/.vimrc ~/.vimrc
 ln -s -T ~/.dotfiles/.zshrc ~/.zshrc
-ln -s -T ~/.dotfiles/.zplut ~/.zplug
+ln -s -T ~/.dotfiles/.zplug ~/.zplug
 
 mkdir -p ~/.urxvt/ext
 ln -s -T ~/.dotfiles/.urxvt/ext/font-size ~/.urxvt/ext/font-size

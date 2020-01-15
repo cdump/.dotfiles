@@ -95,7 +95,7 @@ cabbrev Q q
 cabbrev WQ wq
 cabbrev Wq wq
 
-set pastetoggle=<Leader>p
+" set pastetoggle=<Leader>p
 
 " Toggle relativenumbers
  nnoremap <Leader><Leader>r :set relativenumber!<CR>
@@ -173,14 +173,18 @@ let g:peekaboo_window = 'vert bo 150new'
 let g:ale_linters = {'go': ['golangci-lint']}
 let g:ale_go_golangci_lint_package = 1
 
+let g:ale_cpp_gcc_options = '-std=c++17 -Wall'
+
 let g:ale_c_clangd_executable = '/usr/bin/clangd-8'
 let g:ale_cpp_clangd_executable = g:ale_c_clangd_executable
 
 let g:ale_c_clang_executable  = '/usr/bin/clang-8'
 let g:ale_cpp_clang_executable = g:ale_c_clang_executable
+let g:ale_cpp_clang_options = '-std=c++17 -Wall'
 
 let g:ale_cpp_clangcheck_executable = '/usr/bin/clang-check-8'
 let g:ale_cpp_clangcheck_executable = g:ale_cpp_clangcheck_executable
+" let g:ale_cpp_clangcheck_options = '-extra-arg="-std=c++17"'
 
 let g:ale_c_clangformat_executable = '/usr/bin/clang-format-8'
 let g:ale_cpp_clangformat_executable = g:ale_c_clangformat_executable
