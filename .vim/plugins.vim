@@ -71,6 +71,9 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+" markdown preview plugin
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+
 " A collection of language packs for Vim, loaded only on demand
 Plug 'sheerun/vim-polyglot'
 

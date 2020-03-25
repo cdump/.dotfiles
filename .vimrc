@@ -263,6 +263,9 @@ let $FZF_DEFAULT_COMMAND = 'ag -g "" --ignore "**.a"'
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
+let g:mkdp_open_to_the_world = 1
+let g:mkdp_echo_preview_url = 1
+
 " Jump to line
 map <Leader>j <Plug>(easymotion-bd-jk)
 nmap <Leader>j <Plug>(easymotion-overwin-line)
