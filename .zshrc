@@ -26,20 +26,16 @@ POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='237'
 POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='yellow'
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='237'
 
-source ~/.zinit/bin/zinit.zsh
+# fpath=(~/.zsh-completions/src $fpath)
+autoload -U compaudit compinit
+compinit
 
-zinit light zdharma/fast-syntax-highlighting
-# zinit light zsh-users/zsh-syntax-highlighting
+source ~/.zsh_plugins/powerlevel10k/powerlevel10k.zsh-theme
 
-zinit snippet OMZ::plugins/encode64/encode64.plugin.zsh
-zinit snippet OMZ::plugins/tmux/tmux.plugin.zsh
-zinit snippet OMZ::plugins/command-not-found/command-not-found.plugin.zsh
-zinit snippet OMZ::plugins/common-aliases/common-aliases.plugin.zsh
-
-zinit ice wait"2" lucid as"program" pick"bin/git-dsf"
-zinit light zdharma/zsh-diff-so-fancy
-
-zinit light romkatv/powerlevel10k
+source ~/.zsh_plugins/ohmyzsh/plugins/encode64/encode64.plugin.zsh
+source ~/.zsh_plugins/ohmyzsh/plugins/tmux/tmux.plugin.zsh
+source ~/.zsh_plugins/ohmyzsh/plugins/command-not-found/command-not-found.plugin.zsh
+source ~/.zsh_plugins/ohmyzsh/plugins/common-aliases/common-aliases.plugin.zsh
 
 unalias rm
 unalias cp
@@ -97,18 +93,5 @@ export CUDACXX=/usr/local/cuda/bin/nvcc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# # >>> conda initialize >>>
-# # !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/home/user/.anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/home/user/.anaconda3/etc/profile.d/conda.sh" ]; then
-#         . "/home/user/.anaconda3/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/home/user/.anaconda3/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
-# # <<< conda initialize <<<
-
+source ~/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source ~/.zsh_plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh

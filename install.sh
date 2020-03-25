@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-
 ln -s -T ~/.dotfiles/.Xresources ~/.Xresources
 touch ~/.Xresources.local
 
@@ -13,6 +11,9 @@ ln -s -T ~/.dotfiles/.vim ~/.vim
 ln -s -T ~/.dotfiles/.vimrc ~/.vimrc
 ln -s -T ~/.dotfiles/.zshrc ~/.zshrc
 ln -s -T ~/.dotfiles/.zplug ~/.zplug
+
+mkdir -p ~/.local/bin
+ln -s ~/.dotfiles/.diff-so-fancy/diff-so-fancy ~/.local/bin
 
 mkdir -p ~/.urxvt/ext
 ln -s -T ~/.dotfiles/.urxvt/ext/font-size ~/.urxvt/ext/font-size

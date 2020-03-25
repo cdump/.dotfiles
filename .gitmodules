@@ -7,9 +7,18 @@
 [submodule ".config/awesome/calendar"]
 	path = .config/awesome/calendar
 	url = https://github.com/cdump/awesome-calendar.git
-[submodule ".zplug"]
-	path = .zplug
-	url = https://github.com/zplug/zplug
-[submodule ".zinit/bin"]
-	path = .zinit/bin
-	url = https://github.com/zdharma/zinit.git
+[submodule ".zsh_plugins/ohmyzsh"]
+	path = .zsh_plugins/ohmyzsh
+	url = https://github.com/ohmyzsh/ohmyzsh
+[submodule ".zsh_plugins/powerlevel10k"]
+	path = .zsh_plugins/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git
+[submodule ".zsh_plugins/zsh-syntax-highlighting"]
+	path = .zsh_plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule ".zsh_plugins/fast-syntax-highlighting"]
+	path = .zsh_plugins/fast-syntax-highlighting
+	url = https://github.com/zdharma/fast-syntax-highlighting
+[submodule ".diff-so-fancy"]
+	path = .diff-so-fancy
+	url = https://github.com/so-fancy/diff-so-fancy
