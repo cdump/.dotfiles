@@ -51,14 +51,25 @@ export LANG=en_US.UTF-8
 
 bindkey -e
 LISTMAX=200
-setopt MENU_COMPLETE # On an ambiguous completion, instead of listing possibilities or beeping, insert the first match immediately
 setopt NOTIFY        # Report status of background jobs immediately.
+setopt interactive_comments # comments starting with '#'
+export WORDCHARS='' # ex: Ctrl+W also jumps to '/', and other 'behavior more like bash'
+
 export HISTSIZE=10000
-setopt HIST_IGNORE_ALL_DUPS
+export SAVEHIST=10000
+export HISTFILE=~/.zsh_history
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt inc_append_history_time
+setopt extended_history # save timestamp of command and duration
 unsetopt share_history
-HISTFILE=~/.zsh_history
-SAVEHIST=5000
-zstyle ':completion:*' menu yes select # search
+alias refresh-history='fc -RI'
+
+setopt MENU_COMPLETE # On an ambiguous completion, instead of listing possibilities or beeping, insert the first match immediately
+setopt complete_in_word
+setopt always_to_end
+zstyle ':completion:*' menu select # search
 
 # Mc
 export MC_SKIN=xoria256_patched
