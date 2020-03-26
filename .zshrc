@@ -44,6 +44,7 @@ alias ls='ls -F --color=auto --group-directories-first'
 
 alias gdb='gdb --quiet'
 alias gd='gdb --quiet -ex r --args'
+alias dsf='diff-so-fancy | less --tabs=4 -RFX'
 
 export EDITOR=vim
 export LANG=en_US.UTF-8
