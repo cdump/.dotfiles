@@ -12,6 +12,9 @@ ln -s -T ~/.dotfiles/.vimrc ~/.vimrc
 ln -s -T ~/.dotfiles/.zshrc ~/.zshrc
 ln -s -T ~/.dotfiles/.zsh_plugins ~/.zsh_plugins
 
+ln -s -T ~/.dotfiles/.gdbinit ~/.gdbinit
+ln -s -T ~/.dotfiles/.gdb-gef ~/.gdb-gef
+
 mkdir -p ~/.local/bin
 ln -s ~/.dotfiles/.diff-so-fancy/diff-so-fancy ~/.local/bin
 
