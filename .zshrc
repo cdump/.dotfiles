@@ -26,6 +26,10 @@ POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='237'
 POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='yellow'
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='237'
 
+export GOPATH=$HOME/devel/go
+export PATH=/home/user/.local/bin/:/opt/gotools/bin:$GOPATH/bin:$PATH
+export CUDACXX=/usr/local/cuda/bin/nvcc
+
 # fpath=(~/.zsh-completions/src $fpath)
 autoload -U compaudit compinit
 compinit
@@ -87,6 +91,8 @@ export LESS_TERMCAP_so=$'\E[38;33;246m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[04;38;5;146m'
 
+export BAT_THEME="Monokai Extended"
+
 ds() {
 	objdump -M intel -d $* | less
 }
@@ -99,9 +105,12 @@ sum() {
     perl -lane '$s+=$_;$c++;END{print "Sum $s\tCnt: $c\tAvg: ".$s/$c;}'
 }
 
-export GOPATH=$HOME/devel/go
-export PATH=/home/user/.local/bin/:/opt/gotools/bin:/usr/lib/go-1.12/bin:$GOPATH/bin:$PATH
-export CUDACXX=/usr/local/cuda/bin/nvcc
+vag() {
+    local line
+    line=`ag --nocolor "$1" | fzf --select-1 --exit-0 --delimiter ':' --query "$1" \
+        --preview='bat --style "plain,numbers" --paging=never --pager=cat --color=always --line-range $( x=$(( $(echo {2}) - $FZF_PREVIEW_LINES/2 )); [[ $x -lt 0 ]] && echo 0 || echo $x):$(( $(echo {2}) + $FZF_PREVIEW_LINES/2 - 1 )) --highlight-line {2} {1} '` \
+        && vim -R $(cut -d':' -f1 <<< "$line") +$(cut -d':' -f2 <<< "$line")
+}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
