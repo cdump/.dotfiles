@@ -27,9 +27,10 @@ POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='yellow'
 POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='237'
 
 export GOPATH=$HOME/devel/go
-export PATH=/home/user/.local/bin/:/opt/gotools/bin:$GOPATH/bin:$PATH
+export PATH=$HOME/.local/bin/:$HOME/.poetry/bin:/opt/gotools/bin:$GOPATH/bin:$PATH
 export CUDACXX=/usr/local/cuda/bin/nvcc
 
+# poetry completions zsh
 # fpath=(~/.zsh-completions/src $fpath)
 autoload -U compaudit compinit
 compinit

@@ -1,6 +1,9 @@
 {
 	"python.jediEnabled": true,
     "python.autoComplete.extraPaths": ["./"],
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
     "suggest.minTriggerInputLength": 2,
     "suggest.detailField": "menu",
     "suggest.snippetIndicator": "✰",

@@ -11,6 +11,7 @@ ln -s -T ~/.dotfiles/.vim ~/.vim
 ln -s -T ~/.dotfiles/.vimrc ~/.vimrc
 ln -s -T ~/.dotfiles/.zshrc ~/.zshrc
 ln -s -T ~/.dotfiles/.zsh_plugins ~/.zsh_plugins
+ln -s -T ~/.dotfiles/.flake8 ~/.flake8
 
 ln -s -T ~/.dotfiles/.gdbinit ~/.gdbinit
 ln -s -T ~/.dotfiles/.gdb-gef ~/.gdb-gef
