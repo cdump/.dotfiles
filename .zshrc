@@ -46,6 +46,7 @@ unalias rm
 unalias cp
 unalias mv
 alias ls='ls -F --color=auto --group-directories-first'
+alias gclean='git clean -Xdi'
 
 alias gdb='gdb --quiet'
 alias gd='gdb --quiet -ex r --args'
