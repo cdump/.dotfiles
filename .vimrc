@@ -3,10 +3,6 @@ language C          " Show VIM messages in English
 
 " =============== Plugins Initialization ===============
 " Load vim-plug
-if empty(glob("~/.vim/autoload/plug.vim"))
-    silent '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.github.com/junegunn/vim-plug/master/plug.vim'
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
 source ~/.vim/plugins.vim
 
 let mapleader = "\<Space>"
@@ -82,7 +78,7 @@ set t_Co=256        " 256-color terminal
 set background=dark
 
 let g:rehash256 = 1   " for molokai theme
-colorscheme molokai   " molokai theme
+silent! colorscheme molokai   " molokai theme
 hi Visual ctermbg=238
 
 
