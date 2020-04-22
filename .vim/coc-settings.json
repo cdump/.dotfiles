@@ -15,7 +15,7 @@
     },
     "languageserver": {
         "clangd": {
-            "command": "/usr/bin/clangd-8",
+            "command": "/usr/bin/clangd-10",
             "args": ["--background-index"],
             "rootPatterns": ["compile_flags.txt", "compile_commands.json", "b", "build"],
             "filetypes": ["c", "cc", "cpp", "objc", "objcpp"]
