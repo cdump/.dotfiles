@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ln -s -T ~/.dotfiles/.Xresources ~/.Xresources
+ln -s -T ~/.dotfiles/.Xresources.d ~/.Xresources.d
 touch ~/.Xresources.local
 
 ln -s -T ~/.dotfiles/.xinitrc ~/.xinitrc
@@ -43,3 +44,6 @@ ln -s -T ~/.dotfiles/.config/zathura/zathurarc ~/.config/zathura/zathurarc
 
 mkdir ~/.config/htop
 cp ~/.dotfiles/.config/htop/htoprc ~/.config/htop/htoprc
+
+mkdir ~/.config/picom
+cp ~/.dotfiles/.config/picom/picom.conf ~/.config/picom/picom.conf

@@ -244,6 +244,7 @@ return {
 		[1] = {"currency", "EUR_RUB__TOM", "€" },
 		[2] = {"currency", "USD000UTSTOM", "$" },
 		-- [3] = {"futures", "SiU6", "Si" }
+		[3] = {"futures", "BRK0", " " }
 	})
 
 	volume_change(nil);
