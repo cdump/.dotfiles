@@ -47,6 +47,8 @@ source ~/.zsh_plugins/ohmyzsh/plugins/tmux/tmux.plugin.zsh
 source ~/.zsh_plugins/ohmyzsh/plugins/command-not-found/command-not-found.plugin.zsh
 
 alias ls='ls -F --color=auto --group-directories-first'
+alias ll='ls -l'
+alias la='ls -la'
 alias grep='grep --color'
 alias gclean='git clean -Xdi'
 

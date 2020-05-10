@@ -1,7 +1,10 @@
-.thinkpad/mute.txt
 .vim/bundle/
 .vim/swap/
 .vim/.netrwhist
 .vim/autoload/
 .vim/plugged/
 .vim/backup/
+
+__pycache__
+.config/ranger/colorschemes/__init__.py
+.config/ranger/plugins/__init__.py

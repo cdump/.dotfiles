@@ -25,3 +25,6 @@
 [submodule ".gdb-gef"]
 	path = .gdb-gef
 	url = https://github.com/hugsy/gef
+[submodule ".config/ranger/plugins/devicons2"]
+	path = .config/ranger/plugins/devicons2
+	url = https://github.com/cdump/ranger-devicons2

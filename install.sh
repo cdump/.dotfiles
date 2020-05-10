@@ -1,49 +1,49 @@
 #!/bin/bash
 
-ln -s -T ~/.dotfiles/.Xresources ~/.Xresources
-ln -s -T ~/.dotfiles/.Xresources.d ~/.Xresources.d
-touch ~/.Xresources.local
+SRC=${HOME}/.dotfiles
+DST=${HOME}
 
-ln -s -T ~/.dotfiles/.xinitrc ~/.xinitrc
+link() {
+    to=${2:-$1}
+    mkdir -p ${DST}/$(dirname ${to})
+    ln -s -T ${SRC}/$1 ${DST}/${to}
+}
 
-ln -s -T ~/.dotfiles/.gitconfig ~/.gitconfig
-ln -s -T ~/.dotfiles/.tmux.conf ~/.tmux.conf
-ln -s -T ~/.dotfiles/.vim ~/.vim
-ln -s -T ~/.dotfiles/.vimrc ~/.vimrc
-ln -s -T ~/.dotfiles/.zshrc ~/.zshrc
-ln -s -T ~/.dotfiles/.zsh_plugins ~/.zsh_plugins
-ln -s -T ~/.dotfiles/.flake8 ~/.flake8
+link .xinitrc
+link .Xresources
+link .Xresources.d
+touch ${DST}/.Xresources.local
 
-ln -s -T ~/.dotfiles/.gdbinit ~/.gdbinit
-ln -s -T ~/.dotfiles/.gdb-gef ~/.gdb-gef
+link .vim
+link .vimrc
 
-mkdir -p ~/.local/bin
-ln -s ~/.dotfiles/.diff-so-fancy/diff-so-fancy ~/.local/bin
+link .zshrc
+link .zsh_plugins
 
-mkdir -p ~/.urxvt/ext
-ln -s -T ~/.dotfiles/.urxvt/ext/font-size ~/.urxvt/ext/font-size
+link .tmux.conf
 
-mkdir ~/.themes
-ln -s -T ~/.dotfiles/.themes/absolute ~/.themes/absolute
+link .gdbinit
 
-mkdir ~/.icons
-ln -s -T ~/.dotfiles/.icons/elementary ~/.icons/elementary
+link .gitconfig
 
-mkdir ~/.fonts
-ln -s -T ~/.dotfiles/.fonts/nerd-fonts ~/.fonts/nerd-fonts
+link .flake8
 
-mkdir -p ~/.local/share/mc/skins
-ln -s -T ~/.dotfiles/.local/share/mc/skins/xoria256_patched.ini ~/.local/share/mc/skins/xoria256_patched.ini
+link .urxvt/ext/font-size
 
-mkdir ~/.config
-ln -s -T ~/.dotfiles/.config/awesome ~/.config/awesome
+link .themes/absolute
+link .icon/elementary
+link .fonts/nerd-fonts
+link .local/share/mc/skins/xoria256_patched.ini
+
+link .config/zathura
+link .config/ranger
+link .config/picom
+link .config/mpv
+link .config/awesome
 touch ~/.awesome.local.lua
 
-mkdir ~/.config/zathura
-ln -s -T ~/.dotfiles/.config/zathura/zathurarc ~/.config/zathura/zathurarc
 
-mkdir ~/.config/htop
-cp ~/.dotfiles/.config/htop/htoprc ~/.config/htop/htoprc
+link .diff-so-fancy/diff-so-fancy .local/bin/diff-so-fancy
 
-mkdir ~/.config/picom
-cp ~/.dotfiles/.config/picom/picom.conf ~/.config/picom/picom.conf
+mkdir -p ${DST}/.config/htop/
+cp ${SRC}/.config/htop/htoprc ${DST}/.config/htop/htoprc
