@@ -113,6 +113,15 @@ nnoremap <silent> ss <C-w>s<C-w>j
 " Jump to next split
 nnoremap <Leader>w <C-w>w
 
+function! Bye()
+     if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+         :quit
+     else
+         :bprevious|bdelete #
+    endif
+endfunction
+nnoremap <silent> <leader>q :call Bye()<CR>
+
 " Move around your splits
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -132,8 +141,19 @@ nnoremap <script> <SID>ws< <C-w><<SID>ws
 nmap <SID>ws <Nop>
 
 " Open the project tree and expose current file in the nerdtree with Ctrl-\
-" nnoremap <silent> <C-\> :NERDTreeFind<CR>:vertical res 30<CR>
 nnoremap <silent> <C-\> :NERDTreeFind<CR>
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let g:NERDTreeWinSize = 30
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Toggle Cursor Column
+nmap <silent> <leader>v :set invcursorcolumn<CR>
+
+map <c-p> :Files<CR>
+map <leader>b :Buffers<CR>
+nnoremap <leader>a :Ag<Space>
+nnoremap <leader>e :edit<Space>
 
 " Alt-N switch to Nth tab
 if has('nvim')
@@ -157,10 +177,6 @@ else
     map 8 <Plug>AirlineSelectTab8
     map 9 <Plug>AirlineSelectTab9
 endif
-
-let g:multi_cursor_quit_key='<C-c>'
-
-let g:polyglot_disabled = ['cmake']
 
 let g:peekaboo_window = 'vert bo 150new'
 
@@ -197,8 +213,8 @@ let g:ale_c_parse_compile_commands = 1
 let g:ale_sign_error = ' ✗'
 let g:ale_sign_warning = ' ⚠'
 let g:airline#extensions#ale#enabled = 1
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
 highlight ALEWarningSign cterm=bold ctermfg=222 ctermbg=235
 highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=235
 
@@ -248,13 +264,6 @@ endif
 
 highlight Directory ctermfg=113
 
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-let g:NERDTreeWinSize = 30
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-let $FZF_DEFAULT_COMMAND = 'ag -g "" --ignore "**.a"'
-
 " EasyMotion
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
@@ -270,17 +279,7 @@ nmap <Leader>j <Plug>(easymotion-overwin-line)
 map  <Leader>f <Plug>(easymotion-bd-w)
 nmap <Leader>f <Plug>(easymotion-overwin-w)
 
-nnoremap <leader>s :w<cr>
 
-noremap <leader>q :bp\|bd #<cr>
-
-
-" Toggle Cursor Column
-nmap <leader>v :set invcursorcolumn<CR>
-
-map <c-p> :FZF<CR>
-nnoremap <leader>a :Ag<Space>
-" nmap ; :Buffers<CR>
 
 command! -bang Colors
   \ call fzf#vim#colors({'right': '10%', 'options': '--reverse'}, <bang>0)

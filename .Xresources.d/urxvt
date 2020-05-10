@@ -13,7 +13,6 @@ URxvt*scrollTtyKeypress: true
 URxvt.buffered: true
 URxvt.cursorBlink: false
 URxvt.borderless: 1
-URxvt.termName: xterm-256color
 URxvt.letterSpace: -1
 
 URxvt.iso14755: false
