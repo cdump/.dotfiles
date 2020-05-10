@@ -40,7 +40,6 @@ modkey = "Mod4"
 homedir = os.getenv("HOME")
 
 settings = {
-	-- ["theme"] = homedir .. "/.config/awesome/themes/zenburn/theme.lua",
     ["theme"] = gears.filesystem.get_themes_dir() .. "zenburn/theme.lua",
     ["wallpaper"]  = homedir .. "/.wall.jpg",
 	["apps"]  = {
@@ -51,11 +50,11 @@ settings = {
 		["filemgr"]     = "pcmanfm",
 		["music"]       = "deadbeef",
 		["im"]          = "telegram-desktop",
-		["pass"]        = "sh -c 'keepassxc || keepassx'",
+		["pass"]        = "keepassxc",
 		["vbox"]        = "VirtualBox",
 		["notepad"]     = "leafpad",
 		["torrent"]     = "qbittorrent",
-        ["screenshot"]  = "sh -c 'sleep 0.3 && scrot --select'",
+        ["screenshot"]  = "scrot --select",
 	},
 
 	["tags"] = {
@@ -65,7 +64,7 @@ settings = {
 			rules = {
                 rule_any = {
                     class = {
-                        "Firefox", "Nightly", "Navigator", "chrome", "Chromium", "Keepassx", "keepassxc",
+                        "firefox", "chrome", "Chromium", "KeePassXC",
                     },
                 },
 				properties = {
@@ -92,7 +91,7 @@ settings = {
 			rules = {
                 rule_any = {
                     class = {
-                        "wxmaxima", "Wireshark", "The Wireshark"
+                        "wxmaxima", "wireshark",
                     }
                 }
 			}
@@ -105,7 +104,7 @@ settings = {
 			rules = {
                 rule_any = {
                     class = {
-                        "Gvim", "Leafpad", "qtcreator"
+                        "Leafpad", "qtcreator"
                     }
                 }
 			}
@@ -118,7 +117,7 @@ settings = {
 			rules = {
                 rule_any = {
                     class = {
-                        "gajim", "psi", "Skype", "xchat", "pidgin", "telegram-desktop", "Slack", "TelegramDesktop",
+                        "Slack", "TelegramDesktop", "gajim", "psi", "Skype", "xchat", "pidgin",
                     }
                 }
 			}
@@ -150,7 +149,7 @@ settings = {
 			rules = {
                 rule_any = {
                     class = {
-                        "Thunderbird", "Geary"
+                        "Thunderbird", "Geary", "Mail",
                     }
                 },
 				properties = {
@@ -192,7 +191,7 @@ settings = {
 			rules = {
                 rule_any = {
                     class = {
-                        "audacity", "Deadbeef", "MPlayer", "Vlc", "smplayer", "mpv",
+                        "audacity", "Deadbeef", "vlc", "mpv",
                     }
                 }
 			}
@@ -672,8 +671,8 @@ awful.rules.rules = {
     {
         rule_any = {
             class = {
-                "Keepassx", "keepassxc",
-            }
+                "KeePassXC",
+            },
         },
         properties = {
             floating = true,
@@ -778,6 +777,16 @@ local function webtopbar(c)
 	else
 		s.top_wibox.visible = true
 	end
+
+    if not webtag.selected then
+        local border_width = 1
+        if #s.clients == 1 then
+            border_width = 0
+        end
+        for _, cl in ipairs(s.clients) do
+            cl.border_width = border_width
+        end
+    end
 end
 awful.tag.attached_connect_signal(nil, "property::selected", webtopbar)
 client.connect_signal("tagged", webtopbar)
