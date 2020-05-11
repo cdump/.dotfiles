@@ -767,24 +767,18 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
-local webtag = awful.tag.find_by_name(s, "web")
 local function webtopbar(c)
-	local s = c.screen
-	if s == nil or s.top_wibox == nil then return end
-	local tags = s.selected_tags
-	if webtag.selected and #tags == 1 and #s.clients == 1 then
-		s.top_wibox.visible = false
-	else
-		s.top_wibox.visible = true
-	end
+    local s = c.screen
+    if s == nil or s.top_wibox == nil then return end
+    local webtag = awful.tag.find_by_name(s, "web")
 
-    if not webtag.selected then
-        local border_width = 1
-        if #s.clients == 1 then
-            border_width = 0
-        end
-        for _, cl in ipairs(s.clients) do
-            cl.border_width = border_width
+    s.top_wibox.visible = not (webtag.selected and #s.clients == 1)
+
+    for _, cl in ipairs(s.clients) do
+        if cl.floating or (#s.clients > 1 and not webtag.selected) then
+            cl.border_width = 1
+        else
+            cl.border_width = 0
         end
     end
 end
