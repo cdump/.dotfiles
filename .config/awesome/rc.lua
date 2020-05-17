@@ -54,7 +54,7 @@ settings = {
 		["vbox"]        = "VirtualBox",
 		["notepad"]     = "leafpad",
 		["torrent"]     = "qbittorrent",
-        ["screenshot"]  = "scrot --select",
+        ["screenshot"]  = "sh -c 'sleep 0.1 && scrot --select'",
 	},
 
 	["tags"] = {
