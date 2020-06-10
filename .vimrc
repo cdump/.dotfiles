@@ -39,12 +39,11 @@ set nrformats-=octal    " 0-prefixed numbers are still decimal
 let &t_SI.="\e[6 q" " '|' cursor in insert mode
 let &t_SR.="\e[2 q"
 let &t_EI.="\e[2 q"
-" set autochdir       " Set the working directory to wherever the open file lives
 
 
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-set undodir=~/.vim/undo//
+set backupdir=~/.vim/backup/
+set directory=~/.vim/swap/
+set undodir=~/.vim/undo/
 
 au FileType * setl fo-=cro " Disable comments on Enter press
 
@@ -94,7 +93,9 @@ cabbrev Wq wq
 " set pastetoggle=<Leader>p
 
 " Toggle relativenumbers
- nnoremap <Leader><Leader>r :set relativenumber!<CR>
+nnoremap <Leader><Leader>r :set relativenumber!<CR>
+
+nmap <Leader>s :update<CR>
 
 " nmap <Leader>t :TagbarToggle<CR>
 
@@ -187,18 +188,18 @@ let g:ale_go_golangci_lint_package = 1
 
 let g:ale_cpp_gcc_options = '-std=c++17 -Wall'
 
-let g:ale_c_clangd_executable = '/usr/bin/clangd-8'
+let g:ale_c_clangd_executable = '/usr/bin/clangd-10'
 let g:ale_cpp_clangd_executable = g:ale_c_clangd_executable
 
-let g:ale_c_clang_executable  = '/usr/bin/clang-8'
+let g:ale_c_clang_executable  = '/usr/bin/clang-10'
 let g:ale_cpp_clang_executable = g:ale_c_clang_executable
 let g:ale_cpp_clang_options = '-std=c++17 -Wall'
 
-let g:ale_cpp_clangcheck_executable = '/usr/bin/clang-check-8'
+let g:ale_cpp_clangcheck_executable = '/usr/bin/clang-check-10'
 let g:ale_cpp_clangcheck_executable = g:ale_cpp_clangcheck_executable
 " let g:ale_cpp_clangcheck_options = '-extra-arg="-std=c++17"'
 
-let g:ale_c_clangformat_executable = '/usr/bin/clang-format-8'
+let g:ale_c_clangformat_executable = '/usr/bin/clang-format-10'
 let g:ale_cpp_clangformat_executable = g:ale_c_clangformat_executable
 
 " let g:ale_c_clangtidy_executable = '/usr/bin/clang-tidy-8'
@@ -264,12 +265,39 @@ endif
 
 highlight Directory ctermfg=113
 
+" FZF
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+
+command! -bang -nargs=* Ag
+    \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+command! -bar -bang -nargs=? -complete=buffer Buffers
+        \ call fzf#vim#buffers(<q-args>, {'up': '10%', 'options': ['--layout=reverse']}, <bang>0)
+
+function! PreventBuffersInNERDTree()
+  if bufname('#') =~ 'NERD_tree' && bufname('%') !~ 'NERD_tree'
+    \ && exists('t:nerdtree_winnr') && bufwinnr('%') == t:nerdtree_winnr
+    \ && &buftype == '' && !exists('g:launching_fzf')
+    let bufnum = bufnr('%')
+    close
+    exe 'b ' . bufnum
+    NERDTree " restore nerdtree
+	wincmd w " jump to file split from nerdtree
+  endif
+  if exists('g:launching_fzf') | unlet g:launching_fzf | endif
+endfunction
+autocmd FileType nerdtree let t:nerdtree_winnr = bufwinnr('%')
+autocmd BufWinEnter * call PreventBuffersInNERDTree()
+
+
+" Markdown-preview
+let g:mkdp_open_to_the_world = 1
+let g:mkdp_echo_preview_url = 1
+
 " EasyMotion
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
-
-let g:mkdp_open_to_the_world = 1
-let g:mkdp_echo_preview_url = 1
 
 " Jump to line
 map <Leader>j <Plug>(easymotion-bd-jk)
@@ -278,15 +306,6 @@ nmap <Leader>j <Plug>(easymotion-overwin-line)
 " Move to word
 map  <Leader>f <Plug>(easymotion-bd-w)
 nmap <Leader>f <Plug>(easymotion-overwin-w)
-
-
-
-command! -bang Colors
-  \ call fzf#vim#colors({'right': '10%', 'options': '--reverse'}, <bang>0)
-
-command! -bang Buffers
-  \ call fzf#vim#buffers({'right': '15%', 'options': '--reverse'}, <bang>0)
-
 
 " EasyAlign
 vmap <Enter> <Plug>(EasyAlign)
