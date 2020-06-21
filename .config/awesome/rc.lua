@@ -47,7 +47,7 @@ settings = {
         -- ["browser"]     = "sh -c 'chromium-browser --force-device-scale-factor=1 || chromium --force-device-scale-factor=1'",
 		["browser"]     = "sh -c 'chromium-browser || chromium'",
 		["mail"]        = "thunderbird",
-		["filemgr"]     = "pcmanfm",
+		["filemgr"]     = "urxvt -e 'ranger'",
 		["music"]       = "deadbeef",
 		["im"]          = "telegram-desktop",
 		["pass"]        = "keepassxc",
@@ -80,7 +80,10 @@ settings = {
                 rule_any = {
                     class = {
                         "Pcmanfm"
-                    }
+                    },
+                    name = {
+                        "ranger"
+                    },
                 }
 			}
 		},
@@ -128,12 +131,9 @@ settings = {
 			volatile = true,
 			layout = awful.layout.suit.tile.bottom,
 			rules = {
-                except = {
-                    instance = "QuakeDD"
-                },
                 rule_any = {
-                    class = {
-                        "URxvt", "xterm"
+                    name = {
+                        "urxvt"
                     }
                 },
 				properties = {
