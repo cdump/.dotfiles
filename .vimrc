@@ -50,7 +50,6 @@ au FileType * setl fo-=cro " Disable comments on Enter press
 " ================ Indentation ======================
 set autoindent      " Keep indent from current line when starting a new line
 set expandtab       " Change tabs to spaces
-" set noexpandtab     " Do not change tabs to spaces
 set smartindent
 set smarttab        " sw at the start of the line, sts everywhere else
 set shiftwidth=4    " Number of spaces to use for each step of (auto)indent.
@@ -220,11 +219,17 @@ highlight ALEWarningSign cterm=bold ctermfg=222 ctermbg=235
 highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=235
 
 
+" Search word under cursor
+nmap gs :Ag <c-r><c-w><CR>
+
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>cf  <Plug>(coc-fix-current)
+nmap <leader>cf <Plug>(coc-fix-current)
+
+" Useful for 'get varible type under cursor'
+nmap <leader>d :call CocAction('doHover')<CR>
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
@@ -266,14 +271,21 @@ endif
 highlight Directory ctermfg=113
 
 " FZF
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+
+" Make Ctrl-W works as 'del prev word' in fzf-window
+autocmd FileType fzf set termwinkey=<C-L>
+
+" let $FZF_DEFAULT_OPTS='--reverse'
+
 command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--info=inline']}), <bang>0)
 
 command! -bang -nargs=* Ag
     \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 command! -bar -bang -nargs=? -complete=buffer Buffers
-        \ call fzf#vim#buffers(<q-args>, {'up': '10%', 'options': ['--layout=reverse']}, <bang>0)
+    \ call fzf#vim#buffers(<q-args>, {}, <bang>0)
 
 function! PreventBuffersInNERDTree()
   if bufname('#') =~ 'NERD_tree' && bufname('%') !~ 'NERD_tree'
