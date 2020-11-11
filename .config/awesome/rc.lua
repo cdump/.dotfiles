@@ -680,6 +680,16 @@ awful.rules.rules = {
     },
     {
         rule_any = {
+            class = {
+                "mpv",
+            },
+        },
+        properties = {
+            fullscreen = true,
+        },
+    },
+    {
+        rule_any = {
             instance = {
                 "QuakeDD"
             },
