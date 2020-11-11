@@ -124,6 +124,9 @@ function bright_change(change)
     current = tonumber(current)
 
     local new = current * 100 / max
+    if new <= 10 then
+        step = 1
+    end
     if change ~= nil then
         current = tonumber(current) * 100 / max
         local new = current + step * (change == 0 and 0 or change/math.abs(change))
