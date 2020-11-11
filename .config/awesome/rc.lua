@@ -54,7 +54,7 @@ settings = {
 		["vbox"]        = "VirtualBox",
 		["notepad"]     = "leafpad",
 		["torrent"]     = "qbittorrent",
-        ["screenshot"]  = "sh -c 'sleep 0.1 && scrot --select'",
+        ["screenshot"]  = "sh -c \"sleep 0.1 && scrot --freeze --select --exec 'mv $f ~/shots/'\"",
 	},
 
 	["tags"] = {
@@ -511,7 +511,8 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end), -- select previous (layout)
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end), -- run prompt (launcher)
+    -- awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end), -- run prompt (launcher)
+    awful.key({ modkey },            "r",     function () awful.spawn('rofi -theme Monokai -font "DejaVuSansMono Nerd Font Mono 16" -matching fuzzy -show run') end),
 
     awful.key({ modkey, "Control" }, "n", function ()
         local c = awful.client.restore()
