@@ -1,0 +1,11 @@
+Defaults timestamp_type=ppid
+Defaults timestamp_timeout=60
+Defaults passwd_timeout=0
+Defaults passprompt="[sudo] password for %p: "
+Defaults always_set_home
+
+user ALL=(ALL) ALL
+user ALL=NOPASSWD:/usr/bin/systemctl suspend
+user ALL=NOPASSWD:/usr/bin/tee /sys/class/backlight/intel_backlight/brightness
+
+#user ALL=(ALL) NOPASSWD: ALL
