@@ -126,4 +126,3 @@ vag() {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 source ~/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# source ~/.zsh_plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
