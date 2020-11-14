@@ -512,7 +512,7 @@ globalkeys = gears.table.join(
 
     -- Prompt
     -- awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end), -- run prompt (launcher)
-    awful.key({ modkey },            "r",     function () awful.spawn('rofi -theme Monokai -font "DejaVuSansMono Nerd Font Mono 16" -matching fuzzy -show run') end),
+    awful.key({ modkey },            "r",     function () awful.spawn('rofi -show run') end),
 
     awful.key({ modkey, "Control" }, "n", function ()
         local c = awful.client.restore()
@@ -782,6 +782,7 @@ local function webtopbar(c)
     local s = c.screen
     if s == nil or s.top_wibox == nil then return end
     local webtag = awful.tag.find_by_name(s, "web")
+    if webtag == nil then return end
 
     s.top_wibox.visible = not (webtag.selected and #s.clients == 1)
 

@@ -40,6 +40,7 @@ link .config/ranger
 link .config/picom
 link .config/mpv
 link .config/awesome
+link .config/rofi
 touch ~/.awesome.local.lua
 
 

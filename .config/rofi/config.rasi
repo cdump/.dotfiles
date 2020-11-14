@@ -1,0 +1,5 @@
+configuration {
+	font: "DejaVuSansMono Nerd Font Mono 16";
+	matching: "fuzzy";
+	theme: "/usr/share/rofi/themes/fancy.rasi";
+}
