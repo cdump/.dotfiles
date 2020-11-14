@@ -513,6 +513,7 @@ globalkeys = gears.table.join(
     -- Prompt
     -- awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end), -- run prompt (launcher)
     awful.key({ modkey },            "r",     function () awful.spawn('rofi -show run') end),
+    awful.key({ modkey },            "w",     function () awful.spawn('rofi -show window') end),
 
     awful.key({ modkey, "Control" }, "n", function ()
         local c = awful.client.restore()
