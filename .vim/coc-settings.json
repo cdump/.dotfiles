@@ -5,12 +5,16 @@
     "diagnostic.warningSign": "⚠",
     "diagnostic.errorSign": "✗",
     "diagnostic.displayByAle": true,
-    "clangd.arguments": ["--background-index"],
-    "clangd.path": "/usr/bin/clangd",
     "list.insertMappings": {
         "<C-c>": "do:exit"
     },
     "languageserver": {
+        "clangd": {
+            "command": "/usr/bin/clangd-10",
+            "args": ["--background-index"],
+            "rootPatterns": ["compile_commands.json", "b", "build"],
+            "filetypes": ["c", "cc", "cpp", "objc", "objcpp"]
+        },
         "golang": {
             "command": "gopls",
             "rootPatterns": ["go.mod"],
