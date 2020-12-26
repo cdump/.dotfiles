@@ -6,6 +6,9 @@ language C          " Show VIM messages in English
 source ~/.vim/plugins.vim
 
 let mapleader = "\<Space>"
+if has("patch-8.1.1564")
+    set signcolumn=number
+endif
 
 " =============== General ===============
 syntax on           " Enable syntax highlighting
@@ -180,41 +183,15 @@ endif
 
 let g:peekaboo_window = 'vert bo 150new'
 
-" let g:ale_open_list = 1
-
-let g:ale_linters = {'go': ['golangci-lint']}
-let g:ale_go_golangci_lint_package = 1
-
-let g:ale_cpp_gcc_options = '-std=c++17 -Wall'
-
-let g:ale_c_clangd_executable = '/usr/bin/clangd-10'
-let g:ale_cpp_clangd_executable = g:ale_c_clangd_executable
-
-let g:ale_c_clang_executable  = '/usr/bin/clang-10'
-let g:ale_cpp_clang_executable = g:ale_c_clang_executable
-let g:ale_cpp_clang_options = '-std=c++17 -Wall'
-
-let g:ale_cpp_clangcheck_executable = '/usr/bin/clang-check-10'
-let g:ale_cpp_clangcheck_executable = g:ale_cpp_clangcheck_executable
-" let g:ale_cpp_clangcheck_options = '-extra-arg="-std=c++17"'
-
-let g:ale_c_clangformat_executable = '/usr/bin/clang-format-10'
-let g:ale_cpp_clangformat_executable = g:ale_c_clangformat_executable
-
-" let g:ale_c_clangtidy_executable = '/usr/bin/clang-tidy-8'
-" let g:ale_cpp_clangtidy_executable = g:ale_c_clangtidy_executable
-
-" let g:ale_c_clangtidy_checks = ['cppcoreguidelines']
-" let g:ale_cpp_clangtidy_checks = g:ale_c_clangtidy_checks
-
-let g:ale_c_build_dir_names = ['b', 'build', 'bin']
-let g:ale_c_parse_compile_commands = 1
-
+let g:ale_disable_lsp = 1
 let g:ale_sign_error = ' ✗'
 let g:ale_sign_warning = ' ⚠'
+let g:ale_set_balloons = 1
 let g:airline#extensions#ale#enabled = 1
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+let g:ale_fix_on_save = 1
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 highlight ALEWarningSign cterm=bold ctermfg=222 ctermbg=235
 highlight ALEErrorSign cterm=bold ctermfg=1 ctermbg=235
 
@@ -238,6 +215,7 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-j> pumvisible() ? "\<C-N>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-P>" : "\<C-k>"
 
+nnoremap <leader>u :UndotreeShow<CR>
 
 " autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -246,9 +224,6 @@ inoremap <expr> <C-k> pumvisible() ? "\<C-P>" : "\<C-k>"
 " " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" :
 " " "\<C-g>u\<CR>"
 "
-
-let g:lt_quickfix_list_toggle_map = '<leader>Q'
-let g:lt_location_list_toggle_map = '<leader>l'
 
 let g:gitgutter_max_signs = 1000
 

@@ -23,8 +23,7 @@ Plug 'tomtom/tcomment_vim'
 " Surround.vim is all about surroundings: parentheses, brackets, quotes, XML tags, and more
 Plug 'tpope/vim-surround'
 
-" Support for textual snippets
-Plug 'SirVer/ultisnips'
+" Support for textual snippets (used by coc-snippets)
 Plug 'honza/vim-snippets'
 
 " Vim motion on speed!
@@ -44,9 +43,10 @@ Plug 'tpope/vim-dispatch'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " :CocInstall coc-python
 " :CocInstall coc-snippets
-
-" Toggling the display of the quickfix list and the location-list
-Plug 'Valloric/ListToggle'
+" :CocInstall coc-clangd
+" :CocInstall coc-yaml
+" :CocInstall coc-json
+" :CocCommand clangd.switchSourceHeader
 
 " Better Rainbow Parentheses
 Plug 'luochen1990/rainbow'
@@ -84,5 +84,10 @@ Plug 'dense-analysis/ale'
 
 " Themes
 Plug 'tomasr/molokai'
+
+" Visualizes undo history and makes it easier to browse and switch between different undo branches
+Plug 'mbbill/undotree'
+
+"Plug 'puremourning/vimspector'
 
 call plug#end()
