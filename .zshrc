@@ -32,7 +32,7 @@ export CUDACXX=/usr/local/cuda/bin/nvcc
 export LANG=en_US.UTF-8
 export EDITOR=vim
 export PAGER=less
-export BROWSER=chromium
+export BROWSER=firefox
 
 # poetry completions zsh
 # fpath=(~/.zsh-completions/src $fpath)
@@ -55,6 +55,10 @@ alias gclean='git clean -Xdi'
 alias gdb='gdb --quiet'
 alias gd='gdb --quiet -ex r --args'
 alias dsf='diff-so-fancy | less --tabs=4 -RFX'
+
+alias kgc='kubectl config get-contexts'
+alias kuc='kubectl config use-context'
+alias kgn='kubectl get namespaces'
 
 bindkey -e
 bindkey "${terminfo[kdch1]}" delete-char

@@ -62,8 +62,8 @@ Plug 'ntpeters/vim-better-whitespace'
 " Go (golang) support for Vim
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 
-" True Sublime Text style multiple selections for Vim
-Plug 'terryma/vim-multiple-cursors'
+" multiple selections for Vim
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 " Plug 'posva/vim-vue', { 'for': 'vue' }
 " Plug 'isRuslan/vim-es6'

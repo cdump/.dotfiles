@@ -6,9 +6,6 @@ language C          " Show VIM messages in English
 source ~/.vim/plugins.vim
 
 let mapleader = "\<Space>"
-if has("patch-8.1.1564")
-    set signcolumn=number
-endif
 
 " =============== General ===============
 syntax on           " Enable syntax highlighting
