@@ -81,20 +81,33 @@ function text_widgets_updatetext(name, value)
 	widgets[name].update(value)
 end
 
-function volume_change(change)
-    local current = exec("pactl list sinks|grep -E '^\\s+Volume:' | awk '{print $5}' | tr -d '%'")
-    if current == nil then
-        return
-    end
-    current = tonumber(current)
 
+local function volume_info()
+    local d = exec("pacmd dump", true)
+    local default_sink = string.match(d, "set%-default%-sink ([^\n]+)")
+
+    local volume = 0
+    local muted = false
+    for sink, value in string.gmatch(d, "set%-sink%-volume ([^%s]+) (0x%x+)") do
+		if sink == default_sink then
+			volume = math.floor(tonumber(value) * 100 / 0x10000)
+		end
+	end
+	for sink, value in string.gmatch(d, "set%-sink%-mute ([^%s]+) (%a+)") do
+		if sink == default_sink then
+			muted = value == "yes"
+		end
+	end
+    return volume, muted
+end
+
+function volume_change(change)
     if change == 0 then
         awful.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")
     end
 
-
-    local muted = exec("pactl list sinks|grep -E '^\\s+Mute:' | awk '{print $2}'")
-    if muted == "yes" then
+    local current, muted = volume_info()
+    if muted then
         text_widgets_updatetext("volume", "MT")
         return
     end

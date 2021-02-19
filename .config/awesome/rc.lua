@@ -45,7 +45,8 @@ settings = {
 	["apps"]  = {
 		["terminal"]    = "urxvt",
         -- ["browser"]     = "sh -c 'chromium-browser --force-device-scale-factor=1 || chromium --force-device-scale-factor=1'",
-		["browser"]     = "sh -c 'chromium-browser || chromium'",
+		-- ["browser"]     = "sh -c 'chromium-browser || chromium'",
+		["browser"]     = "firefox",
 		["mail"]        = "thunderbird",
 		["filemgr"]     = "urxvt -e 'ranger'",
 		["music"]       = "deadbeef",
