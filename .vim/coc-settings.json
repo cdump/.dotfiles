@@ -10,7 +10,7 @@
     },
     "languageserver": {
         "clangd": {
-            "command": "/usr/bin/clangd-10",
+            "command": "/usr/bin/clangd-11",
             "args": ["--background-index"],
             "rootPatterns": ["compile_commands.json", "b", "build"],
             "filetypes": ["c", "cc", "cpp", "objc", "objcpp"]
