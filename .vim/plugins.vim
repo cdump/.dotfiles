@@ -43,10 +43,8 @@ Plug 'tpope/vim-dispatch'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " :CocInstall coc-python
 " :CocInstall coc-snippets
-" :CocInstall coc-clangd
 " :CocInstall coc-yaml
 " :CocInstall coc-json
-" :CocCommand clangd.switchSourceHeader
 
 " Better Rainbow Parentheses
 Plug 'luochen1990/rainbow'
