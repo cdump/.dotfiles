@@ -274,15 +274,6 @@ endfunction
 autocmd FileType nerdtree let t:nerdtree_winnr = bufwinnr('%')
 autocmd BufWinEnter * call PreventBuffersInNERDTree()
 
-
-" Markdown-preview
-let g:mkdp_open_to_the_world = 1
-let g:mkdp_echo_preview_url = 1
-
-" EasyMotion
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-
 " Jump to line
 map <Leader>j <Plug>(easymotion-bd-jk)
 nmap <Leader>j <Plug>(easymotion-overwin-line)

@@ -27,6 +27,8 @@ Plug 'tpope/vim-surround'
 Plug 'honza/vim-snippets'
 
 " Vim motion on speed!
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
 Plug 'Lokaltog/vim-easymotion'
 
 " Shows a git diff in the 'gutter' (sign column)
@@ -47,9 +49,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " :CocInstall coc-json
 
 " Better Rainbow Parentheses
-Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
 let g:rainbow_conf = {'separately': { 'nerdtree': 0 } }
+Plug 'luochen1990/rainbow'
 
 " Allows to configure % to match more than just single characters
 Plug 'vim-scripts/matchit.zip'
@@ -63,18 +65,22 @@ Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 " multiple selections for Vim
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
-" Plug 'posva/vim-vue', { 'for': 'vue' }
-" Plug 'isRuslan/vim-es6'
-
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " markdown preview plugin
+let g:mkdp_open_to_the_world = 1
+let g:mkdp_echo_preview_url = 1
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
 " A collection of language packs for Vim, loaded only on demand
+let g:polyglot_disabled = ['ftdetect', 'c.plugin', 'cpp.plugin']
 Plug 'sheerun/vim-polyglot'
 
+" Extended Vim syntax highlighting for C and C++
+Plug 'bfrg/vim-cpp-modern'
+
+" Adds file type icons to Vim plugins
 Plug 'ryanoasis/vim-devicons'
 
 " Asynchronous Lint Engine
