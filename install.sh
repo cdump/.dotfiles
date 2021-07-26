@@ -1,50 +1,34 @@
 #!/bin/bash
 
-SRC=${HOME}/.dotfiles
-DST=${HOME}
+stow -V || (echo "Please install GNU Stow"; exit 1)
 
-link() {
-    to=${2:-$1}
-    mkdir -p ${DST}/$(dirname ${to})
-    ln -s -T ${SRC}/$1 ${DST}/${to}
-}
+pushd ${HOME}/.dotfiles
+for X in          \
+    awesome       \
+    diff-so-fancy \
+    flake8        \
+    gdb           \
+    git           \
+    mc            \
+    mpv           \
+    picom         \
+    ranger        \
+    rofi          \
+    tmux          \
+    urxvt         \
+    vim           \
+    xorg          \
+    zathura       \
+    zsh           \
+; do
+    stow -D $X
+    stow $X
+done;
 
-link .xinitrc
-link .Xresources
-link .Xresources.d
-touch ${DST}/.Xresources.local
+mkdir -p ~/.config/htop/
+cp htop/.config/htop/htoprc ~/.config/htop/htoprc
 
-link .vim
-link .vimrc
-
-link .zshrc
-link .zsh_plugins
-
-link .tmux.conf
-
-link .gdbinit
-
-link .gitconfig
-
-link .flake8
-
-link .urxvt/ext/font-size
-
-link .themes/absolute
-link .icon/elementary
-link .fonts/nerd-fonts
-link .local/share/mc/skins/xoria256_patched.ini
-
-link .config/zathura
-link .config/ranger
-link .config/picom
-link .config/mpv
-link .config/awesome
-link .config/rofi
+touch ~/.Xresources.local
 touch ~/.awesome.local.lua
 
-
-link .diff-so-fancy/diff-so-fancy .local/bin/diff-so-fancy
-
-mkdir -p ${DST}/.config/htop/
-cp ${SRC}/.config/htop/htoprc ${DST}/.config/htop/htoprc
+popd

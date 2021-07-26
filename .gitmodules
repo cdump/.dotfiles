@@ -1,30 +1,30 @@
-[submodule ".zsh_antigen"]
-	path = .zsh_antigen
-	url = https://github.com/zsh-users/antigen.git
-[submodule ".config/awesome/moex"]
-	path = .config/awesome/moex
+[submodule "awesome/.config/awesome/moex"]
+	path = awesome/.config/awesome/moex
 	url = https://github.com/cdump/awesome-moex
-[submodule ".config/awesome/calendar"]
-	path = .config/awesome/calendar
-	url = https://github.com/cdump/awesome-calendar.git
-[submodule ".zsh_plugins/ohmyzsh"]
-	path = .zsh_plugins/ohmyzsh
-	url = https://github.com/ohmyzsh/ohmyzsh
-[submodule ".zsh_plugins/powerlevel10k"]
-	path = .zsh_plugins/powerlevel10k
-	url = https://github.com/romkatv/powerlevel10k.git
-[submodule ".zsh_plugins/zsh-syntax-highlighting"]
-	path = .zsh_plugins/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting
-[submodule ".diff-so-fancy"]
-	path = .diff-so-fancy
-	url = https://github.com/so-fancy/diff-so-fancy
-[submodule ".gdb-gef"]
-	path = .gdb-gef
-	url = https://github.com/hugsy/gef
-[submodule ".config/ranger/plugins/devicons2"]
-	path = .config/ranger/plugins/devicons2
-	url = https://github.com/cdump/ranger-devicons2
-[submodule ".gdb-colour-filter"]
-	path = .gdb-colour-filter
+[submodule "awesome/.config/awesome/calendar"]
+	path = awesome/.config/awesome/calendar
+	url = https://github.com/cdump/awesome-calendar
+[submodule "gdb/.gdb-colour-filter"]
+	path = gdb/.gdb-colour-filter
 	url = https://github.com/daskol/gdb-colour-filter
+[submodule "gdb/.gdb-gef"]
+	path = gdb/.gdb-gef
+	url = https://github.com/hugsy/gef
+[submodule "zsh/.zsh_plugins/ohmyzsh"]
+	path = zsh/.zsh_plugins/ohmyzsh
+	url = https://github.com/ohmyzsh/ohmyzsh
+[submodule "zsh/.zsh_plugins/powerlevel10k"]
+	path = zsh/.zsh_plugins/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git
+[submodule "zsh/.zsh_plugins/zsh-syntax-highlighting"]
+	path = zsh/.zsh_plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule "zsh/.zsh_antigen"]
+	path = zsh/.zsh_antigen
+	url = https://github.com/zsh-users/antigen.git
+[submodule "ranger/.config/ranger/plugins/devicons2"]
+	path = ranger/.config/ranger/plugins/devicons2
+	url = https://github.com/cdump/ranger-devicons2
+[submodule "diff-so-fancy/.diff-so-fancy"]
+	path = diff-so-fancy/.diff-so-fancy
+	url = https://github.com/so-fancy/diff-so-fancy
