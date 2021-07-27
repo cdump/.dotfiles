@@ -40,7 +40,7 @@ set directory=~/.vim/swap/
 set undodir=~/.vim/undo/
 
 au FileType * setl fo-=cro " Disable comments on Enter press
-
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 
 " ================ Indentation ======================
 set autoindent      " Keep indent from current line when starting a new line
