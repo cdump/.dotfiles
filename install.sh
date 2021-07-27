@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 stow -V || (echo "Please install GNU Stow"; exit 1)
 
