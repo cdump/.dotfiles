@@ -58,7 +58,7 @@ Plug 'tpope/vim-dispatch'
 
 " Better Rainbow Parentheses
 let g:rainbow_active = 1
-let g:rainbow_conf = {'separately': { 'nerdtree': 0 } }
+let g:rainbow_conf = {'separately': {'nerdtree': 0}, 'guifgs': ['#5fd7ff', '#ffffaf', '#afffff', '#ffd7ff']}
 Plug 'luochen1990/rainbow'
 
 " Allows to configure % to match more than just single characters
