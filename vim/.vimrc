@@ -263,6 +263,9 @@ local function lsp_setup_servers()
     local lspi = require 'lspinstall'
 
     -- lspi.install_server('python')
+    -- lspi.install_server('yaml')
+    -- lspi.install_server('lua')
+    -- lspi.install_server('efm')
 
     lspi.setup()
     local servers = lspi.installed_servers()
@@ -304,16 +307,43 @@ require'lspsaga'.init_lsp_saga{
 
 require'compe'.setup {
     source = {
-        path = true,
-        buffer = true,
-        calc = true,
-        nvim_lsp = true,
-        nvim_lua = true,
-        vsnip = false,
-        ultisnips = true,
-        luasnip = false,
-        emoji = false,
-    };
+        path = { kind = "   (Path)" },
+        buffer = { kind = "   (Buffer)" },
+        calc = { kind = "   (Calc)" },
+        nvim_lsp = { kind = "   (LSP)" },
+        ultisnips = { kind = "   (Snippet)" },
+        spell = { kind = "   (Spell)" },
+        emoji = { kind = " ﲃ  (Emoji)", filetypes = { "markdown", "text" } },
+    }
+}
+
+-- symbols for autocomplete
+vim.lsp.protocol.CompletionItemKind = {
+  "  (Text) ",
+  "  (Method)",
+  "  (Function)",
+  "  (Constructor)",
+  " ﴲ (Field)",
+  "  (Variable)",
+  "  (Class)",
+  " ﰮ (Interface)",
+  "  (Module)",
+  " 襁(Property)",
+  "  (Unit)",
+  "  (Value)",
+  " 練(Enum)",
+  "  (Keyword)",
+  "  (Snippet)",
+  "  (Color)",
+  "  (File)",
+  "  (Reference)",
+  "  (Folder)",
+  "  (EnumMember)",
+  " ﲀ (Constant)",
+  " ﳤ (Struct)",
+  "  (Event)",
+  "  (Operator)",
+  "  (TypeParameter)",
 }
 
 vim.g.symbols_outline = {
