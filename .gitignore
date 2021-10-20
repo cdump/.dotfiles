@@ -2,4 +2,7 @@ vim/.vim/backup/
 vim/.vim/plugged
 vim/.vim/swap/
 vim/.vim/undo/
+vim/.vim/.netrwhist
+mc/.local/share/mc/history
+xorg/.fonts/.uuid
 __pycache__
