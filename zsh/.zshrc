@@ -45,6 +45,7 @@ source ~/.zsh_plugins/ohmyzsh/lib/spectrum.zsh # colors, spectrum_ls
 source ~/.zsh_plugins/ohmyzsh/plugins/encode64/encode64.plugin.zsh
 source ~/.zsh_plugins/ohmyzsh/plugins/tmux/tmux.plugin.zsh
 source ~/.zsh_plugins/ohmyzsh/plugins/command-not-found/command-not-found.plugin.zsh
+source ~/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 alias ls='ls -F --color=auto --group-directories-first'
 alias ll='ls -l'
@@ -112,10 +113,6 @@ ds() {
 	objdump -M intel -d $* | less
 }
 
-vk() {
-    chromium-browser "https://vk.com/id1?z=photo$1"
-}
-
 sum() {
     perl -lane '$s+=$_;$c++;END{print "Sum $s\tCnt: $c\tAvg: ".$s/$c;}'
 }
@@ -128,5 +125,3 @@ vag() {
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-source ~/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
