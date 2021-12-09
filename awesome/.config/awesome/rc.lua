@@ -65,7 +65,7 @@ settings = {
 			rules = {
                 rule_any = {
                     class = {
-                        "firefox", "chrome", "Chromium", "KeePassXC",
+                        "browser", "firefox", "chrome", "Chromium", "KeePassXC",
                     },
                 },
 				properties = {
@@ -114,6 +114,23 @@ settings = {
 			}
 		},
 
+        {
+            name = "mail",
+            volatile = true,
+            layout = awful.layout.suit.max,
+            rules = {
+                rule_any = {
+                    class = {
+                        "Thunderbird", "Geary", "Mail",
+                    }
+                },
+                properties = {
+                    border_width = 0
+                },
+            }
+        },
+
+
 		{
 			name = "im",
 			volatile = true,
@@ -140,22 +157,6 @@ settings = {
 				properties = {
 					size_hints_honor = false
 				}
-			}
-		},
-
-		{
-			name = "mail",
-			volatile = true,
-			layout = awful.layout.suit.max,
-			rules = {
-                rule_any = {
-                    class = {
-                        "Thunderbird", "Geary", "Mail",
-                    }
-                },
-				properties = {
-					border_width = 0
-				},
 			}
 		},
 

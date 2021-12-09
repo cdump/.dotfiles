@@ -83,21 +83,8 @@ end
 
 
 local function volume_info()
-    local d = exec("pacmd dump", true)
-    local default_sink = string.match(d, "set%-default%-sink ([^\n]+)")
-
-    local volume = 0
-    local muted = false
-    for sink, value in string.gmatch(d, "set%-sink%-volume ([^%s]+) (0x%x+)") do
-		if sink == default_sink then
-			volume = math.floor(tonumber(value) * 100 / 0x10000)
-		end
-	end
-	for sink, value in string.gmatch(d, "set%-sink%-mute ([^%s]+) (%a+)") do
-		if sink == default_sink then
-			muted = value == "yes"
-		end
-	end
+    local volume = tonumber(exec("pactl get-sink-volume @DEFAULT_SINK@ | grep -Eo '([0-9]+)%' | head -n1 | tr -d '%'", true))
+    local muted = exec("pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}' | head -c3", true) == "yes"
     return volume, muted
 end
 
