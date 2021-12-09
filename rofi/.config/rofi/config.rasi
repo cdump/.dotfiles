@@ -1,8 +1,8 @@
 configuration {
-    font: "DejaVuSansMono Nerd Font Mono 16";
     matching: "fuzzy";
-    theme: "/usr/share/rofi/themes/fancy.rasi";
     sort: true;
     sorting-method: "fzf";
     kb-cancel: "Escape,Control+c";
 }
+
+@theme "/usr/share/rofi/themes/fancy.rasi"
