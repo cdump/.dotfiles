@@ -60,6 +60,7 @@ alias dsf='diff-so-fancy | less --tabs=4 -RFX'
 alias kgc='kubectl config get-contexts'
 alias kuc='kubectl config use-context'
 alias kgn='kubectl get namespaces'
+alias klf='kubectl logs --tail=100 -f'
 
 bindkey -e
 bindkey "${terminfo[kdch1]}" delete-char
