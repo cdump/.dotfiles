@@ -3,33 +3,55 @@ set -e
 
 stow -V || (echo "Please install GNU Stow"; exit 1)
 
+TARGETS=(
+    diff-so-fancy
+    flake8
+    gdb
+    git
+    htop
+    mc
+    ranger
+    tmux
+    vim
+    zsh
+)
+
+case $(uname) in
+Linux)
+    TARGETS+=(
+        awesome
+        mpv
+        picom
+        rofi
+        sway
+        urxvt
+        xorg
+        zathura
+    )
+;;
+Darwin)
+    TARGETS+=()
+;;
+esac
+
 pushd ${HOME}/.dotfiles
-for X in          \
-    awesome       \
-    diff-so-fancy \
-    flake8        \
-    gdb           \
-    git           \
-    mc            \
-    mpv           \
-    picom         \
-    ranger        \
-    rofi          \
-    tmux          \
-    urxvt         \
-    vim           \
-    xorg          \
-    zathura       \
-    zsh           \
-; do
+for X in ${TARGETS[@]}; do
+    echo "Installing ${X}..."
+    if [[ "$X" == "htop" ]]; then
+        mkdir -p ~/.config/htop/
+        cp htop/.config/htop/htoprc ~/.config/htop/htoprc
+        continue
+    fi;
+
+    if [[ "$X" == "awesome" ]]; then
+        touch ~/.awesome.local.lua
+    fi;
+
+    if [[ "$X" == "xorg" ]]; then
+        touch ~/.Xresources.local
+    fi;
+
     stow -D $X
     stow $X
 done;
-
-mkdir -p ~/.config/htop/
-cp htop/.config/htop/htoprc ~/.config/htop/htoprc
-
-touch ~/.Xresources.local
-touch ~/.awesome.local.lua
-
 popd
