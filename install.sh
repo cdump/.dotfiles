@@ -10,6 +10,7 @@ TARGETS=(
     git
     htop
     mc
+    mpv
     ranger
     tmux
     vim
@@ -20,7 +21,6 @@ case $(uname) in
 Linux)
     TARGETS+=(
         awesome
-        mpv
         picom
         rofi
         sway
@@ -30,7 +30,9 @@ Linux)
     )
 ;;
 Darwin)
-    TARGETS+=()
+    TARGETS+=(
+        hammerspoon
+    )
 ;;
 esac
 
