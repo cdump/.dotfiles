@@ -244,6 +244,7 @@ beautiful.bg_normal = "#1f1f1f"
 beautiful.fg_normal = "#aaaaaa"
 beautiful.bg_focus = "#2f2f2f"
 beautiful.font = "Dejavu Sans 9"
+beautiful.bg_systray = "#000000"
 -- }}}
 
 -- {{{ Helper functions
@@ -393,12 +394,12 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         {
             layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
             s.mylayoutbox,
         },
 	}
 
 	local w = {layout = wibox.layout.fixed.horizontal}
+    table.insert(w, wibox.widget.systray())
     for key = 1, #widgets do
 		table.insert(w, widgets[key].result)
     end
