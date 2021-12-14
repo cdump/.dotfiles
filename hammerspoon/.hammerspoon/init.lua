@@ -11,10 +11,6 @@ hs.hotkey.bind({"cmd"}, "Q", function()
   hs.application.launchOrFocus("Google Chrome.app")
 end)
 
-hs.hotkey.bind({"ctrl"}, "v", nil, function()
-  hs.eventtap.event.newKeyEvent("cmd", "v", true):post()
-  hs.eventtap.event.newKeyEvent("cmd", "v", false):post()
-end)
 hs.hotkey.bind({"Shift"}, "Help", nil, function() -- shift+Insert
   hs.eventtap.event.newKeyEvent("cmd", "v", true):post()
   hs.eventtap.event.newKeyEvent("cmd", "v", false):post()
@@ -62,12 +58,8 @@ sky = SkyRocket:new({
 
 
 function reloadConfig(files)
-    doReload = false
     for _,file in pairs(files) do
-        if file:sub(-4) == ".lua" then
-	    hs.reload()
-            break
-        end
+        if file:sub(-4) == ".lua" then hs.reload() return end
     end
 end
 myWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
