@@ -23,14 +23,17 @@ Linux)
         awesome
         picom
         rofi
-        sway
         urxvt
         xorg
         zathura
+
+        alacritty
+        sway
     )
 ;;
 Darwin)
     TARGETS+=(
+        alacritty
         hammerspoon
     )
 ;;
