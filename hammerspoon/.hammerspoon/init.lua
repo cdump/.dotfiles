@@ -2,7 +2,8 @@ hs.window.animationDuration = 0
 
 hs.hotkey.bind({"cmd"}, "Return", function()
   -- hs.application.launchOrFocus("iTerm")
-  hs.execute("open -n -a iTerm")
+  -- hs.execute("open -n -a iTerm")
+  hs.execute("open -n -a kitty")
 end)
 hs.hotkey.bind({"cmd"}, "P", function()
   hs.application.launchOrFocus("KeePassXC.app")
@@ -44,7 +45,10 @@ hs.hotkey.bind({"cmd"}, "M", function()
 end)
 
 hs.hotkey.bind({"cmd"}, "n", function()
-    hs.window.tiling.tileWindows(hs.window.allWindows(), hs.mouse.getCurrentScreen():frame())
+    hs.window.tiling.tileWindows(hs.window.allWindows(), hs.mouse.getCurrentScreen():frame(), 0.01)
+end)
+hs.hotkey.bind({"cmd", "shift"}, "n", function()
+    hs.window.tiling.tileWindows(hs.window.allWindows(), hs.mouse.getCurrentScreen():frame(), 100)
 end)
 
 local SkyRocket = hs.loadSpoon("SkyRocket")

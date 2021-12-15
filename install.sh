@@ -23,6 +23,7 @@ Linux)
         awesome
         picom
         rofi
+        kitty
         urxvt
         xorg
         zathura
@@ -34,6 +35,7 @@ Linux)
 Darwin)
     TARGETS+=(
         alacritty
+        kitty
         hammerspoon
     )
 ;;
