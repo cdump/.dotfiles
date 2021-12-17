@@ -33,6 +33,8 @@ else
     alias ls='ls -F --color=auto --group-directories-first'
 fi
 
+alias vim='nvim'
+
 alias ll='ls -l'
 alias la='ls -la'
 alias grep='grep --color'

@@ -251,6 +251,25 @@ inoremap <expr> <CR> compe#confirm('<CR>')
 lua <<EOF
 local function lsp_setup_servers()
     local lspi = require 'nvim-lsp-installer'
+
+    -- local servers = {
+    --     "pyright",
+    --     "efm",
+    --     "yamlls",
+    --     }
+    --
+    -- for _, name in pairs(servers) do
+    --     local server_is_found, server = lspi.get_server(name)
+    --     if server_is_found then
+    --         if not server:is_installed() then
+    --             print("Installing " .. name)
+    --             server:install()
+    --         end
+    --     end
+    -- end
+    local server_available, requested_server = lspi.get_server('clangd')
+
+
     lspi.on_server_ready(function(server)
         local caps = vim.lsp.protocol.make_client_capabilities()
         caps.textDocument.completion.completionItem.snippetSupport = true
@@ -262,9 +281,9 @@ local function lsp_setup_servers()
           }
         }
         local cfg = {capabilities = caps}
-        if server == "clangd" then
-            cfg.cmd = {'/usr/bin/clangd', '--background-index', '--clang-tidy'}
-        elseif server == "python" then
+        if server.name == 'clangd' then
+            cfg.cmd = {'clangd', '--background-index', '--clang-tidy'}
+        elseif server.name == 'pyright' then
             cfg.settings = {python={pythonPath='.venv/bin/python'}}
         end
         server:setup(cfg)

@@ -29,8 +29,8 @@ tools:
       - "%f(%l,%c): %rror %m"
 
 languages:
-  yaml:
-    - <<: *yaml-yamllint
+  # yaml:
+  #   - <<: *yaml-yamllint
 
   python:
     - <<: *python-flake8

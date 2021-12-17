@@ -109,7 +109,8 @@ if has('nvim')
     Plug 'williamboman/nvim-lsp-installer'
 
     Plug 'hrsh7th/nvim-compe'
-    Plug 'glepnir/lspsaga.nvim'
+    "Plug 'glepnir/lspsaga.nvim'
+    Plug 'tami5/lspsaga.nvim'
 
     Plug 'simrat39/symbols-outline.nvim'
 endif
