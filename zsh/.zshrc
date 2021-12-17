@@ -1,29 +1,9 @@
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context ssh dir root_indicator midnight_commander)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs status virtualenv command_execution_time)
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-POWERLEVEL9K_STATUS_OK=false
-
-POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND='black'
-POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND='250'
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='238'
-POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='250'
-POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='237'
-POWERLEVEL9K_DIR_DEFAULT_FOREGROUND='blue'
-POWERLEVEL9K_DIR_HOME_BACKGROUND='237'
-POWERLEVEL9K_DIR_HOME_FOREGROUND='blue'
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='237'
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='blue'
-POWERLEVEL9K_STATUS_ERROR_BACKGROUND='088'
-POWERLEVEL9K_STATUS_ERROR_FOREGROUND='blue'
-POWERLEVEL9K_STATUS_OK_BACKGROUND='black'
-POWERLEVEL9K_STATUS_OK_FOREGROUND='blue'
-POWERLEVEL9K_VCS_CLEAN_FOREGROUND='blue'
-POWERLEVEL9K_VCS_CLEAN_BACKGROUND='237'
-POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='249'
-POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='237'
-POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='yellow'
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='237'
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 export GOPATH=$HOME/devel/go
 export PATH=$HOME/.local/bin/:$HOME/.poetry/bin:/opt/gotools/bin:$GOPATH/bin:$PATH
@@ -64,6 +44,7 @@ alias dsf='diff-so-fancy | less --tabs=4 -RFX'
 
 alias kgc='kubectl config get-contexts'
 alias kuc='kubectl config use-context'
+alias kun='kubectl config set-context --current --namespace'
 alias kgn='kubectl get namespaces'
 alias klf='kubectl logs --tail=100 -f'
 
@@ -130,4 +111,5 @@ vag() {
         && vim -R $(cut -d':' -f1 <<< "$line") +$(cut -d':' -f2 <<< "$line")
 }
 
+[ -f ~/.p10k.zsh ] && source ~/.p10k.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
