@@ -231,20 +231,10 @@ nnoremap <silent><C-j> :Lspsaga diagnostic_jump_next<CR>
 
 nnoremap <leader>so :SymbolsOutline<CR>
 
-" Coc
-" nnoremap <silent> gd <Plug>(coc-definition)
-" nnoremap <silent> gi <Plug>(coc-implementation)
-" nnoremap <silent> gr <Plug>(coc-references)
-" nnoremap <leader>rn <Plug>(coc-rename)
-" nnoremap <leader>cf <Plug>(coc-fix-current)
-" " Useful for 'get varible type under cursor'
-" nnoremap <leader>d :call CocAction('doHover')<CR>
-
 nnoremap <silent> gd :lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gi :lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> gr :lua vim.lsp.buf.references()<CR>
 nnoremap <leader>rn :Lspsaga rename<CR>
-" nnoremap <leader>cf :lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>ca :Lspsaga code_action<CR>
 vnoremap <leader>ca :<C-U>Lspsaga range_code_action<CR>
 " Useful for 'get varible type under cursor'
@@ -260,17 +250,8 @@ if has('nvim')
 inoremap <expr> <CR> compe#confirm('<CR>')
 lua <<EOF
 local function lsp_setup_servers()
-    local lspi = require 'lspinstall'
-
-    -- lspi.install_server('python')
-    -- lspi.install_server('yaml')
-    -- lspi.install_server('lua')
-    -- lspi.install_server('efm')
-
-    lspi.setup()
-    local servers = lspi.installed_servers()
-    table.insert(servers, "clangd")
-    for _, server in pairs(servers) do
+    local lspi = require 'nvim-lsp-installer'
+    lspi.on_server_ready(function(server)
         local caps = vim.lsp.protocol.make_client_capabilities()
         caps.textDocument.completion.completionItem.snippetSupport = true
         caps.textDocument.completion.completionItem.resolveSupport = {
@@ -286,8 +267,8 @@ local function lsp_setup_servers()
         elseif server == "python" then
             cfg.settings = {python={pythonPath='.venv/bin/python'}}
         end
-        require'lspconfig'[server].setup(cfg)
-    end
+        server:setup(cfg)
+    end)
 end
 
 

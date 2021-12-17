@@ -106,18 +106,13 @@ Plug 'ryanoasis/vim-devicons'
 
 if has('nvim')
     Plug 'neovim/nvim-lspconfig'
-    Plug 'kabouzeid/nvim-lspinstall'
+    Plug 'williamboman/nvim-lsp-installer'
 
     Plug 'hrsh7th/nvim-compe'
     Plug 'glepnir/lspsaga.nvim'
 
     Plug 'simrat39/symbols-outline.nvim'
 endif
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" :CocInstall coc-python
-" :CocInstall coc-snippets
-" :CocInstall coc-yaml
-" :CocInstall coc-json
 
 " Asynchronous Lint Engine
 " let g:ale_disable_lsp = 1
