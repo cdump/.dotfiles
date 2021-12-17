@@ -21,6 +21,7 @@ case $(uname) in
 Linux)
     TARGETS+=(
         awesome
+        firejail
         picom
         rofi
         kitty

@@ -1,0 +1,4 @@
+whitelist ${HOME}/.dotfiles
+read-only ${HOME}/.dotfiles
+whitelist ${HOME}/shots/
+whitelist ${HOME}/.ntechchrome
