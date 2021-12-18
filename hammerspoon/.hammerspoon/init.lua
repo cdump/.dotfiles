@@ -1,10 +1,21 @@
 hs.window.animationDuration = 0
 
-hs.hotkey.bind({"cmd"}, "Return", function()
-  -- hs.application.launchOrFocus("iTerm")
-  -- hs.execute("open -n -a iTerm")
+hs.hotkey.bind({"cmd", "Shift"}, "Return", function()
   hs.execute("open -n -a kitty")
 end)
+
+hs.hotkey.bind({"cmd"}, "Return", function()
+  local cwin = hs.window.focusedWindow()
+  if cwin then
+      local app = cwin:application()
+      if app and app:title() == "kitty" then
+          hs.execute("open -n -a kitty")
+          return
+      end
+  end
+  hs.application.launchOrFocus("kitty")
+end)
+
 hs.hotkey.bind({"cmd"}, "P", function()
   hs.application.launchOrFocus("KeePassXC.app")
 end)
@@ -27,9 +38,21 @@ end)
 
 hs.hotkey.bind({"cmd", "shift"}, "C", function()
     local cwin = hs.window.focusedWindow()
-    -- if cwin then cwin:close() end
+    if cwin then
+        if not cwin:close() then
+            local app = cwin:application()
+            if app and app:title() == "kitty" then
+                app:kill()
+            end
+        end
+    end
+end)
+
+hs.hotkey.bind({"cmd", "shift"}, "X", function()
+    local cwin = hs.window.focusedWindow()
     if cwin then cwin:application():kill() end
 end)
+
 hs.hotkey.bind({"cmd", "shift"}, "F", function()
     local cwin = hs.window.focusedWindow()
     if cwin then cwin:toggleFullScreen() end
