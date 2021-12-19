@@ -1,19 +1,23 @@
 hs.window.animationDuration = 0
 
 hs.hotkey.bind({"cmd", "Shift"}, "Return", function()
-  hs.execute("open -n -a kitty")
+  hs.execute("open -n -a Alacritty")
 end)
 
 hs.hotkey.bind({"cmd"}, "Return", function()
   local cwin = hs.window.focusedWindow()
   if cwin then
       local app = cwin:application()
-      if app and app:title() == "kitty" then
-          hs.execute("open -n -a kitty")
+      if app and app:title() == "Alacritty" then
+          hs.execute("open -n -a Alacritty")
           return
       end
   end
-  hs.application.launchOrFocus("kitty")
+  hs.application.launchOrFocus("Alacritty")
+end)
+
+hs.hotkey.bind({"cmd"}, "E", function()
+    hs.execute("open -n -a Alacritty --args -e /opt/homebrew/bin/ranger")
 end)
 
 hs.hotkey.bind({"cmd"}, "P", function()
@@ -41,7 +45,7 @@ hs.hotkey.bind({"cmd", "shift"}, "C", function()
     if cwin then
         if not cwin:close() then
             local app = cwin:application()
-            if app and app:title() == "kitty" then
+            if app then
                 app:kill()
             end
         end
