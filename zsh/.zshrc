@@ -12,7 +12,7 @@ export CUDACXX=/usr/local/cuda/bin/nvcc
 export LANG=en_US.UTF-8
 export EDITOR=vim
 export PAGER=less
-export BROWSER=firefox
+export BROWSER=chromium
 
 # poetry completions zsh
 # fpath=(~/.zsh-completions/src $fpath)

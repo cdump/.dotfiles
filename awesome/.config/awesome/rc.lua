@@ -43,12 +43,12 @@ settings = {
     ["theme"] = gears.filesystem.get_themes_dir() .. "zenburn/theme.lua",
     ["wallpaper"]  = homedir .. "/.wall.jpg",
 	["apps"]  = {
-		["terminal"]    = "urxvt",
+		["terminal"]    = "alacritty",
         -- ["browser"]     = "sh -c 'chromium-browser --force-device-scale-factor=1 || chromium --force-device-scale-factor=1'",
 		-- ["browser"]     = "sh -c 'chromium-browser || chromium'",
-		["browser"]     = "firefox",
+		["browser"]     = "chromium",
 		["mail"]        = "thunderbird",
-		["filemgr"]     = "urxvt -e 'ranger'",
+		["filemgr"]     = "alacritty --title ranger -e ranger",
 		["music"]       = "deadbeef",
 		["im"]          = "telegram-desktop",
 		["pass"]        = "keepassxc",
@@ -145,13 +145,15 @@ settings = {
 		},
 
 		{
-			name = "urxvt",
+			name = "term",
 			volatile = true,
 			layout = awful.layout.suit.tile.bottom,
 			rules = {
                 rule_any = {
                     name = {
-                        "urxvt"
+                        "urxvt",
+                        "kitty",
+                        "Alacritty",
                     }
                 },
 				properties = {
