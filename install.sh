@@ -24,7 +24,6 @@ Linux)
         firejail
         picom
         rofi
-        kitty
         urxvt
         xorg
         zathura
@@ -36,7 +35,6 @@ Linux)
 Darwin)
     TARGETS+=(
         alacritty
-        kitty
         hammerspoon
     )
 ;;

@@ -1,21 +1,18 @@
+---
 version: 2
 log-file: /tmp/efm.log
 log-level: 1
 
-# root-markers:
-#   - .git/
 lint-debounce: 1s
 
 tools:
-  yaml-yamllint: &yaml-yamllint
-    lint-command: 'yamllint -f parsable -'
-    lint-stdin: true
+  # yaml-yamllint: &yaml-yamllint
+  #   lint-command: 'yamllint -f parsable -'
+  #   lint-stdin: true
 
   python-flake8: &python-flake8
-    # lint-command: 'flake8 --stdin-display-name ${INPUT} -'
     root-markers:
       - .venv/
-      # - pyproject.toml
     require-marker: true
     lint-command: '.venv/bin/flake8 --stdin-display-name ${INPUT} -'
     lint-stdin: true
@@ -23,7 +20,6 @@ tools:
       - '%f:%l:%c: %m'
 
   javascript-eslint: &javascript-eslint
-    # lint-command: 'eslint -f visualstudio --stdin --stdin-filename ${INPUT}'
     root-markers:
       - node_modules/
     require-marker: true
