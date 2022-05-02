@@ -10,7 +10,7 @@ export PATH=$HOME/.local/bin/:$HOME/.poetry/bin:/opt/gotools/bin:$GOPATH/bin:$PA
 export CUDACXX=/usr/local/cuda/bin/nvcc
 
 export LANG=en_US.UTF-8
-export EDITOR=vim
+export EDITOR=nvim
 export PAGER=less
 export BROWSER=chromium
 
@@ -32,6 +32,8 @@ if [[ $(uname ) == "Darwin" ]]; then
 else
     alias ls='ls -F --color=auto --group-directories-first'
 fi
+
+alias qr='qrencode -t ansiutf8'
 
 alias vim='nvim'
 
@@ -113,5 +115,8 @@ vag() {
         && vim -R $(cut -d':' -f1 <<< "$line") +$(cut -d':' -f2 <<< "$line")
 }
 
+source /usr/share/fzf/completion.zsh
+source /usr/share/fzf/key-bindings.zsh
+
 [ -f ~/.p10k.zsh ] && source ~/.p10k.zsh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.local.zsh ] && source ~/.local.zsh
