@@ -30,12 +30,20 @@ tools:
       - "%f(%l,%c): %tarning %m"
       - "%f(%l,%c): %rror %m"
 
+  dockerfile-hadolint: &dockerfile-hadolint
+    lint-command: 'hadolint --no-color'
+    lint-formats:
+      - '%f:%l %m'
+
 languages:
   # yaml:
   #   - <<: *yaml-yamllint
 
   python:
     - <<: *python-flake8
+
+  dockerfile:
+    - <<: *dockerfile-hadolint
 
   javascript:
     - <<: *javascript-eslint

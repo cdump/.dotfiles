@@ -1,8 +1,5 @@
-vim/.vim/backup/
-vim/.vim/plugged
-vim/.vim/swap/
-vim/.vim/undo/
-vim/.vim/.netrwhist
+vim/.config/nvim/plugin/
 mc/.local/share/mc/history
 xorg/.fonts/.uuid
+xorg/.icons/default
 __pycache__
