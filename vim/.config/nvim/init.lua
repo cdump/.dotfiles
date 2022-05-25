@@ -32,6 +32,12 @@ vim.cmd [[
     hi FloatBorder guibg=#1e222a guifg=#7f8490
     hi PmenuThumb guibg=#7f8490
 
+    hi NormalFloat guifg=#e2e2e3 guibg=#1e222a
+    hi ErrorFloat guifg=#fc5d7c guibg=#1e222a
+    hi WarningFloat guifg=#e7c664 guibg=#1e222a
+    hi InfoFloat guifg=#76cce0 guibg=#1e222a
+    hi HintFloat guifg=#9ed072 guibg=#1e222a
+
     " p00f/nvim-ts-rainbow
     hi rainbowcol1 guifg=#5fd7ff
     hi rainbowcol2 guifg=#ffffaf
