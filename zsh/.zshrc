@@ -115,8 +115,17 @@ vag() {
         && vim -R $(cut -d':' -f1 <<< "$line") +$(cut -d':' -f2 <<< "$line")
 }
 
-source /usr/share/fzf/completion.zsh
-source /usr/share/fzf/key-bindings.zsh
+source_if_exists() {
+    [ -f $1 ] && source $1
+}
 
-[ -f ~/.p10k.zsh ] && source ~/.p10k.zsh
-[ -f ~/.local.zsh ] && source ~/.local.zsh
+# arch-linux
+source_if_exists /usr/share/fzf/completion.zsh
+source_if_exists /usr/share/fzf/key-bindings.zsh
+
+# ubuntu
+source_if_exists /usr/share/doc/fzf/examples/key-bindings.zsh
+source_if_exists /usr/share/doc/fzf/examples/completion.zsh
+
+source_if_exists ~/.p10k.zsh
+source_if_exists ~/.local.zsh
