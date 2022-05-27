@@ -230,7 +230,14 @@ return require('packer').startup({ function(use)
                         ['p'] = 'paste_from_clipboard',
                         ['q'] = 'close_window',
                         ['?'] = 'show_help',
-                        ['u'] = 'navigate_up',
+                        ['u'] = function(state)
+                            local node = state.tree:get_node()
+                            if node.level == 0 then
+                                require('neo-tree.sources.filesystem.commands').navigate_up(state)
+                            else
+                                require('neo-tree.sources.manager').focus('filesystem', node:get_parent_id(), nil)
+                            end
+                        end,
                         ['.'] = 'set_root',
                         ['cd'] = function(state)
                             local node = state.tree:get_node()
