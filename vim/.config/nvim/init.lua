@@ -129,6 +129,7 @@ vim.keymap.set('n', '<C-\\>', '<cmd>Neotree source=filesystem position=left reve
 vim.keymap.set('n', '<leader>t', '<cmd>SymbolsOutline<cr>')
 
 
+vim.keymap.set('', '<leader>l', require('lsp_lines').toggle, { desc = 'Toggle lsp_lines' })
 vim.keymap.set('n', '<leader>x', function() require('telescope.builtin').diagnostics({ bufnr = 0 }) end)
 vim.keymap.set('n', '<leader><leader>n', function() require('telescope').extensions.notify.notify() end)
 --[[ LSP ]]
@@ -172,11 +173,12 @@ vim.diagnostic.config({
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = false,
-    virtual_text = {
-        spacing = 3,
-        severity_limit = 'Error',
-        prefix = '·',
-    },
+    virtual_text = false,
+    -- virtual_text = {
+    --     spacing = 3,
+    --     severity_limit = 'Error',
+    --     prefix = '·',
+    -- },
 })
 
 
