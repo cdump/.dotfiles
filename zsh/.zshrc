@@ -115,6 +115,10 @@ vag() {
         && vim -R $(cut -d':' -f1 <<< "$line") +$(cut -d':' -f2 <<< "$line")
 }
 
+copy_terminfo() {
+    infocmp | ssh $1 tic -x -
+}
+
 source_if_exists() {
     [ -f $1 ] && source $1
 }
