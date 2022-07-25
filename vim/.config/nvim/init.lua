@@ -155,7 +155,14 @@ for _, server_name in pairs({ 'clangd', 'sumneko_lua', 'pyright', 'efm', 'docker
         on_attach = lsp_on_attach
     }
     if server_name == 'clangd' then
-        cfg.cmd = { 'clangd', '--background-index', '--clang-tidy' }
+        cfg.cmd = { 'clangd',
+            '--background-index',
+            '--clang-tidy',
+            '--pch-storage=memory',
+            '--completion-style=detailed',
+            -- '--inlay-hints',
+            '-j=2',
+        }
     elseif server_name == 'pyright' then
         cfg.settings = { python = { pythonPath = '.venv/bin/python' } }
     elseif server_name == 'sumneko_lua' then
