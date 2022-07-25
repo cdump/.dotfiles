@@ -145,7 +145,7 @@ local lsp_on_attach = function(_, bufnr)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', '<leader>d', vim.lsp.buf.hover) -- useful for 'get varible type under cursor'
 end
-require('nvim-lsp-installer').setup {
+require('mason-lspconfig').setup {
     automatic_installation = { exclude = { 'clangd' } },
 }
 for _, server_name in pairs({ 'clangd', 'sumneko_lua', 'pyright', 'efm', 'dockerls', 'gopls' }) do

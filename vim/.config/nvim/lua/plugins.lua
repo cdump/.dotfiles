@@ -270,8 +270,14 @@ return require('packer').startup({ function(use)
     }
 
     use {
-        'neovim/nvim-lspconfig',
-        'williamboman/nvim-lsp-installer'
+        'williamboman/mason.nvim',
+        config = function() require('mason').setup{} end
+    }
+    use {
+        'williamboman/mason-lspconfig.nvim'
+    }
+    use {
+        'neovim/nvim-lspconfig'
     }
 
     use { -- a tree like view for symbols using LSP
