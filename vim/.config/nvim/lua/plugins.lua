@@ -12,7 +12,7 @@ return require('packer').startup({ function(use)
         'wbthomason/packer.nvim'
     }
 
-    use{
+    use {
         'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
         config = function()
             require('lsp_lines').setup()
@@ -278,7 +278,7 @@ return require('packer').startup({ function(use)
 
     use {
         'williamboman/mason.nvim',
-        config = function() require('mason').setup{} end
+        config = function() require('mason').setup {} end
     }
     use {
         'williamboman/mason-lspconfig.nvim'
@@ -299,7 +299,12 @@ return require('packer').startup({ function(use)
 
     use { -- snippets
         'L3MON4D3/LuaSnip',
-        'rafamadriz/friendly-snippets',
+        requires = {
+            'rafamadriz/friendly-snippets',
+        },
+        config = function()
+            require('luasnip.loaders.from_vscode').lazy_load()
+        end
     }
 
     use { -- autocompletion
