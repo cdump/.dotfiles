@@ -1,4 +1,5 @@
 set selection-clipboard clipboard
 set default-bg "#29353b"
-set show-v-scrollbar true
+set guioptions vs
 set page-padding 50
+set sandbox none
