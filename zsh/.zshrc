@@ -123,6 +123,9 @@ source_if_exists() {
     [ -f $1 ] && source $1
 }
 
+alias hex_escaped='od -An -tx1 | sed -E "s/([0-9a-f]{2})/\\\x\1/g"|tr -d " \n"'
+alias hex_0x='od -An -tx1 | sed -E "s/([0-9a-f]{2})/0x\1,/g"|tr -d " \n"'
+
 # arch-linux
 source_if_exists /usr/share/fzf/completion.zsh
 source_if_exists /usr/share/fzf/key-bindings.zsh
