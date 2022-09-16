@@ -23,6 +23,10 @@ return require('packer').startup({ function(use)
         'sainnhe/sonokai'
     }
 
+    use { -- Create Color Code
+        'uga-rosa/ccc.nvim'
+    }
+
     use { -- fastest Neovim colorizer
         'norcalli/nvim-colorizer.lua',
         config = function() require 'colorizer'.setup {
