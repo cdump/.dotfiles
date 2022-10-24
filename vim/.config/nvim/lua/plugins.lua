@@ -16,6 +16,7 @@ return require('packer').startup({ function(use)
         'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
         config = function()
             require('lsp_lines').setup()
+            vim.diagnostic.config({ virtual_lines = false })
         end,
     }
 
@@ -74,16 +75,38 @@ return require('packer').startup({ function(use)
         end
     }
 
-    use {
-        'rcarriga/nvim-notify',
-        config = function()
-            require('notify').setup {
-                stages = 'static',
-                max_width = 120,
+    use({
+        'folke/noice.nvim',
+        event = 'VimEnter',
+        config = function() require('noice').setup {
+                cmdline = {
+                    enabled = true,
+                    view = 'cmdline',
+                    format = {
+                        cmdline = { pattern = '^:', icon = '', conceal = false },
+                    },
+                },
+                messages = {
+                    view_search = 'cmdline',
+                },
+                views = {
+                    mini = {
+                        timeout = 5000,
+                        border = {
+                            style = 'rounded',
+                        },
+                        position = {
+                            row = -1,
+                            col = '100%',
+                        },
+                    },
+                },
             }
-            vim.notify = require('notify')
-        end
-    }
+        end,
+        requires = {
+            'MunifTanjim/nui.nvim',
+        }
+    })
 
     use { -- Extended Vim syntax highlighting for C and C++ (C++11/14/17/20)
         'bfrg/vim-cpp-modern'
@@ -99,7 +122,7 @@ return require('packer').startup({ function(use)
                     enable = true,
                     colors = { '#5fd7ff', '#ffffaf', '#afffff', '#ffd7ff' }
                 },
-                ensure_installed = { 'c', 'cpp', 'lua', 'python' },
+                ensure_installed = { 'c', 'cpp', 'lua', 'python', 'bash', 'regex' },
                 highlight = {
                     enable = true,
                     disable = { 'c', 'cpp' }, -- bfrg/vim-cpp-modern is better (#if 0 support, auto type support, ...)
@@ -143,7 +166,6 @@ return require('packer').startup({ function(use)
                 },
             }
             require('telescope').load_extension('fzf')
-            require('telescope').load_extension('notify')
         end
     }
 
@@ -280,7 +302,7 @@ return require('packer').startup({ function(use)
         end
     }
 
-    use {
+    use { -- easily install and manage LSP servers, DAP servers, linters, and formatters
         'williamboman/mason.nvim',
         config = function() require('mason').setup {} end
     }

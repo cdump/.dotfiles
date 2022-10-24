@@ -133,7 +133,7 @@ vim.keymap.set('', '<leader>l', require('lsp_lines').toggle, { desc = 'Toggle ls
 vim.keymap.set('n', '<leader>x', function() require('telescope.builtin').diagnostics({ bufnr = 0 }) end)
 vim.keymap.set('n', '<leader><leader>n', function() require('telescope').extensions.notify.notify() end)
 --[[ LSP ]]
-local lsp_capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lsp_on_attach = function(_, bufnr)
     local opts = { buffer = bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
