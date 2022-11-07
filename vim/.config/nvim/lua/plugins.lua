@@ -75,38 +75,38 @@ return require('packer').startup({ function(use)
         end
     }
 
-    use({
-        'folke/noice.nvim',
-        event = 'VimEnter',
-        config = function() require('noice').setup {
-                cmdline = {
-                    enabled = true,
-                    view = 'cmdline',
-                    format = {
-                        cmdline = { pattern = '^:', icon = '', conceal = false },
-                    },
-                },
-                messages = {
-                    view_search = 'cmdline',
-                },
-                views = {
-                    mini = {
-                        timeout = 5000,
-                        border = {
-                            style = 'rounded',
-                        },
-                        position = {
-                            row = -1,
-                            col = '100%',
-                        },
-                    },
-                },
-            }
-        end,
-        requires = {
-            'MunifTanjim/nui.nvim',
-        }
-    })
+    -- use({
+    --     'folke/noice.nvim',
+    --     event = 'VimEnter',
+    --     config = function() require('noice').setup {
+    --             cmdline = {
+    --                 enabled = true,
+    --                 view = 'cmdline',
+    --                 format = {
+    --                     cmdline = { pattern = '^:', icon = '', conceal = false },
+    --                 },
+    --             },
+    --             messages = {
+    --                 view_search = 'cmdline',
+    --             },
+    --             views = {
+    --                 mini = {
+    --                     timeout = 5000,
+    --                     border = {
+    --                         style = 'rounded',
+    --                     },
+    --                     position = {
+    --                         row = -1,
+    --                         col = '100%',
+    --                     },
+    --                 },
+    --             },
+    --         }
+    --     end,
+    --     requires = {
+    --         'MunifTanjim/nui.nvim',
+    --     }
+    -- })
 
     use { -- Extended Vim syntax highlighting for C and C++ (C++11/14/17/20)
         'bfrg/vim-cpp-modern'
