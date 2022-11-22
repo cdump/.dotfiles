@@ -149,7 +149,7 @@ end
 require('mason-lspconfig').setup {
     automatic_installation = { exclude = { 'clangd' } },
 }
-for _, server_name in pairs({ 'clangd', 'sumneko_lua', 'pyright', 'efm', 'dockerls', 'gopls' }) do
+for _, server_name in pairs({ 'clangd', 'sumneko_lua', 'pyright', 'efm', 'dockerls', 'gopls', 'golangci_lint_ls' }) do
     local cfg = {
         capabilities = lsp_capabilities,
         on_attach = lsp_on_attach
@@ -167,6 +167,8 @@ for _, server_name in pairs({ 'clangd', 'sumneko_lua', 'pyright', 'efm', 'docker
         cfg.settings = { python = { pythonPath = '.venv/bin/python' } }
     elseif server_name == 'sumneko_lua' then
         cfg.settings = { Lua = { diagnostics = { globals = { 'vim' } } } }
+    elseif server_name == 'gopls' then
+        cfg.settings = { gopls = { gofumpt = true } } -- go install mvdan.cc/gofumpt@latest
     end
     require('lspconfig')[server_name].setup(cfg)
 end
