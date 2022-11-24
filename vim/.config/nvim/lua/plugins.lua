@@ -302,6 +302,23 @@ return require('packer').startup({ function(use)
         end
     }
 
+    use {
+        'jose-elias-alvarez/null-ls.nvim',
+        config = function()
+            local null_ls = require('null-ls')
+            null_ls.setup {
+                sources = {
+                    null_ls.builtins.diagnostics.flake8.with{
+                        only_local = '.venv/bin',
+                    },
+                    null_ls.builtins.code_actions.eslint.with{
+                        only_local = 'node_modules/eslint/bin',
+                    },
+                },
+            }
+        end
+    }
+
     use { -- easily install and manage LSP servers, DAP servers, linters, and formatters
         'williamboman/mason.nvim',
         config = function() require('mason').setup {} end

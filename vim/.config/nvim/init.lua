@@ -149,7 +149,7 @@ end
 require('mason-lspconfig').setup {
     automatic_installation = { exclude = { 'clangd' } },
 }
-for _, server_name in pairs({ 'clangd', 'sumneko_lua', 'pyright', 'efm', 'dockerls', 'gopls', 'golangci_lint_ls' }) do
+for _, server_name in pairs({ 'clangd', 'sumneko_lua', 'pyright', 'dockerls', 'gopls', 'golangci_lint_ls' }) do
     local cfg = {
         capabilities = lsp_capabilities,
         on_attach = lsp_on_attach
