@@ -121,7 +121,7 @@ settings = {
             rules = {
                 rule_any = {
                     class = {
-                        "Thunderbird", "Geary", "Mail",
+                        "thunderbird", "Geary", "Mail",
                     }
                 },
                 properties = {
