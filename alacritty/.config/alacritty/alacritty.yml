@@ -174,7 +174,7 @@ font:
   #
   # Need custom build:
   # https://github.com/alacritty/alacritty/issues/4616#issuecomment-889349692
-  use_thin_strokes: true
+  # use_thin_strokes: true
 
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
