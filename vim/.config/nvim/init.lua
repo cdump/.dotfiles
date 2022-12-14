@@ -57,10 +57,13 @@ vim.fn.sign_define('DiagnosticSignHint', { text = ' ', texthl = 'DiagnosticSi
 
 --[[ general options ]]
 vim.opt.number = true -- show line numbers
+vim.opt.relativenumber = true
+vim.opt.showmode = false -- already have mode in lualine plugin
 vim.opt.confirm = true -- raise a dialogue asking if you wish to save changed files
 vim.opt.cursorline = true -- higlight current line
 vim.opt.scrolloff = 5 -- minimal number of screen lines to keep above and below the cursor
 vim.opt.linebreak = true -- do not break the words
+vim.opt.mouse = '' -- disable mouse
 vim.opt.wildmode = 'longest:full,full'
 vim.opt.langmap = 'ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz'
 vim.cmd [[ autocmd FileType * setlocal formatoptions-=cro ]] -- Disable comments on Enter press
@@ -99,8 +102,10 @@ vim.keymap.set('n', '//', '<cmd>nohlsearch<cr>') -- clear current search highlig
 
 
 --[[ Splits ]]
-vim.keymap.set('n', 'vv', '<C-w>v<C-w>l') -- vertical split
-vim.keymap.set('n', 'ss', '<C-w>s<C-w>j') -- horizontal split
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+vim.keymap.set('n', 'vv', '<cmd>vsplit<cr>') -- vertical split
+vim.keymap.set('n', 'ss', '<cmd>split<cr>') -- horizontal split
 vim.keymap.set('n', '<leader>w', '<C-w>w') -- jump to next split
 vim.keymap.set('n', '+', '2<C-w>+')
 vim.keymap.set('n', '-', '2<C-w>-')
