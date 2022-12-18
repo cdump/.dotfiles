@@ -77,15 +77,15 @@ setopt extended_history     # save each command's beginning timestamp (in second
 unsetopt share_history
 alias rh='fc -RI'           # refresh-history
 
-setopt menu_complete        # on an ambiguous completion, instead of listing possibilities or beeping, insert the first match immediately
+# setopt menu_complete        # on an ambiguous completion, instead of listing possibilities or beeping, insert the first match immediately
 setopt complete_in_word
 setopt always_to_end
 setopt globdots             # include .dotfiles in completion
 
 zstyle ':completion:*' menu select # search
-zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*' completer _complete _match #_approximate
 zstyle ':completion:*:match:*' original only
-zstyle ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
+# zstyle ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # match uppercase from lowercase
 
 # Mc
