@@ -72,7 +72,12 @@ vim.keymap.set('n', '<leader>q', '<cmd>if len(filter(range(1, bufnr("$")), "bufl
 vim.keymap.set('n', '<leader><leader>q', '<cmd>qall<cr>') -- close vim
 vim.keymap.set('n', '<leader>v', '<cmd>set cursorcolumn!<cr>')
 vim.keymap.set('n', '<leader>s', '<cmd>w<cr>')
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
+-- [[ Visual mode move blocks ]]
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 --[[ Command mode ]]
 vim.keymap.set('c', '<C-k>', '<Left>')
@@ -127,6 +132,7 @@ vim.keymap.set('n', '<C-p>', require('telescope.builtin').find_files)
 vim.keymap.set('n', '<leader>a', require('telescope.builtin').live_grep)
 -- nnoremap <leader>a :Ag<Space>
 vim.keymap.set('n', '<leader>m', require('markword').toggle)
+vim.keymap.set('n', '<leader>\'', require('telescope.builtin').marks)
 
 
 --[[ File manager ]]
