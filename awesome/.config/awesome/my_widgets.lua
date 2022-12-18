@@ -5,9 +5,9 @@ local naughty   = require("naughty")
 local gears     = require("gears")
 local calendar  = require("calendar")
 local io        = require("io")
-local moex      = require("moex")
 local dkjson    = require("dkjson")
 local utf8      = require("utf8")
+local stonks    = require("stonks")
 
 local battery = {}
 
@@ -243,11 +243,12 @@ return {
 		pc = val.bg
 	end
 
-	moex.addToWidget(widgets.quotes.widget, widgets.quotes.update, {
-		[1] = {"currency", "EUR_RUB__TOM", "€" },
-		[2] = {"currency", "USD000UTSTOM", "$" },
-		-- [3] = {"futures", "BRK0", " " }
-	})
+    stonks.addToWidget(widgets.quotes.widget, widgets.quotes.update, {
+        {"moex_currency", "EUR_RUB__TOM", "€" },
+        {"moex_currency", "USD000UTSTOM", "$" },
+        {"binance", "BTCUSDT", "₿" },
+        {"binance", "ETHUSDT", "Ð" },
+    })
 
 	volume_change(nil);
 	bright_change(nil);

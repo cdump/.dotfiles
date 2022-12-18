@@ -1,6 +1,3 @@
-[submodule "awesome/.config/awesome/moex"]
-	path = awesome/.config/awesome/moex
-	url = https://github.com/cdump/awesome-moex
 [submodule "awesome/.config/awesome/calendar"]
 	path = awesome/.config/awesome/calendar
 	url = https://github.com/cdump/awesome-calendar
@@ -28,3 +25,6 @@
 [submodule "hammerspoon/.hammerspoon/Spoons/SkyRocket.spoon"]
 	path = hammerspoon/.hammerspoon/Spoons/SkyRocket.spoon
 	url = https://github.com/dbalatero/SkyRocket.spoon
+[submodule "awesome/.config/awesome/stonks"]
+	path = awesome/.config/awesome/stonks
+	url = https://github.com/cdump/stonks
