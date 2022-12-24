@@ -1,0 +1,8 @@
+color=111111
+layout-bg-color=111111
+layout-border-color=111111
+layout-text-color=555555
+font-size=25
+indicator-radius=75
+line-uses-ring
+line-uses-inside
