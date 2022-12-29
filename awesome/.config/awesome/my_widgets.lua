@@ -266,8 +266,12 @@ return {
         widgets.battery.update(data[1] .. '% <span color="#888">|</span> ' .. data[2])
         freq = exec("cat /proc/cpuinfo|grep '^cpu MHz'|awk '{s+=$4;c++;}END{print int(s/c);}'")
         temp = exec("sensors|grep 'Core 0'|awk '{print $3}'|tr -d '+'")
-        if freq ~= nil and temp ~= nil then
-            widgets.cpu.update(freq .. ' <span color="#888">|</span> ' .. temp)
+        if freq ~= nil then
+            local text = freq
+            if temp ~= nil then
+                text = text ..  ' <span color="#888">|</span> ' .. temp
+            end
+            widgets.cpu.update(text)
         end
     end)
 	timer_info:start()
