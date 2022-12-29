@@ -1,0 +1,3 @@
+[Default]
+save_dir=$HOME/shots
+save_filename_format=%Y%m%d-%Hh%Mm%Ss.png
