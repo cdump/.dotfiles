@@ -1,0 +1,272 @@
+
+xwayland disable
+
+set $mod Mod4
+
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Your preferred terminal emulator
+set $term alacritty
+
+exec_always {
+    gsettings set org.gnome.desktop.interface font-name 'Cantarell 10'
+    # gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
+    # gsettings set org.gnome.desktop.interface document-font-name 'Cantarell 10'
+}
+
+exec_always ~/.config/sway/scripts/focus-last.py
+exec mako
+
+output * bg ~/.wall.jpg fill
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+output eDP-1 resolution 1920x1200@60Hz scale 1.5
+output DP-2 resolution 3840x2160@144Hz scale 2
+bindswitch --reload --locked lid:on output eDP-1 disable
+bindswitch --reload --locked lid:off output eDP-1 enable
+
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' \
+#               resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+
+exec swayidle -w \
+    timeout 300 'swaymsg "output * dpms off" && swaylock -f' \
+    resume 'swaymsg "output * dpms on"'
+
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+input "type:keyboard" {
+    xkb_layout "us,ru"
+    xkb_options "grp:alt_shift_toggle"
+    repeat_delay 650
+    repeat_rate 30
+}
+
+### Key bindings
+#
+# Basics:
+#
+    font pango:Dejavu Sans 9
+    hide_edge_borders both
+    focus_follows_mouse no
+    default_border pixel 1
+    default_floating_border pixel 1
+    default_orientation vertical
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+bindsym --to-code {
+    $mod+Return exec $term
+    # $mod+q exec MOZ_ENABLE_WAYLAND=1 firefox
+    $mod+q exec ~/.local/bin/chromium
+    $mod+F2 exec MOZ_ENABLE_WAYLAND=1 ~/.local/bin/thunderbird
+    $mod+p exec ~/.local/bin/keepassxc
+    $mod+e exec alacritty --class ranger -e ranger
+    $mod+r exec rofi -show run
+    $mod+n exec featherpad
+    $mod+F5 exec ~/.local/bin/telegram-desktop -scale 75
+    $mod+F6 exec ~/.local/bin/mattermost-desktop --ozone-platform-hint=auto
+
+    XF86MonBrightnessUp exec sudo light -A 10
+    XF86MonBrightnessDown exec sudo light -U 10
+
+    XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
+    XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
+    XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+    Ctrl+Delete exec sleep 0.3 && killall -SIGUSR1 swayidle
+    $mod+F12 exec sleep 0.3 && swaylock -f && sudo systemctl suspend
+
+    Print exec GRIM_DEFAULT_DIR=~/shots/ grim -g "$(slurp -b '#000000bb' -s '#00000011')"
+    $mod+Print exec grim -g "$(slurp -b '#000000bb' -s '#00000011')" - | swappy -f -
+    Ctrl+Print exec killall -SIGINT wf-recorder && notify-send 'Recording finished' || (notify-send 'Recording started' && wf-recorder -g "$(slurp -b '#000000bb' -s '#00000011')" -f ~/shots/vid-$(date +"%Y%m%d-%Hh%Mm%Ss").mp4)
+
+    # Kill focused window
+    $mod+Shift+c kill
+
+    $mod+Escape workspace back_and_forth
+    $mod+Left workspace prev
+    $mod+Right workspace next
+
+    # Reload the configuration file
+    $mod+Shift+Control+r reload
+
+    # Exit sway (logs you out of your Wayland session)
+    # $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+    # Move your focus around
+    $mod+$left focus left
+    $mod+$down focus down
+    $mod+$up focus up
+    $mod+$right focus right
+
+    # Move the focused window with the same, but add Shift
+    $mod+Shift+$left move left
+    $mod+Shift+$down move down
+    $mod+Shift+$up move up
+    $mod+Shift+$right move right
+
+    # Ditto, with arrow keys
+}
+#
+# Workspaces:
+#
+    set $ws1 "1:₁ web"
+    set $ws2 "2:₂ file"
+    set $ws3 "3:₃ mail"
+    set $ws4 "4:₄ im"
+    set $ws5 "5:₅ term"
+    set $ws6 "6:₆ six"
+    set $ws7 "7:₇ seven"
+    set $ws8 "8:₈ eight"
+    set $ws9 "9:₉ nine"
+    set $ws10 "10:₁₀ ten"
+
+bindsym --to-code {
+    # Switch to workspace
+    $mod+1 workspace number 1 $ws1
+    $mod+2 workspace number 2 $ws2
+    $mod+3 workspace number 3 $ws3
+    $mod+4 workspace number 4 $ws4
+    $mod+5 workspace number 5 $ws5
+    $mod+6 workspace number 6 $ws6
+    $mod+7 workspace number 7 $ws7
+    $mod+8 workspace number 8 $ws8
+    $mod+9 workspace number 9 $ws9
+    $mod+0 workspace number 10 $ws10
+    # Move focused container to workspace
+    $mod+Shift+1 move container to workspace number 1 $ws1; workspace number 1;
+    $mod+Shift+2 move container to workspace number 2 $ws2; workspace number 2;
+    $mod+Shift+3 move container to workspace number 3 $ws3; workspace number 3;
+    $mod+Shift+4 move container to workspace number 4 $ws4; workspace number 4;
+    $mod+Shift+5 move container to workspace number 5 $ws5; workspace number 5;
+    $mod+Shift+6 move container to workspace number 6 $ws6; workspace number 6;
+    $mod+Shift+7 move container to workspace number 7 $ws7; workspace number 7;
+    $mod+Shift+8 move container to workspace number 8 $ws8; workspace number 8;
+    $mod+Shift+9 move container to workspace number 9 $ws9; workspace number 9;
+    $mod+Shift+0 move container to workspace number 10 $ws10; workspace number 10;
+
+    $mod+a exec ~/.config/sway/scripts/move-to-new-workspace.sh
+    $mod+Shift+r exec ~/.config/sway/scripts/rename-workspace.sh
+
+    $mod+Ctrl+Left exec ~/.config/sway/scripts/move-workspace.py --move left
+    $mod+Ctrl+Right exec ~/.config/sway/scripts/move-workspace.py --move right
+}
+
+#
+# Layout stuff:
+#
+bindsym --to-code {
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    $mod+b splith
+    $mod+v splitv
+
+    # Switch the current container between different layout styles
+    # bindsym --to-code $mod+s layout stacking
+    # $mod+s layout toggle split
+    # $mod+t layout tabbed
+    $mod+space layout toggle split tabbed stacking
+
+    # Make the current focus fullscreen
+    $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    $mod+Shift+f floating toggle
+    $mod+Shift+s sticky toggle
+
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    # $mod+Shift+s move scratchpad
+    $mod+s move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    # $mod+s scratchpad show
+
+    # ` symbol
+    $mod+grave scratchpad show
+
+    $mod+tab exec --no-startup-id ~/.config/sway/scripts/focus-last.py --switch
+}
+
+#
+# Resizing containers:
+#
+set $resize_step 25px
+mode "resize" {
+    bindsym --to-code {
+        $left resize shrink width $resize_step
+        $down resize grow height $resize_step
+        $up resize shrink height $resize_step
+        $right resize grow width $resize_step
+
+        # Ditto, with arrow keys
+        Left resize shrink width $resize_step
+        Down resize grow height $resize_step
+        Up resize shrink height $resize_step
+        Right resize grow width $resize_step
+
+        # Return to default mode
+        Return mode "default"
+        Escape mode "default"
+    }
+}
+bindsym --to-code $mod+Ctrl+r mode "resize"
+
+bar {
+    swaybar_command waybar
+}
+
+for_window [app_id="org.keepassxc.KeePassXC"] floating enable, move container to workspace $ws1; workspace $ws1;
+for_window [app_id="firefox|chromium|google-chrome.*"] move container to workspace $ws1; workspace $ws1; layout tabbed;
+for_window [title="Save File"] floating enable
+
+for_window [app_id="ranger"] move container to workspace $ws2; workspace $ws2;
+
+for_window [app_id="thunderbird"] move container to workspace $ws3;
+
+for_window [title="Mattermost Desktop App"] floating enable, move container to workspace $ws4; workspace $ws4;
+for_window [app_id="org.telegram.desktop"] floating enable, move container to workspace $ws4; workspace $ws4;
+
+for_window [app_id="featherpad|pavucontrol-qt"] floating enable
+
+for_window [app_id="Alacritty"] move container to workspace $ws5; workspace $ws5;
+
+
+
+# Property Name         Border    BG        Text      Indicator Child Border
+client.focused          "#1E2320" "#1E2320" "#F0DFAF" "#ff0000" "#3F3F3F"
+# client.focused_inactive $base01 $base0F $base05 $base03 $base01
+# client.unfocused        "#3f3f3f" "#3F3F3F" "#ACACAC" "#00ff00" "#1f1f1f"
+client.unfocused        "#3f3f3f" "#3F3F3F" "#ACACAC" "#00ff00" "#1f1f1f"
+# client.urgent           $base08 $base08 $base00 $base08 $base08
+#client.placeholder      $base00 $base00 $base05 $base00 $base00
+#client.background       $base07
+
+include /etc/sway/config.d/*

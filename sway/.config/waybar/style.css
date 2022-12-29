@@ -1,0 +1,118 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: Dejavu Sans;
+    font-size: 9pt;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: #000000;
+    color: #282828;
+    padding: 0;
+    margin: 0;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+tooltip {
+    background: #333333;
+    /* border: 1px solid #ff0000; */
+}
+tooltip * {
+	font-family: DejaVuSansMono Nerd Font Mono;
+    margin: 0px;
+    padding: 0px;
+}
+
+#custom-arrow {
+	font-family: DejaVuSansMono Nerd Font Mono;
+    font-size: 11pt;
+    padding: 0;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background-color: #111111;
+    color: #aaaaaa;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+#workspaces button:hover {
+    background: inherit;
+}
+
+#workspaces button.focused {
+    background-color: #2f2f2f;
+    color: #F0DFAF;
+}
+
+#workspaces button.urgent {
+    background-color: #eb4d4b;
+}
+
+#mode {
+    color: #dddddd;
+    padding: 0 10px;
+}
+
+.modules-right > widget > label {
+    padding: 0 8px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* margin for rightmost module */
+.modules-right > widget:last-child > label {
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.modules-right > widget:nth-last-child(4n) {
+    /* arrow */
+    background-color: #282828;
+    color: #111111;
+}
+.modules-right > widget:nth-last-child(4n-1)  {
+    /* element */
+    background-color: #111111;
+    color: #aaaaaa;
+}
+
+.modules-right > widget:nth-last-child(4n-2) {
+    /* arrow */
+    background-color: #111111;
+    color: #282828;
+}
+.modules-right > widget:nth-last-child(4n-3) {
+    /* element */
+    background-color: #282828;
+    color: #aaaaaa;
+}
+
+
+#tray {
+    /* background-color: #2980b9; */
+    /* background-color: #000000; */
+    padding: 0 5px;
+}
+/* #tray > .needs-attention { */
+/*     -gtk-icon-effect: highlight; */
+/*     background-color: #eb4d4b; */
+/* } */
+
+#pulseaudio.muted {
+    color: #ffaaaa;
+}
+#temperature.critical {
+    background-color: #ff2828;
+}
+
+/* #network.disconnected { */
+/*     background-color: #ff1111; */
+/* } */

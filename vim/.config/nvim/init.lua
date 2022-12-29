@@ -66,6 +66,7 @@ vim.opt.linebreak = true -- do not break the words
 vim.opt.mouse = '' -- disable mouse
 vim.opt.wildmode = 'longest:full,full'
 vim.opt.langmap = 'ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz'
+vim.keymap.set('n', 'Ж', ':')
 vim.cmd [[ autocmd FileType * setlocal formatoptions-=cro ]] -- Disable comments on Enter press
 vim.keymap.set('i', '<C-c>', '<Esc>')
 vim.keymap.set('n', '<leader>q', '<cmd>if len(filter(range(1, bufnr("$")), "buflisted(v:val)")) == 1|:quit|else|:bprevious|bdelete #|endif<cr>') -- close buffer or vim
