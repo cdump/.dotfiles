@@ -27,6 +27,9 @@ source ~/.zsh_plugins/ohmyzsh/plugins/tmux/tmux.plugin.zsh
 source ~/.zsh_plugins/ohmyzsh/plugins/command-not-found/command-not-found.plugin.zsh
 source ~/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# expand sudo aliases
+alias sudo='sudo '
+
 if [[ $(uname ) == "Darwin" ]]; then
     alias ls='ls -F --color=auto'
 else
