@@ -2,7 +2,7 @@
     border: none;
     border-radius: 0;
     font-family: Dejavu Sans;
-    font-size: 11px;
+    font-size: 9pt;
     min-height: 0;
 }
 
@@ -28,7 +28,7 @@ tooltip * {
 
 #custom-arrow {
 	font-family: DejaVuSansMono Nerd Font Mono;
-    font-size: 15px;
+    font-size: 11pt;
     padding: 0;
 }
 

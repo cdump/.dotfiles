@@ -1,7 +1,6 @@
 {
     "layer": "top", // Waybar at top layer
     "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 16, // Waybar height (to be removed for auto height)
     "modules-left": [
         "sway/workspaces",
         "sway/mode",
@@ -34,13 +33,14 @@
         "tooltip": false
     },
     "custom/stonks": {
-        "exec": "~/.config/sway/scripts/stonks.py",
+        //"exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:EUR_RUB__TOM:€' --ticker 'moex_currency:USD000UTSTOM:$' --ticker 'binance:BTCUSDT:₿' --ticker 'binance:ETHUSDT:Ð'",
+        "exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:USD000UTSTOM:$'",
         "return-type": "json",
     },
 
     // Modules configuration
     "custom/weather": {
-        "exec": "curl -s 'https://wttr.in/Moscow?format=%c%t'",
+        "exec": "curl -s 'https://wttr.in/Moscow?format=%c%t' || echo '?'",
         "interval": 3600
     },
     "sway/workspaces": {
@@ -55,7 +55,10 @@
         "today-format": "<span color='#ee7777'><b>{}</b></span>",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
         "format-alt": "{:%H:%M:%S}",
-        "format": "{:%d %B, %a · %H:%M:%S}"
+        "format": "{:%d %B, %a · %H:%M:%S}",
+        "on-scroll": {
+            "calendar": -1,
+        },
     },
     "battery": {
         "states": {
@@ -87,13 +90,15 @@
         "on-click-right": "pavucontrol-qt",
     },
     "backlight": {
-        "device": "intel_backlight",
+        "device": "amdgpu_bl0",
+        "on-scroll-up": "sudo light -A 2",
+        "on-scroll-down": "sudo light -U 2",
         "format": "{icon} {percent}%",
         "format-icons": ["", ""]
     },
     "temperature": {
         // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
         "critical-threshold": 80,
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{icon} {temperatureC}°C",
