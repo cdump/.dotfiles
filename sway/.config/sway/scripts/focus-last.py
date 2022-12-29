@@ -1,4 +1,5 @@
-#!/home/user/.config/sway/scripts/.venv/bin/python -u
+#!/bin/sh
+"exec" "`dirname $0`/.venv/bin/python" "-u" "$0" "$@"
 
 import asyncio
 import os
