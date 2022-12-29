@@ -11,20 +11,22 @@ set $right l
 
 # Your preferred terminal emulator
 set $term alacritty
-#set $term kitty
 
-exec_always --no-startup-id ~/.config/sway/scripts/focus-last.py
+exec_always {
+    gsettings set org.gnome.desktop.interface font-name 'Cantarell 10'
+    # gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
+    # gsettings set org.gnome.desktop.interface document-font-name 'Cantarell 10'
+}
+
+exec_always ~/.config/sway/scripts/focus-last.py
 exec mako
 
 output * bg ~/.wall.jpg fill
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-# output DP-2 resolution 3840x2160 scale 2 subpixel rgb
-output DP-2 resolution 3840x2160@60Hz scale 2 subpixel rgb
-#output HDMI-A-2 resolution 2560x1440 scale 2 subpixel rgb
-output eDP-1 disable
-# set $laptop <laptop_output_identifier>
-# bindswitch --reload --locked lid:on output $laptop disable
-# bindswitch --reload --locked lid:off output $laptop enable
+output eDP-1 resolution 1920x1200@60Hz scale 1.5
+output DP-2 resolution 3840x2160@144Hz scale 2
+bindswitch --reload --locked lid:on output eDP-1 disable
+bindswitch --reload --locked lid:off output eDP-1 enable
 
 ### Idle configuration
 #
@@ -40,6 +42,10 @@ output eDP-1 disable
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
+
+exec swayidle -w \
+    timeout 300 'swaymsg "output * dpms off" && swaylock -f' \
+    resume 'swaymsg "output * dpms on"'
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
@@ -71,20 +77,28 @@ input "type:keyboard" {
 bindsym --to-code {
     $mod+Return exec $term
     # $mod+q exec MOZ_ENABLE_WAYLAND=1 firefox
-    $mod+q exec ~/.local/bin/chromium --enable-features=UseOzonePlatform --ozone-platform=wayland
-    $mod+F2 exec MOZ_ENABLE_WAYLAND=1 thunderbird
-    $mod+p exec QT_QPA_PLATFORM=wayland keepassxc
+    $mod+q exec ~/.local/bin/chromium
+    $mod+F2 exec MOZ_ENABLE_WAYLAND=1 ~/.local/bin/thunderbird
+    $mod+p exec ~/.local/bin/keepassxc
     $mod+e exec alacritty --class ranger -e ranger
     $mod+r exec rofi -show run
     $mod+n exec featherpad
     $mod+F5 exec ~/.local/bin/telegram-desktop -scale 75
-    $mod+F6 exec ~/.local/bin/mattermost-desktop --enable-features=UseOzonePlatform --ozone-platform=wayland
+    $mod+F6 exec ~/.local/bin/mattermost-desktop --ozone-platform-hint=auto
 
-    # Ctrl+Delete exec swaylock -f && swaymsg "output * dpms off"
-    Ctrl+Delete exec swaylock -f
-    $mod+F12 exec swaylock -f && sudo systemctl suspend
+    XF86MonBrightnessUp exec sudo light -A 10
+    XF86MonBrightnessDown exec sudo light -U 10
+
+    XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
+    XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
+    XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+    Ctrl+Delete exec sleep 0.3 && killall -SIGUSR1 swayidle
+    $mod+F12 exec sleep 0.3 && swaylock -f && sudo systemctl suspend
 
     Print exec GRIM_DEFAULT_DIR=~/shots/ grim -g "$(slurp -b '#000000bb' -s '#00000011')"
+    $mod+Print exec grim -g "$(slurp -b '#000000bb' -s '#00000011')" - | swappy -f -
+    Ctrl+Print exec killall -SIGINT wf-recorder && notify-send 'Recording finished' || (notify-send 'Recording started' && wf-recorder -g "$(slurp -b '#000000bb' -s '#00000011')" -f ~/shots/vid-$(date +"%Y%m%d-%Hh%Mm%Ss").mp4)
 
     # Kill focused window
     $mod+Shift+c kill
@@ -110,11 +124,8 @@ bindsym --to-code {
     $mod+Shift+$down move down
     $mod+Shift+$up move up
     $mod+Shift+$right move right
+
     # Ditto, with arrow keys
-    $mod+Shift+Left move left
-    $mod+Shift+Down move down
-    $mod+Shift+Up move up
-    $mod+Shift+Right move right
 }
 #
 # Workspaces:
@@ -154,8 +165,11 @@ bindsym --to-code {
     $mod+Shift+9 move container to workspace number 9 $ws9; workspace number 9;
     $mod+Shift+0 move container to workspace number 10 $ws10; workspace number 10;
 
-    $mod+a exec --no-startup-id ~/.config/sway/scripts/move-to-new-workspace.sh
-    $mod+Shift+r exec --no-startup-id ~/.config/sway/scripts/rename-workspace.sh
+    $mod+a exec ~/.config/sway/scripts/move-to-new-workspace.sh
+    $mod+Shift+r exec ~/.config/sway/scripts/rename-workspace.sh
+
+    $mod+Ctrl+Left exec ~/.config/sway/scripts/move-workspace.py --move left
+    $mod+Ctrl+Right exec ~/.config/sway/scripts/move-workspace.py --move right
 }
 
 #
@@ -230,19 +244,17 @@ bar {
 }
 
 for_window [app_id="org.keepassxc.KeePassXC"] floating enable, move container to workspace $ws1; workspace $ws1;
-for_window [app_id="firefox"] move container to workspace $ws1; workspace $ws1; layout tabbed;
-for_window [app_id="chromium"] move container to workspace $ws1; workspace $ws1; layout tabbed;
-for_window [app_id="google-chrome-unstable"] move container to workspace $ws1; workspace $ws1; layout tabbed;
+for_window [app_id="firefox|chromium|google-chrome.*"] move container to workspace $ws1; workspace $ws1; layout tabbed;
+for_window [title="Save File"] floating enable
 
 for_window [app_id="ranger"] move container to workspace $ws2; workspace $ws2;
 
 for_window [app_id="thunderbird"] move container to workspace $ws3;
 
-# for_window [app_id="chromium" title="Slack .*"] floating enable, move container to workspace $ws4; workspace $ws4;
 for_window [title="Mattermost Desktop App"] floating enable, move container to workspace $ws4; workspace $ws4;
-for_window [app_id="telegramdesktop"] floating enable, move container to workspace $ws4; workspace $ws4;
+for_window [app_id="org.telegram.desktop"] floating enable, move container to workspace $ws4; workspace $ws4;
 
-for_window [app_id="featherpad"] floating enable
+for_window [app_id="featherpad|pavucontrol-qt"] floating enable
 
 for_window [app_id="Alacritty"] move container to workspace $ws5; workspace $ws5;
 
