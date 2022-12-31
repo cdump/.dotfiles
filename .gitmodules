@@ -19,9 +19,6 @@
 [submodule "ranger/.config/ranger/plugins/devicons2"]
 	path = ranger/.config/ranger/plugins/devicons2
 	url = https://github.com/cdump/ranger-devicons2
-[submodule "diff-so-fancy/.diff-so-fancy"]
-	path = diff-so-fancy/.diff-so-fancy
-	url = https://github.com/so-fancy/diff-so-fancy
 [submodule "hammerspoon/.hammerspoon/Spoons/SkyRocket.spoon"]
 	path = hammerspoon/.hammerspoon/Spoons/SkyRocket.spoon
 	url = https://github.com/dbalatero/SkyRocket.spoon
