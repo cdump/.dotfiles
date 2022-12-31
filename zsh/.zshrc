@@ -47,7 +47,6 @@ alias gclean='git clean -Xdi'
 
 alias gdb='gdb --quiet'
 alias gd='gdb --quiet -ex r --args'
-alias dsf='diff-so-fancy | less --tabs=4 -RFX'
 
 alias kgc='kubectl config get-contexts'
 alias kuc='kubectl config use-context'
@@ -103,7 +102,7 @@ export LESS_TERMCAP_so=$'\E[38;33;246m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[04;38;5;146m'
 
-export BAT_THEME="Monokai Extended"
+export BAT_THEME="OneHalfDark" # or "Monokai Extended Origin"
 
 ds() {
 	objdump -M intel -d $* | less

@@ -5,11 +5,6 @@
 [push]
     default = current
 
-[color]
-    diff = auto
-    status = auto
-    branch = auto
-
 [alias]
     a = add
     l = log
@@ -34,3 +29,22 @@
 	required = true
 [init]
 	defaultBranch = master
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+
+[delta]
+    features = decorations navigate
+    ; side-by-side = true
+    line-numbers = true
+    keep-plus-minus-markers = true
+
+[delta "decorations"]
+    file-style = omit
+    hunk-header-decoration-style = blue box
+    hunk-header-file-style = red
+    hunk-header-line-number-style = "#067a00"
+    hunk-header-style = file line-number syntax
