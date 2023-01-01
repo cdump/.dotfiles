@@ -13,7 +13,7 @@ set $right l
 set $term alacritty
 
 exec_always {
-    gsettings set org.gnome.desktop.interface font-name 'Cantarell 10'
+    gsettings set org.gnome.desktop.interface font-name 'Cantarell 9'
     # gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
     # gsettings set org.gnome.desktop.interface document-font-name 'Cantarell 10'
 }
@@ -82,7 +82,7 @@ bindsym --to-code {
     $mod+p exec ~/.local/bin/keepassxc
     $mod+e exec alacritty --class ranger -e ranger
     $mod+r exec rofi -show run
-    $mod+n exec featherpad
+    $mod+n exec l3afpad
     $mod+F5 exec ~/.local/bin/telegram-desktop -scale 75
     $mod+F6 exec ~/.local/bin/mattermost-desktop --ozone-platform-hint=auto
 
@@ -254,7 +254,7 @@ for_window [app_id="thunderbird"] move container to workspace $ws3;
 for_window [title="Mattermost Desktop App"] floating enable, move container to workspace $ws4; workspace $ws4;
 for_window [app_id="org.telegram.desktop"] floating enable, move container to workspace $ws4; workspace $ws4;
 
-for_window [app_id="featherpad|pavucontrol-qt"] floating enable
+for_window [app_id="nwg-look|l3afpad|pavucontrol-qt"] floating enable
 
 for_window [app_id="Alacritty"] move container to workspace $ws5; workspace $ws5;
 
