@@ -3,6 +3,7 @@
 
 import asyncio
 import os
+import sys
 import tempfile
 from argparse import ArgumentParser
 from collections import defaultdict
@@ -16,10 +17,17 @@ MAX_WIN_HISTORY = 15
 class FocusWatcher:
     def __init__(self):
         self.window_map = defaultdict(list)
-        if os.path.exists(SOCKET_FILE):
-            os.remove(SOCKET_FILE)
 
     async def run(self):
+        if os.path.exists(SOCKET_FILE):
+            try:
+                _, writer = await asyncio.open_unix_connection(path=SOCKET_FILE)
+                writer.write(b'q')
+                await writer.drain()
+            except:
+                pass
+            os.remove(SOCKET_FILE)
+
         self.i3 = await i3ipc.aio.Connection(auto_reconnect=True).connect()
         self.i3.on('window::focus', self.on_window_focus)
         self.i3.on('workspace::focus', self.on_workspace_focus)
@@ -40,6 +48,9 @@ class FocusWatcher:
         self.current_workspace_num = event.current.num
 
     async def client_cb(self, reader, write):
+        c = await reader.read(1)
+        if c == b'q':
+            sys.exit(0)
         tree = await self.i3.get_tree()
         windows = set()
         for c in tree:
@@ -62,6 +73,10 @@ class FocusWatcher:
                 await self.i3.command('[con_id=%s] focus' % window_id)
                 return
 
+async def switch():
+    _, writer = await asyncio.open_unix_connection(path=SOCKET_FILE)
+    writer.write(b's')
+    await writer.drain()
 
 if __name__ == '__main__':
     parser = ArgumentParser()
@@ -71,4 +86,4 @@ if __name__ == '__main__':
     if not args.switch:
         loop.run_until_complete(FocusWatcher().run())
     else:
-        loop.run_until_complete(asyncio.open_unix_connection(path=SOCKET_FILE))
+        loop.run_until_complete(switch())
