@@ -3,6 +3,10 @@ configuration {
     sort: true;
     sorting-method: "fzf";
     kb-cancel: "Escape,Control+c";
+    kb-remove-to-eol: "";
+    kb-accept-entry: "Return,KP_Enter";
+    kb-row-down: "Down,Control+j";
+    kb-row-up: "Up,Control+k";
 }
 
 @theme "/usr/share/rofi/themes/fancy.rasi"
