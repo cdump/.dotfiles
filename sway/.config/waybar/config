@@ -1,14 +1,12 @@
 {
-    "layer": "top", // Waybar at top layer
-    "position": "bottom", // Waybar position (top|bottom|left|right)
+    "layer": "top",
+    "position": "bottom",
     "modules-left": [
         "sway/workspaces",
         "sway/mode",
     ],
     "modules-center": [],
     "modules-right": [
-        //"idle_inhibitor",
-        //"memory",
         "tray",
         "custom/arrow", "network",
         "custom/arrow", "sway/language",
@@ -19,29 +17,22 @@
         "custom/arrow", "pulseaudio",
         "custom/arrow", "battery",
         "custom/arrow", "clock"
-        //"custom/arrow", "custom/cal"
-
     ],
-
-    "custom/cal": {
-        "exec": "~/.config/sway/scripts/cal.sh",
-        "return-type": "json",
-    },
 
     "custom/arrow": {
         "format": "",
         "tooltip": false
     },
     "custom/stonks": {
-        //"exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:EUR_RUB__TOM:€' --ticker 'moex_currency:USD000UTSTOM:$' --ticker 'binance:BTCUSDT:₿' --ticker 'binance:ETHUSDT:Ð'",
-        "exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:USD000UTSTOM:$'",
+        "exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:EUR_RUB__TOM:€' --ticker 'moex_currency:USD000UTSTOM:$' --ticker 'binance:BTCUSDT:₿' --ticker 'binance:ETHUSDT:Ð'",
+        // "exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:USD000UTSTOM:$'",
         "return-type": "json",
     },
 
     // Modules configuration
     "custom/weather": {
-        "exec": "curl -s 'https://wttr.in/Moscow?format=%c%t' || echo '?'",
-        "interval": 3600
+        "exec": "curl -s 'https://wttr.in/Moscow?format=%c/%t' | awk -F '/' '{gsub(/ /,\"\"); print \"<span font=\\\"Noto Color Emoji\\\">\"$1\"</span>\"$2}'",
+        "interval": 3600,
     },
     "sway/workspaces": {
         //"disable-scroll": true,
@@ -97,24 +88,17 @@
         "format-icons": ["", ""]
     },
     "temperature": {
-        // "thermal-zone": 2,
         "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
         "critical-threshold": 80,
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{icon} {temperatureC}°C",
         "format-icons": ["", "", ""]
     },
-    "cpu": {
-        "format": "龍{avg_frequency}",
-        "tooltip": false
-    },
     "sway/language": {
         "format": "{short}",
     },
     "network": {
         "interval": 1,
-        //"format": "<span font='DejaVuSansMono Nerd Font Mono 12'> </span>",
-        //"format": "<big> </big>",
         "format": "",
         "format-alt": " {ifname}: ⇩{bandwidthDownBits} ⇧{bandwidthUpBits}",
         "tooltip-format": " {ifname} ({ipaddr}/{cidr}): ⇩{bandwidthDownBits} ⇧{bandwidthUpBits}",
@@ -123,18 +107,8 @@
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
     "tray": {
         "icon-size": 14,
         "spacing": 3,
-    },
-    "memory": {
-        "format": "{}% "
     },
 }

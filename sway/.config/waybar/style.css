@@ -17,19 +17,25 @@ window#waybar.hidden {
     opacity: 0.2;
 }
 tooltip {
-    background: #333333;
-    /* border: 1px solid #ff0000; */
+    background-color: #111111;
 }
-tooltip * {
+tooltip label {
 	font-family: DejaVuSansMono Nerd Font Mono;
-    margin: 0px;
-    padding: 0px;
+    font-size: 10pt;
+    background-color: #111111;
+    color: #aaaaaa;
+    margin: 0;
+    padding: 0;
 }
 
 #custom-arrow {
 	font-family: DejaVuSansMono Nerd Font Mono;
     font-size: 11pt;
     padding: 0;
+}
+
+#language {
+    min-width: 14px;
 }
 
 #workspaces button {
@@ -73,6 +79,12 @@ tooltip * {
     padding-right: 0;
 }
 
+.modules-right > widget:nth-child(2) > label {
+    /* first arrow */
+    background-color: #000000;
+    color: #282828;
+}
+
 .modules-right > widget:nth-last-child(4n) {
     /* arrow */
     background-color: #282828;
@@ -97,8 +109,7 @@ tooltip * {
 
 
 #tray {
-    /* background-color: #2980b9; */
-    /* background-color: #000000; */
+    background-color: #000000;
     padding: 0 5px;
 }
 /* #tray > .needs-attention { */
