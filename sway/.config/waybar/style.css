@@ -56,7 +56,8 @@ tooltip label {
 }
 
 #workspaces button.urgent {
-    background-color: #eb4d4b;
+    font-weight: bold;
+    color: #ff8888;
 }
 
 #mode {
