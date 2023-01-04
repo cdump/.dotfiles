@@ -104,7 +104,9 @@ bindsym --to-code {
 
     $mod+Escape workspace back_and_forth
     $mod+Left workspace prev
+    $mod+$left workspace prev
     $mod+Right workspace next
+    $mod+$right workspace next
 
     # Reload the configuration file
     $mod+Shift+Control+r reload
@@ -113,10 +115,10 @@ bindsym --to-code {
     # $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
     # Move your focus around
-    $mod+$left focus left
-    $mod+$down focus down
-    $mod+$up focus up
-    $mod+$right focus right
+    $mod+Control+$left focus left
+    $mod+Control+$down focus down
+    $mod+Control+$up focus up
+    $mod+Control+$right focus right
 
     # Move the focused window with the same, but add Shift
     $mod+Shift+$left move left
