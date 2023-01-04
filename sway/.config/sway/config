@@ -34,8 +34,7 @@ bindswitch --reload --locked lid:off output eDP-1 enable
 #
 # exec swayidle -w \
 #          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' \
-#               resume 'swaymsg "output * dpms on"' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
 #          before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
@@ -44,8 +43,8 @@ bindswitch --reload --locked lid:off output eDP-1 enable
 
 
 exec swayidle -w \
-    timeout 300 'swaymsg "output * dpms off" && swaylock -f' \
-    resume 'swaymsg "output * dpms on"'
+    timeout 300 'swaymsg "output * power off" && swaylock -f' \
+    resume 'swaymsg "output * power on"'
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
