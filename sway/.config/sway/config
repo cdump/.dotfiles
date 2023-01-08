@@ -78,7 +78,7 @@ bindsym --to-code {
     # $mod+q exec MOZ_ENABLE_WAYLAND=1 firefox
     $mod+q exec ~/.local/bin/chromium
     $mod+F2 exec MOZ_ENABLE_WAYLAND=1 ~/.local/bin/thunderbird
-    $mod+p exec ~/.local/bin/keepassxc
+    $mod+p exec swaymsg '[app_id="org.keepassxc.KeePassXC"] focus' || ~/.local/bin/keepassxc
     $mod+e exec alacritty --class ranger -e ranger
     $mod+r exec rofi -show run
     $mod+n exec l3afpad
@@ -119,6 +119,8 @@ bindsym --to-code {
     $mod+Control+$down focus down
     $mod+Control+$up focus up
     $mod+Control+$right focus right
+    $mod+$up focus prev
+    $mod+$down focus next
 
     # Move the focused window with the same, but add Shift
     $mod+Shift+$left move left
@@ -263,12 +265,9 @@ for_window [app_id="libreoffice-calc.*"] exec ~/.config/sway/scripts/workspaces.
 
 
 # Property Name         Border    BG        Text      Indicator Child Border
-client.focused          "#1E2320" "#1E2320" "#F0DFAF" "#ff0000" "#3F3F3F"
+client.focused          "#1E2320" "#1E2320" "#F0DFAF" "#ff0000" "#505050"
 # client.focused_inactive $base01 $base0F $base05 $base03 $base01
 # client.unfocused        "#3f3f3f" "#3F3F3F" "#ACACAC" "#00ff00" "#1f1f1f"
 client.unfocused        "#3f3f3f" "#3F3F3F" "#ACACAC" "#00ff00" "#1f1f1f"
-# client.urgent           $base08 $base08 $base00 $base08 $base08
-#client.placeholder      $base00 $base00 $base05 $base00 $base00
-#client.background       $base07
 
 include /etc/sway/config.d/*

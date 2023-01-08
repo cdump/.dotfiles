@@ -32,6 +32,7 @@
     // Modules configuration
     "custom/weather": {
         "exec": "curl -s 'https://wttr.in/Moscow?format=%c/%t' | awk -F '/' '{gsub(/ /,\"\"); print \"<span font=\\\"Noto Color Emoji\\\">\"$1\"</span>\"$2}'",
+        "on-click": "/bin/true",
         "interval": 3600,
     },
     "sway/workspaces": {
