@@ -121,7 +121,7 @@ vim.keymap.set('n', '<', '2<C-w><')
 
 --[[ Jumps ]]
 for i = 1, 9 do
-    vim.keymap.set('n', '<M-' .. i .. '>', '<cmd>BufferLineGoToBuffer ' .. i .. '<cr>')
+    vim.keymap.set('n', '<M-' .. i .. '>', function() require('bufferline').go_to_buffer(i, true) end)
 end
 vim.keymap.set('n', '<leader>j', '<cmd>HopLine<cr>')
 vim.keymap.set('n', '<leader>f', '<cmd>HopWord<cr>')
@@ -129,6 +129,7 @@ vim.keymap.set('v', '<Enter>', '<Plug>(EasyAlign)')
 
 
 --[[ Fuzzy search ]]
+vim.keymap.set('n', '<C-g>', require('telescope.builtin').git_files)
 vim.keymap.set('n', '<C-p>', require('telescope.builtin').find_files)
 vim.keymap.set('n', '<leader>a', require('telescope.builtin').live_grep)
 -- nnoremap <leader>a :Ag<Space>
@@ -208,4 +209,12 @@ vim.keymap.set('n', '<C-j>', function() vim.diagnostic.goto_next({ severity = { 
 vim.keymap.set('n', '<C-A-k>', function() vim.diagnostic.goto_prev() end)
 vim.keymap.set('n', '<C-A-j>', function() vim.diagnostic.goto_next() end)
 
-vim.cmd [[autocmd BufWritePre *.go lua vim.lsp.buf.format()]]
+vim.api.nvim_create_autocmd('BufWritePre', {
+    pattern = { '*.go' },
+    callback = function() vim.lsp.buf.format() end,
+})
+
+vim.api.nvim_create_autocmd('Filetype', {
+    pattern = { 'html', 'vue',  'css', 'scss', 'javascript', 'typescript' },
+    command = 'setlocal shiftwidth=2 tabstop=2'
+})
