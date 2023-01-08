@@ -332,9 +332,7 @@ return require('packer').startup({ function(use)
 
     use { -- a tree like view for symbols using LSP
         'simrat39/symbols-outline.nvim',
-        setup = function()
-            vim.g.symbols_outline = {
-                auto_preview = false,
+        config = function() require('symbols-outline').setup {
                 highlight_hovered_item = false,
             }
         end
