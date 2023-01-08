@@ -4,7 +4,6 @@ set -e
 stow -V || (echo "Please install GNU Stow"; exit 1)
 
 TARGETS=(
-    diff-so-fancy
     flake8
     fonts
     gdb
