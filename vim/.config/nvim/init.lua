@@ -187,13 +187,6 @@ for _, server_name in pairs({ 'clangd', 'sumneko_lua', 'pyright', 'dockerls', 'g
 end
 
 vim.diagnostic.config({
-    severity_sort = true,
-    float = {
-        border = 'rounded',
-    }
-})
-
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = false,
     virtual_text = false,
     -- virtual_text = {
@@ -201,8 +194,11 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
     --     severity_limit = 'Error',
     --     prefix = '·',
     -- },
+    severity_sort = true,
+    float = {
+        border = 'rounded',
+    }
 })
-
 
 vim.keymap.set('n', '<C-k>', function() vim.diagnostic.goto_prev({ severity = { min = vim.diagnostic.severity.WARN } }) end)
 vim.keymap.set('n', '<C-j>', function() vim.diagnostic.goto_next({ severity = { min = vim.diagnostic.severity.WARN } }) end)
