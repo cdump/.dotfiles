@@ -261,7 +261,7 @@ for_window [app_id="nwg-look|l3afpad|pavucontrol-qt"] floating enable
 
 for_window [app_id="Alacritty"] move container to workspace $ws5; workspace $ws5;
 
-for_window [app_id="libreoffice-calc.*"] exec ~/.config/sway/scripts/workspaces.py --window-to-new-workspace
+for_window [app_id="libreoffice-*"] exec ~/.config/sway/scripts/workspaces.py --window-to-new-workspace
 
 
 # Property Name         Border    BG        Text      Indicator Child Border

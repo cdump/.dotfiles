@@ -36,7 +36,7 @@ def move_workspace(i3, move: int):
 
 def window_to_new_workspace(i3):
     workspaces = set(w.num for w in i3.get_workspaces())
-    first_empty_num = min(set(range(6,10)) - workspaces)  # start only from 6
+    first_empty_num = min(set(range(6,11)) - workspaces)  # start only from 6
 
     focused_name = i3.get_tree().find_focused().name
     name = f'{PREFIXES[first_empty_num]} {focused_name}'
