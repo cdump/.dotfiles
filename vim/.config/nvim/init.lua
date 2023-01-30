@@ -38,25 +38,12 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 --[[ Command mode ]]
-vim.keymap.set('c', '<C-k>', '<Left>')
-vim.keymap.set('c', '<C-j>', '<Right>')
-vim.keymap.set('c', '<C-A>', '<Home>')
-vim.keymap.set('c', '<A-b>', '<S-Left>')
-vim.keymap.set('c', '<A-f>', '<S-Right>')
-vim.keymap.set('c', '<C-R>', '<Plug>(TelescopeFuzzyCommandSearch)')
-vim.cmd [[
-    cabbrev W w
-    cabbrev Q q
-    cabbrev WQ wq
-    cabbrev Wq wq
-]]
-
+require('command_mode')
 
 --[[ Indentation ]]
 vim.opt.expandtab = true -- Change tabs to spaces
 vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent.
 vim.opt.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for.
-
 
 --[[ Search ]]
 vim.opt.ignorecase = true -- Ignore case when searching...
