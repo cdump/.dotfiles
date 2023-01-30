@@ -1,5 +1,9 @@
 vim.cmd [[language C]] -- Show VIM messages in English
 
+-- nvim-tree: disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 --[[ Space = leader key ]]
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.g.mapleader = ' '
@@ -21,6 +25,7 @@ vim.opt.cursorline = true -- higlight current line
 vim.opt.scrolloff = 5 -- minimal number of screen lines to keep above and below the cursor
 vim.opt.linebreak = true -- do not break the words
 vim.opt.mouse = '' -- disable mouse
+vim.opt.swapfile = false
 vim.opt.wildmode = 'longest:full,full'
 vim.opt.langmap = 'ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz'
 vim.keymap.set('n', 'Ж', ':')

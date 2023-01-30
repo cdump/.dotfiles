@@ -117,12 +117,14 @@ return require('packer').startup({ function(use)
         requires = {
             'p00f/nvim-ts-rainbow',
         },
+        run = ':TSUpdate',
         config = function() require('nvim-treesitter.configs').setup {
                 rainbow = {
                     enable = true,
                     colors = { '#5fd7ff', '#ffffaf', '#afffff', '#ffd7ff' }
                 },
-                ensure_installed = { 'c', 'cpp', 'lua', 'python', 'bash', 'regex' },
+                ensure_installed = { 'c', 'cpp', 'lua', 'python', 'bash', 'regex', 'vue', 'javascript', 'typescript',
+                    'css', 'html', 'json' },
                 highlight = {
                     enable = true,
                     disable = { 'c', 'cpp' }, -- bfrg/vim-cpp-modern is better (#if 0 support, auto type support, ...)
@@ -200,15 +202,19 @@ return require('packer').startup({ function(use)
     use { -- A snazzy bufferline for Neovim
         'akinsho/bufferline.nvim',
         tag = '*',
-        requires = 'kyazdani42/nvim-web-devicons',
+        requires = { 'nvim-tree/nvim-web-devicons' },
         config = function() require('bufferline').setup {
                 options = {
-                    offsets = { { filetype = 'neo-tree', padding = 1 } },
+                    -- offsets = { { filetype = 'neo-tree', padding = 1 } },
+                    -- offsets = { { filetype = "NvimTree", text = " ", padding = 1 } },
                     numbers = function(opts) return opts.raise(opts.ordinal) end,
                     show_buffer_close_icons = false,
                     show_close_icon = false,
                     -- show_buffer_icons = false,
                     modified_icon = '',
+                    indicator = {
+                        style = 'none',
+                    },
                 }
             }
         end
@@ -216,7 +222,7 @@ return require('packer').startup({ function(use)
 
     use { -- A blazing fast and easy to configure neovim statusline plugin written in pure lua
         'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons' },
+        requires = { 'nvim-tree/nvim-web-devicons' },
         config = function() require('lualine').setup {
                 options = {
                     globalstatus = true,
@@ -230,89 +236,155 @@ return require('packer').startup({ function(use)
         end
     }
 
+    use {
+        'lukas-reineke/indent-blankline.nvim',
+        config = function()
+            require("indent_blankline").setup {
+                -- enabled = false,
+                char = '▏',
+                filetype_exclude = {'help', 'markdown', 'text'},
+            }
+        end
+    }
 
     use {
-        'nvim-neo-tree/neo-tree.nvim',
-        branch = 'v2.x',
-        requires = {
-            'nvim-lua/plenary.nvim',
-            'kyazdani42/nvim-web-devicons', -- not strictly required, but recommended
-            'MunifTanjim/nui.nvim',
-        },
+        'nvim-tree/nvim-tree.lua',
+        requires = { 'nvim-tree/nvim-web-devicons' },
+        tag = 'nightly', -- optional, updated every week. (see issue #1193)
         config = function()
-            vim.g.neo_tree_remove_legacy_commands = true
-            require('neo-tree').setup({
-                close_if_last_window = true,
-                enable_diagnostics = false,
-                enable_git_status = false,
-                use_default_mappings = false,
-                open_files_in_last_windows = false, -- false = open files in top left window
-                window = {
-                    width = 30,
+            require('nvim-tree').setup({
+                sort_by = 'case_sensitive',
+                view = {
+                    width = 25,
+                    -- signcolumn = 'no',
                     mappings = {
-                        ['<cr>'] = 'open',
-                        ['r'] = 'refresh',
-                        ['a'] = {
-                            'add',
-                            config = { show_path = 'absolute' } -- 'none', 'relative', 'absolute'
+                        list = {
+                            { key = 'u', action = 'dir_up' },
+                            { key = 'cd', action = 'cd descr', action_cb = function()
+                                local lib = require('nvim-tree.lib')
+                                local node = lib.get_node_at_cursor()
+                                if node.type == 'directory' then
+                                    vim.cmd('cd ' .. node.absolute_path)
+                                    print('directory changed to ' .. node.absolute_path)
+                                end
+                            end},
                         },
-                        ['d'] = 'delete',
-                        ['R'] = 'rename',
-                        ['y'] = 'copy_to_clipboard',
-                        ['x'] = 'cut_to_clipboard',
-                        ['p'] = 'paste_from_clipboard',
-                        ['q'] = 'close_window',
-                        ['?'] = 'show_help',
-                        ['u'] = function(state)
-                            local node = state.tree:get_node()
-                            if node.level == 0 then
-                                require('neo-tree.sources.filesystem.commands').navigate_up(state)
-                            else
-                                require('neo-tree.sources.manager').focus('filesystem', node:get_parent_id(), nil)
-                            end
-                        end,
-                        ['.'] = 'set_root',
-                        ['cd'] = function(state)
-                            local node = state.tree:get_node()
-                            if node.type == 'directory' then
-                                vim.cmd('cd ' .. node.path)
-                                print('working directory changed to ' .. node.path)
-                            end
-                        end,
                     },
                 },
-                filesystem = {
-                    window = {
-                        mappings = {
-                            ['H'] = 'toggle_hidden',
-                            ['f'] = 'filter_on_submit',
-                            ['<C-x>'] = 'clear_filter',
-                        }
-                    },
-                    bind_to_cwd = false, -- true creates a 2-way binding between vim's cwd and neo-tree's root
-                    filtered_items = {
-                        visible = false, -- when true, they will just be displayed differently than normal items
-                        force_visible_in_empty_folder = true, -- when true, hidden files will be shown if the root folder is otherwise empty
-                        show_hidden_count = true, -- when true, the number of hidden items in each folder will be shown as the last entry
-                        hide_dotfiles = true,
-                        hide_gitignored = false,
+                renderer = {
+                    group_empty = true,
+                    icons = {
+                        show = {
+                            folder_arrow = false,
+                        },
                     },
                 },
+                filters = {
+                    dotfiles = true,
+                },
+                git = {
+                    enable = false,
+                },
+                live_filter = {
+                    always_show_folders = false, -- Turn into false from true by default
+                },
+            })
+            vim.api.nvim_create_autocmd('BufEnter', {
+                nested = true,
+                callback = function()
+                    if #vim.api.nvim_list_wins() == 1 and require('nvim-tree.utils').is_nvim_tree_buf() then
+                        vim.cmd 'quit'
+                    end
+                end
             })
         end
     }
+
+    -- use {
+    --     'nvim-neo-tree/neo-tree.nvim',
+    --     branch = 'v2.x',
+    --     requires = {
+    --         'nvim-lua/plenary.nvim',
+    --         'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+    --         'MunifTanjim/nui.nvim',
+    --     },
+    --     config = function()
+    --         vim.g.neo_tree_remove_legacy_commands = true
+    --         require('neo-tree').setup({
+    --             close_if_last_window = true,
+    --             enable_diagnostics = false,
+    --             enable_git_status = false,
+    --             use_default_mappings = false,
+    --             open_files_in_last_windows = false, -- false = open files in top left window
+    --             window = {
+    --                 width = 30,
+    --                 mappings = {
+    --                     ['<cr>'] = 'open',
+    --                     ['r'] = 'refresh',
+    --                     ['a'] = {
+    --                         'add',
+    --                         config = { show_path = 'absolute' } -- 'none', 'relative', 'absolute'
+    --                     },
+    --                     ['d'] = 'delete',
+    --                     ['R'] = 'rename',
+    --                     ['y'] = 'copy_to_clipboard',
+    --                     ['x'] = 'cut_to_clipboard',
+    --                     ['p'] = 'paste_from_clipboard',
+    --                     ['q'] = 'close_window',
+    --                     ['?'] = 'show_help',
+    --                     ['u'] = function(state)
+    --                         local node = state.tree:get_node()
+    --                         if node.level == 0 then
+    --                             require('neo-tree.sources.filesystem.commands').navigate_up(state)
+    --                         else
+    --                             require('neo-tree.sources.manager').focus('filesystem', node:get_parent_id(), nil)
+    --                         end
+    --                     end,
+    --                     ['.'] = 'set_root',
+    --                     ['cd'] = function(state)
+    --                         local node = state.tree:get_node()
+    --                         if node.type == 'directory' then
+    --                             vim.cmd('cd ' .. node.path)
+    --                             print('working directory changed to ' .. node.path)
+    --                         end
+    --                     end,
+    --                 },
+    --             },
+    --             filesystem = {
+    --                 window = {
+    --                     mappings = {
+    --                         ['H'] = 'toggle_hidden',
+    --                         ['f'] = 'filter_on_submit',
+    --                         ['<C-x>'] = 'clear_filter',
+    --                     }
+    --                 },
+    --                 bind_to_cwd = false, -- true creates a 2-way binding between vim's cwd and neo-tree's root
+    --                 filtered_items = {
+    --                     visible = false, -- when true, they will just be displayed differently than normal items
+    --                     force_visible_in_empty_folder = true, -- when true, hidden files will be shown if the root folder is otherwise empty
+    --                     show_hidden_count = true, -- when true, the number of hidden items in each folder will be shown as the last entry
+    --                     hide_dotfiles = true,
+    --                     hide_gitignored = false,
+    --                 },
+    --             },
+    --         })
+    --     end
+    -- }
 
     use {
         'jose-elias-alvarez/null-ls.nvim',
         config = function()
             local null_ls = require('null-ls')
             null_ls.setup {
+                -- debug = true,
+                on_attach = require('lsp_on_attach').lsp_on_attach,
                 sources = {
-                    null_ls.builtins.diagnostics.flake8.with{
+                    null_ls.builtins.diagnostics.eslint_d,
+                    null_ls.builtins.code_actions.eslint_d,
+                    null_ls.builtins.formatting.eslint_d,
+
+                    null_ls.builtins.diagnostics.flake8.with {
                         only_local = '.venv/bin',
-                    },
-                    null_ls.builtins.code_actions.eslint.with{
-                        only_local = 'node_modules/eslint/bin',
                     },
                 },
             }
