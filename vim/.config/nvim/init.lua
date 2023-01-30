@@ -76,82 +76,26 @@ vim.keymap.set('v', '<Enter>', '<Plug>(EasyAlign)')
 vim.keymap.set('n', '<C-g>', require('telescope.builtin').git_files)
 vim.keymap.set('n', '<C-p>', require('telescope.builtin').find_files)
 vim.keymap.set('n', '<leader>a', require('telescope.builtin').live_grep)
--- nnoremap <leader>a :Ag<Space>
 vim.keymap.set('n', '<leader>m', require('markword').toggle)
 vim.keymap.set('n', '<leader>\'', require('telescope.builtin').marks)
 
 
 --[[ File manager ]]
-vim.keymap.set('n', '<C-\\>', '<cmd>Neotree source=filesystem position=left reveal_force_cwd<cr>')
+-- vim.keymap.set('n', '<C-\\>', '<cmd>Neotree source=filesystem position=left reveal_force_cwd<cr>')
+vim.keymap.set('n', '<C-\\>', '<cmd>NvimTreeFindFile<cr>')
 vim.keymap.set('n', '<leader>t', '<cmd>SymbolsOutline<cr>')
+
+vim.keymap.set('n', '<leader>i', '<cmd>IndentBlanklineToggle<cr>')
 
 
 vim.keymap.set('', '<leader>l', require('lsp_lines').toggle, { desc = 'Toggle lsp_lines' })
 vim.keymap.set('n', '<leader>x', function() require('telescope.builtin').diagnostics({ bufnr = 0 }) end)
-vim.keymap.set('n', '<leader><leader>n', function() require('telescope').extensions.notify.notify() end)
---[[ LSP ]]
-local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-local lsp_on_attach = function(_, bufnr)
-    local opts = { buffer = bufnr }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', require('telescope.builtin').lsp_definitions, opts)
-    vim.keymap.set('n', 'gi', require('telescope.builtin').lsp_implementations, opts)
-    vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, opts)
-    vim.keymap.set('n', '<leader>x', function() require('telescope.builtin').diagnostics({ bufnr = 0 }) end, opts)
-    vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, opts)
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>d', vim.lsp.buf.hover) -- useful for 'get varible type under cursor'
-end
-require('mason-lspconfig').setup {
-    automatic_installation = { exclude = { 'clangd' } },
-}
-for _, server_name in pairs({ 'clangd', 'sumneko_lua', 'pyright', 'dockerls', 'gopls', 'golangci_lint_ls' }) do
-    local cfg = {
-        capabilities = lsp_capabilities,
-        on_attach = lsp_on_attach
-    }
-    if server_name == 'clangd' then
-        cfg.cmd = { 'clangd',
-            '--background-index',
-            '--clang-tidy',
-            '--pch-storage=memory',
-            '--completion-style=detailed',
-            -- '--inlay-hints',
-            '-j=2',
-        }
-    elseif server_name == 'pyright' then
-        cfg.settings = { python = { pythonPath = '.venv/bin/python' } }
-    elseif server_name == 'sumneko_lua' then
-        cfg.settings = { Lua = { diagnostics = { globals = { 'vim' } } } }
-    elseif server_name == 'gopls' then
-        cfg.settings = { gopls = { gofumpt = true } } -- go install mvdan.cc/gofumpt@latest
-    end
-    require('lspconfig')[server_name].setup(cfg)
-end
 
-vim.diagnostic.config({
-    underline = false,
-    virtual_text = false,
-    -- virtual_text = {
-    --     spacing = 3,
-    --     severity_limit = 'Error',
-    --     prefix = '·',
-    -- },
-    severity_sort = true,
-    float = {
-        border = 'rounded',
-    }
-})
-
-vim.keymap.set('n', '<C-k>', function() vim.diagnostic.goto_prev({ severity = { min = vim.diagnostic.severity.WARN } }) end)
-vim.keymap.set('n', '<C-j>', function() vim.diagnostic.goto_next({ severity = { min = vim.diagnostic.severity.WARN } }) end)
-vim.keymap.set('n', '<C-A-k>', function() vim.diagnostic.goto_prev() end)
-vim.keymap.set('n', '<C-A-j>', function() vim.diagnostic.goto_next() end)
+require('lsp')
 
 vim.api.nvim_create_autocmd('BufWritePre', {
     pattern = { '*.go' },
-    callback = function() vim.lsp.buf.format() end,
+    callback = vim.lsp.buf.format,
 })
 
 vim.api.nvim_create_autocmd('Filetype', {
