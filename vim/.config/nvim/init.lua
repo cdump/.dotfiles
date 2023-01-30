@@ -8,51 +8,8 @@ vim.g.maplocalleader = ' '
 --[[ plugins ]]
 require('plugins')
 
-
 --[[ colorscheme ]]
-vim.opt.termguicolors = true
--- vim.cmd [[colorscheme molokai]]
-vim.cmd [[
-    let g:sonokai_disable_italic_comment=1
-    let g:sonokai_diagnostic_virtual_text='colored'
-    let g:sonokai_disable_terminal_colors=1
-    let g:sonokai_menu_selection_background='green'
-    let g:sonokai_colors_override={'bg0':['#1e222a', '235'], 'bg2': ['#282c34', '236'], 'bg_green': ['#a3be8c','107']}
-    silent! colorscheme sonokai
-
-    hi VertSplit guifg=#505050
-
-    hi Todo guifg=#ffffff guibg=#080808 gui=bold
-    hi Directory guifg=#9ed072 gui=bold
-    hi Macro guifg=#d7ffaf gui=italic
-    hi PreCondit guifg=#afdd00 gui=italic
-    hi Include guifg=#afdd00
-    hi BufferLineIndicatorSelected guifg=#75c3e2 guibg=#1e222a
-    hi BufferLineBufferSelected guifg=#e2e2e3 guibg=#1e222a gui=bold
-    hi FloatBorder guibg=#1e222a guifg=#7f8490
-    hi PmenuThumb guibg=#7f8490
-
-    hi NormalFloat guifg=#e2e2e3 guibg=#1e222a
-    hi ErrorFloat guifg=#fc5d7c guibg=#1e222a
-    hi WarningFloat guifg=#e7c664 guibg=#1e222a
-    hi InfoFloat guifg=#76cce0 guibg=#1e222a
-    hi HintFloat guifg=#9ed072 guibg=#1e222a
-
-    " p00f/nvim-ts-rainbow
-    hi rainbowcol1 guifg=#5fd7ff
-    hi rainbowcol2 guifg=#ffffaf
-    hi rainbowcol3 guifg=#afffff
-    hi rainbowcol4 guifg=#ffd7ff
-    hi rainbowcol5 guifg=#5fd7ff
-    hi rainbowcol6 guifg=#ffffaf
-    hi rainbowcol7 guifg=#afffff
-]]
-
-vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
-vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = 'DiagnosticSignWarn' })
-vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = 'DiagnosticSignInfo' })
-vim.fn.sign_define('DiagnosticSignHint', { text = ' ', texthl = 'DiagnosticSignHint' })
-
+require('colorscheme')
 
 
 --[[ general options ]]
