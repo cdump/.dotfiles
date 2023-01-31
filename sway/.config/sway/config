@@ -13,6 +13,9 @@ set $right l
 set $term alacritty
 
 exec_always {
+    # cursor 24 -> 20
+    # font -> 8 (or scale)
+    # text-scale: 0.8
     gsettings set org.gnome.desktop.interface font-name 'Cantarell 9'
     # gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
     # gsettings set org.gnome.desktop.interface document-font-name 'Cantarell 10'

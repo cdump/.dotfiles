@@ -242,7 +242,7 @@ return require('packer').startup({ function(use)
             require("indent_blankline").setup {
                 -- enabled = false,
                 char = '▏',
-                filetype_exclude = {'help', 'markdown', 'text'},
+                filetype_exclude = { 'help', 'markdown', 'text' },
             }
         end
     }
@@ -267,7 +267,7 @@ return require('packer').startup({ function(use)
                                     vim.cmd('cd ' .. node.absolute_path)
                                     print('directory changed to ' .. node.absolute_path)
                                 end
-                            end},
+                            end },
                         },
                     },
                 },

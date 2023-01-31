@@ -30,6 +30,8 @@ source ~/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # expand sudo aliases
 alias sudo='sudo '
 
+alias chu='sudo -i -u '
+
 if [[ $(uname ) == "Darwin" ]]; then
     alias ls='ls -F --color=auto'
 else
