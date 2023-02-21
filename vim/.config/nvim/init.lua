@@ -86,7 +86,8 @@ vim.keymap.set('n', '<leader>\'', require('telescope.builtin').marks)
 
 --[[ File manager ]]
 -- vim.keymap.set('n', '<C-\\>', '<cmd>Neotree source=filesystem position=left reveal_force_cwd<cr>')
-vim.keymap.set('n', '<C-\\>', '<cmd>NvimTreeFindFile<cr>')
+vim.keymap.set('n', '<C-\\>', function() require('nvim-tree.api').tree.open({find_file=true}) end)
+
 vim.keymap.set('n', '<leader>t', '<cmd>SymbolsOutline<cr>')
 
 vim.keymap.set('n', '<leader>i', '<cmd>IndentBlanklineToggle<cr>')
@@ -99,7 +100,7 @@ require('lsp')
 
 vim.api.nvim_create_autocmd('BufWritePre', {
     pattern = { '*.go' },
-    callback = vim.lsp.buf.format,
+    callback = function() vim.lsp.buf.format() end,
 })
 
 vim.api.nvim_create_autocmd('Filetype', {

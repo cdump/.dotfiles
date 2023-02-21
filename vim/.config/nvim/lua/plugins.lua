@@ -254,25 +254,39 @@ return require('packer').startup({ function(use)
         config = function()
             require('nvim-tree').setup({
                 sort_by = 'case_sensitive',
+                -- sync_root_with_cwd = true,
                 view = {
-                    width = 25,
+                    width = {
+                        min=25,
+                        max=60,
+                    },
                     -- signcolumn = 'no',
                     mappings = {
                         list = {
                             { key = 'u', action = 'dir_up' },
+                            { key = 'r', action = 'refresh' },
+                            { key = 'R', action = 'rename' },
+                            { key = '.', action = '. descr', action_cb = function()
+                                local api = require('nvim-tree.api')
+                                local node = api.tree.get_node_under_cursor()
+                                local cnode = node.type == 'directory' and node.parent or (node.parent.parent or node.parent)
+                                api.tree.change_root_to_node(cnode)
+                                api.tree.find_file(node.absolute_path)
+                                print('root set to ' .. cnode.absolute_path)
+                            end },
                             { key = 'cd', action = 'cd descr', action_cb = function()
                                 local lib = require('nvim-tree.lib')
                                 local node = lib.get_node_at_cursor()
-                                if node.type == 'directory' then
-                                    vim.cmd('cd ' .. node.absolute_path)
-                                    print('directory changed to ' .. node.absolute_path)
-                                end
+                                local path = node.type == 'directory' and node.absolute_path or node.parent.absolute_path
+                                vim.cmd('cd ' .. path)
+                                print('directory changed to ' .. path)
                             end },
                         },
                     },
                 },
                 renderer = {
                     group_empty = true,
+                    indent_width = 1,
                     icons = {
                         show = {
                             folder_arrow = false,

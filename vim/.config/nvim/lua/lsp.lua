@@ -4,12 +4,12 @@ require('mason-lspconfig').setup {
     automatic_installation = { exclude = { 'clangd' } },
 }
 
-local eslint_d = require('mason-registry').get_package('eslint_d')
-if not eslint_d:is_installed() then eslint_d:install() end
+-- local eslint_d = require('mason-registry').get_package('eslint_d')
+-- if not eslint_d:is_installed() then eslint_d:install() end
 
 for _, server_name in pairs({
     'clangd',
-    'sumneko_lua',
+    'lua_ls',
     'pyright',
     'dockerls',
     'gopls',
@@ -31,7 +31,7 @@ for _, server_name in pairs({
         }
     elseif server_name == 'pyright' then
         cfg.settings = { python = { pythonPath = '.venv/bin/python' } }
-    elseif server_name == 'sumneko_lua' then
+    elseif server_name == 'lua_ls' then
         cfg.settings = { Lua = { diagnostics = { globals = { 'vim' } } } }
     elseif server_name == 'gopls' then
         -- go install mvdan.cc/gofumpt@latest
