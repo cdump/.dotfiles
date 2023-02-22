@@ -40,17 +40,15 @@ return require('packer').startup({ function(use)
     use {
         'stevearc/dressing.nvim',
         config = function() require('dressing').setup {
-                select = {
-                    get_config = function(opts)
-                        if opts.kind == 'codeaction' then
-                            return {
-                                backend = 'telescope',
-                                telescope = require('telescope.themes').get_cursor(),
-                            }
-                        end
-                    end
-                }
+            input = {
+                win_options = {
+                    winblend = 0, -- disable transparency
+                },
+            },
+            select = {
+                telescope = require('telescope.themes').get_cursor(),
             }
+        }
         end
     }
 
