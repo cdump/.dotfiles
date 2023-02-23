@@ -36,6 +36,7 @@ vim.keymap.set('n', '<leader>v', '<cmd>set cursorcolumn!<cr>')
 vim.keymap.set('n', '<leader>s', '<cmd>w<cr>')
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.cmd [[set shortmess+=I]] -- do not show :intro on start
 
 -- [[ Visual mode move blocks ]]
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
