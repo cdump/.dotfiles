@@ -12,15 +12,6 @@ set $right l
 # Your preferred terminal emulator
 set $term alacritty
 
-exec_always {
-    # cursor 24 -> 20
-    # font -> 8 (or scale)
-    # text-scale: 0.8
-    gsettings set org.gnome.desktop.interface font-name 'Cantarell 9'
-    # gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
-    # gsettings set org.gnome.desktop.interface document-font-name 'Cantarell 10'
-}
-
 exec_always ~/.config/sway/scripts/focus-last.py
 exec mako
 
@@ -28,8 +19,10 @@ output * bg ~/.wall.jpg fill
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 output eDP-1 resolution 1920x1200@60Hz scale 2
 output DP-2 resolution 3840x2160@144Hz scale 2
-bindswitch --reload --locked lid:on output eDP-1 disable
-bindswitch --reload --locked lid:off output eDP-1 enable
+
+bindswitch --reload --locked lid:on output eDP-1 disable; exec gsettings set org.gnome.desktop.interface text-scaling-factor 1;
+
+bindswitch --reload --locked lid:off output eDP-1 enable; exec gsettings set org.gnome.desktop.interface text-scaling-factor 0.8;
 
 ### Idle configuration
 #
@@ -46,7 +39,7 @@ bindswitch --reload --locked lid:off output eDP-1 enable
 
 
 exec swayidle -w \
-    timeout 300 'swaymsg "output * power off" && swaylock -f' \
+    timeout 900 'swaymsg "output * power off" && swaylock -f' \
     resume 'swaymsg "output * power on"'
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
@@ -81,7 +74,7 @@ bindsym --to-code {
     # $mod+q exec MOZ_ENABLE_WAYLAND=1 firefox
     $mod+q exec ~/.local/bin/chromium
     $mod+F2 exec MOZ_ENABLE_WAYLAND=1 ~/.local/bin/thunderbird
-    $mod+p exec swaymsg '[app_id="org.keepassxc.KeePassXC"] focus' || ~/.local/bin/keepassxc
+    $mod+p exec swaymsg '[app_id="org.keepassxc.KeePassXC"] scratchpad show' || ~/.local/bin/keepassxc
     $mod+e exec alacritty --class ranger -e ranger
     $mod+r exec rofi -show run
     $mod+n exec l3afpad
@@ -249,23 +242,27 @@ bar {
     swaybar_command waybar
 }
 
-for_window [app_id="org.keepassxc.KeePassXC"] floating enable, move container to workspace $ws1; workspace $ws1;
-for_window [app_id="firefox|chromium|google-chrome.*"] move container to workspace $ws1; workspace $ws1; layout tabbed;
-for_window [title="Save File"] floating enable
+for_window {
+    [app_id="org.keepassxc.KeePassXC"] floating enable, move to scratchpad; workspace $ws1; [app_id="org.keepassxc.KeePassXC"] scratchpad show;
 
-for_window [app_id="ranger"] move container to workspace $ws2; workspace $ws2;
+    [app_id="firefox|chromium|google-chrome.*"] move container to workspace $ws1; workspace $ws1; layout tabbed;
 
-for_window [app_id="thunderbird"] move container to workspace $ws3;
+    [title="Save File"] floating enable
+    [app_id="nwg-look|l3afpad|pavucontrol-qt"] floating enable
 
-for_window [title="Mattermost Desktop App"] floating enable, move container to workspace $ws4; workspace $ws4;
-for_window [app_id="org.telegram.desktop"] floating enable, move container to workspace $ws4; workspace $ws4;
+    [app_id="ranger"] move container to workspace $ws2; workspace $ws2;
 
-for_window [app_id="nwg-look|l3afpad|pavucontrol-qt"] floating enable
+    [app_id="thunderbird"] move container to workspace $ws3;
 
-for_window [app_id="Alacritty"] move container to workspace $ws5; workspace $ws5;
+    [title="Mattermost Desktop App"] floating enable, move container to workspace $ws4; workspace $ws4;
+    [app_id="org.telegram.desktop"] floating enable, move container to workspace $ws4; workspace $ws4;
 
-for_window [app_id="libreoffice-*"] exec ~/.config/sway/scripts/workspaces.py --window-to-new-workspace
+    [app_id="Alacritty"] move container to workspace $ws5; workspace $ws5;
 
+    [app_id="libreoffice-*|org.qbittorrent.qBittorrent"] exec ~/.config/sway/scripts/workspaces.py --window-to-new-workspace
+
+    # [app_id="org.qbittorrent.qBittorrent"] move container to workspace $ws6; workspace $ws6;
+}
 
 # Property Name         Border    BG        Text      Indicator Child Border
 client.focused          "#1E2320" "#1E2320" "#F0DFAF" "#ff0000" "#505050"
