@@ -25,7 +25,7 @@ function M.toggle()
         active_matches[cword] = nil
     else
         pos = 1 + (pos % #colors)
-        active_matches[cword] = { pos, vim.fn.matchadd(highlight_prefix .. pos, cword) }
+        active_matches[cword] = { pos, vim.fn.matchadd(highlight_prefix .. pos, '\\<' .. cword .. '\\>') }
     end
 end
 
