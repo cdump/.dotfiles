@@ -395,6 +395,12 @@ return require('packer').startup({ function(use)
                     null_ls.builtins.code_actions.eslint_d,
                     null_ls.builtins.formatting.eslint_d,
 
+                    null_ls.builtins.formatting.black.with {
+                        only_local = '.venv/bin',
+                    },
+                    null_ls.builtins.diagnostics.mypy.with {
+                        only_local = '.venv/bin',
+                    },
                     null_ls.builtins.diagnostics.flake8.with {
                         only_local = '.venv/bin',
                     },
