@@ -1,4 +1,3 @@
-vim.opt.termguicolors = true
 vim.cmd [[
     let g:sonokai_disable_italic_comment=1
     let g:sonokai_diagnostic_virtual_text='colored'

@@ -8,6 +8,8 @@ vim.g.loaded_netrwPlugin = 1
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.g.mapleader = ' '
 
+vim.opt.termguicolors = true
+
 --[[ plugins ]]
 require('plugins')
 
@@ -87,14 +89,13 @@ vim.keymap.set('n', '<leader>\'', require('telescope.builtin').marks)
 
 --[[ File manager ]]
 -- vim.keymap.set('n', '<C-\\>', '<cmd>Neotree source=filesystem position=left reveal_force_cwd<cr>')
-vim.keymap.set('n', '<C-\\>', function() require('nvim-tree.api').tree.open({find_file=true}) end)
+vim.keymap.set('n', '<C-\\>', function() require('nvim-tree.api').tree.open({find_file=true, update_root=true}) end)
 
 vim.keymap.set('n', '<leader>t', '<cmd>SymbolsOutline<cr>')
 
 vim.keymap.set('n', '<leader>i', '<cmd>IndentBlanklineToggle<cr>')
 
 
-vim.keymap.set('', '<leader>l', require('lsp_lines').toggle, { desc = 'Toggle lsp_lines' })
 vim.keymap.set('n', '<leader>x', function() require('telescope.builtin').diagnostics({ bufnr = 0 }) end)
 
 require('lsp')
