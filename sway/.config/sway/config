@@ -70,12 +70,12 @@ input "type:keyboard" {
     floating_modifier $mod normal
 
 bindsym --to-code {
-    $mod+Return exec $term
+    $mod+Return exec $term --title term
     # $mod+q exec MOZ_ENABLE_WAYLAND=1 firefox
     $mod+q exec ~/.local/bin/chromium
     $mod+F2 exec MOZ_ENABLE_WAYLAND=1 ~/.local/bin/thunderbird
     $mod+p exec swaymsg '[app_id="org.keepassxc.KeePassXC"] scratchpad show' || ~/.local/bin/keepassxc
-    $mod+e exec alacritty --class ranger -e ranger
+    $mod+e exec $term --class ranger -e ranger
     $mod+r exec rofi -show run
     $mod+n exec l3afpad
     $mod+F5 exec ~/.local/bin/telegram-desktop -scale 75

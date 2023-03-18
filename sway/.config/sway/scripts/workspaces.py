@@ -6,7 +6,16 @@ import subprocess
 
 import i3ipc
 
-PREFIXES = [None, '1:₁', '2:₂', '3:₃', '4:₄', '5:₅', '6:₆', '7:₇', '8:₈', '9:₉', '10:₁₀']
+def wprefix(num: int) -> str:
+    assert 0 < num and num < 100, f'{num} not in range[1;99]'
+    digits = [('0', '₀'), ('1', '₁'), ('2', '₂'), ('3', '₃'), ('4', '₄'), ('5', '₅'), ('6', '₆'), ('7', '₇'), ('8', '₈'), ('9', '₉')]
+    if num < 10:
+        a, b = digits[num]
+        return f'{a}:{b}'
+
+    a, b = digits[num // 10]
+    c, d = digits[num % 10]
+    return f'{a}{c}:{b}{d}'
 
 def move_workspace(i3, move: int):
     current_num = None
@@ -23,23 +32,23 @@ def move_workspace(i3, move: int):
         return
 
     if new_num >= len(names) or names[new_num] is None:
-        cmds = [f'rename workspace "{names[current_num]}" to "{PREFIXES[new_num]} {current_name}"']
+        cmds = [f'rename workspace "{names[current_num]}" to "{wprefix(new_num)} {current_name}"']
     else:  # swap
         new_name = names[new_num].split(' ', 1)[1]
         cmds = [
             f'rename workspace "{names[current_num]}" to "tmprename"',
-            f'rename workspace "{names[new_num]}" to "{PREFIXES[current_num]} {new_name}"',
-            f'rename workspace "tmprename" to "{PREFIXES[new_num]} {current_name}"',
+            f'rename workspace "{names[new_num]}" to "{wprefix(current_num)} {new_name}"',
+            f'rename workspace "tmprename" to "{wprefix(new_num)} {current_name}"',
         ]
 
     i3.command(';'.join(cmds))
 
 def window_to_new_workspace(i3):
     workspaces = set(w.num for w in i3.get_workspaces())
-    first_empty_num = min(set(range(6,11)) - workspaces)  # start only from 6
+    first_empty_num = min(set(range(6,100)) - workspaces)  # start only from 6
 
     focused_name = i3.get_tree().find_focused().name
-    name = f'{PREFIXES[first_empty_num]} {focused_name}'
+    name = f'{wprefix(first_empty_num)} {focused_name}'
     i3.command(f'move container to workspace "{name}"; workspace "{name}"')
 
 
