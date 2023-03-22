@@ -38,6 +38,7 @@ vim.keymap.set('n', '<leader>v', '<cmd>set cursorcolumn!<cr>')
 vim.keymap.set('n', '<leader>s', '<cmd>w<cr>')
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "'", "`") -- use ' for mark jumps to row+column
 vim.cmd [[set shortmess+=I]] -- do not show :intro on start
 
 -- [[ Visual mode move blocks ]]
@@ -61,8 +62,8 @@ vim.keymap.set('n', '//', '<cmd>nohlsearch<cr>') -- clear current search highlig
 --[[ Splits ]]
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-vim.keymap.set('n', 'vv', '<cmd>vsplit<cr>') -- vertical split
-vim.keymap.set('n', 'ss', '<cmd>split<cr>') -- horizontal split
+vim.keymap.set('n', 'vv', '<cmd>vsplit<cr>') -- vertical split (C-w v)
+-- vim.keymap.set('n', 'ss', '<cmd>split<cr>') -- horizontal split
 vim.keymap.set('n', '<leader>w', '<C-w>w') -- jump to next split
 vim.keymap.set('n', '+', '2<C-w>+')
 vim.keymap.set('n', '-', '2<C-w>-')
@@ -74,8 +75,8 @@ vim.keymap.set('n', '<', '2<C-w><')
 for i = 1, 9 do
     vim.keymap.set('n', '<M-' .. i .. '>', function() require('bufferline').go_to_buffer(i, true) end)
 end
-vim.keymap.set('n', '<leader>j', '<cmd>HopLine<cr>')
-vim.keymap.set('n', '<leader>f', '<cmd>HopWord<cr>')
+vim.keymap.set('n', '<leader>j', '<cmd>HopLineStart<cr>')
+vim.keymap.set('n', 's', '<cmd>HopWord<cr>')
 vim.keymap.set('v', '<Enter>', '<Plug>(EasyAlign)')
 
 
