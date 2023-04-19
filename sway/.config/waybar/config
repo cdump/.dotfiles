@@ -1,115 +1,120 @@
 {
-    "layer": "top",
-    "position": "bottom",
-    "modules-left": [
-        "sway/workspaces",
-        "sway/mode",
-    ],
-    "modules-center": [],
-    "modules-right": [
-        "tray",
-        "custom/arrow", "network",
-        "custom/arrow", "sway/language",
-        "custom/arrow", "custom/stonks",
-        "custom/arrow", "custom/weather",
-        "custom/arrow", "temperature",
-        "custom/arrow", "backlight",
-        "custom/arrow", "pulseaudio",
-        "custom/arrow", "battery",
-        "custom/arrow", "clock"
-    ],
+  "layer": "top",
+  "position": "bottom",
+  "modules-left": [
+    "sway/workspaces",
+    "sway/mode",
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "tray",
+    "custom/arrow", "network",
+    "custom/arrow", "sway/language",
+    "custom/arrow", "custom/stonks",
+    "custom/arrow", "custom/weather",
+    "custom/arrow", "temperature",
+    "custom/arrow", "backlight",
+    "custom/arrow", "pulseaudio",
+    "custom/arrow", "battery",
+    "custom/arrow", "clock"
+  ],
 
-    "custom/arrow": {
-        "format": "",
-        "tooltip": false
-    },
-    "custom/stonks": {
-        "exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:EUR_RUB__TOM:€' --ticker 'moex_currency:USD000UTSTOM:$' --ticker 'binance:BTCUSDT:₿' --ticker 'binance:ETHUSDT:Ð'",
-        // "exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:USD000UTSTOM:$'",
-        "return-type": "json",
-    },
+  "custom/arrow": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/stonks": {
+    "exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:EUR_RUB__TOM:€' --ticker 'moex_currency:USD000UTSTOM:$' --ticker 'binance:BTCUSDT:₿' --ticker 'binance:ETHUSDT:Ð'",
+    "on-click": "~/.config/awesome/stonks/stonks.py --cmd update-now",
+    // "exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:USD000UTSTOM:$'",
+    "return-type": "json",
+  },
 
-    // Modules configuration
-    "custom/weather": {
-        "exec": "curl -s 'https://wttr.in/Moscow?format=%c/%t' | awk -F '/' '{gsub(/ /,\"\"); print \"<span font=\\\"Noto Color Emoji\\\">\"$1\"</span>\"$2}'",
-        "on-click": "/bin/true",
-        "interval": 3600,
+  // Modules configuration
+  "custom/weather": {
+    "exec": "~/.config/awesome/stonks/weather.py",
+    "return-type": "json",
+  },
+  "sway/workspaces": {
+    "all-outputs": true,
+    "format": "{name}",
+  },
+  "clock": {
+    "interval": 1,
+    "timezone": "Europe/Moscow",
+    "locale": "ru_RU.UTF-8",
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "format-alt": "{:%H:%M:%S}",
+    "format": "{:%d %B, %a · %H:%M:%S}",
+    "calendar": {
+      "mode-mon-col": 3,
+      "format": {
+        "months":     "<b>{}</b>",
+        "weekdays":   "<i>{}</i>",
+        "today": "<span color='#ee7777'><b>{}</b></span>",
+      },
+      "on-scroll": 1,
     },
-    "sway/workspaces": {
-        //"disable-scroll": true,
-        "all-outputs": true,
-        "format": "{name}",
+    "actions":  {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_down",
+      "on-scroll-down": "shift_up"
+    }
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
     },
-    "clock": {
-        "interval": 1,
-        "timezone": "Europe/Moscow",
-        "locale": "ru_RU.UTF-8",
-        "today-format": "<span color='#ee7777'><b>{}</b></span>",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
-        "format-alt": "{:%H:%M:%S}",
-        "format": "{:%d %B, %a · %H:%M:%S}",
-        "on-scroll": {
-            "calendar": -1,
-        },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "pulseaudio": {
+    "scroll-step": 5,
+    "format": "{icon} {volume}%", // {format_source}",
+    //"format-bluetooth": "{volume}% {icon} {format_source}",
+    //"format-bluetooth-muted": " {icon} {format_source}",
+    "format-muted": "{icon} MT",
+    //"format-source": "{volume}% ",
+    //"format-source-muted": "",
+    "format-icons": {
+      "default": ["", "", ""]
     },
-    "battery": {
-        "states": {
-            // "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{icon} {capacity}%",
-        "format-charging": " {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-alt": "{icon} {time}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "pulseaudio": {
-        "scroll-step": 5,
-        "format": "{icon} {volume}%", // {format_source}",
-        //"format-bluetooth": "{volume}% {icon} {format_source}",
-        //"format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": "{icon} MT",
-        //"format-source": "{volume}% ",
-        //"format-source-muted": "",
-        "format-icons": {
-            "default": ["", "", ""]
-        },
-        // "on-click": "pavucontrol-qt"
-        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-        "on-click-right": "pavucontrol-qt",
-    },
-    "backlight": {
-        "device": "amdgpu_bl0",
-        "on-scroll-up": "sudo light -A 2",
-        "on-scroll-down": "sudo light -U 2",
-        "format": "{icon} {percent}%",
-        "format-icons": ["", ""]
-    },
-    "temperature": {
-        "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
-        "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
-        "format": "{icon} {temperatureC}°C",
-        "format-icons": ["", "", ""]
-    },
-    "sway/language": {
-        "format": "{short}",
-    },
-    "network": {
-        "interval": 1,
-        "format": "",
-        "format-alt": " {ifname}: ⇩{bandwidthDownBits} ⇧{bandwidthUpBits}",
-        "tooltip-format": " {ifname} ({ipaddr}/{cidr}): ⇩{bandwidthDownBits} ⇧{bandwidthUpBits}",
-    },
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-click-right": "pavucontrol-qt",
+  },
+  "backlight": {
+    "device": "amdgpu_bl0",
+    "on-scroll-up": "sudo light -A 2",
+    "on-scroll-down": "sudo light -U 2",
+    "format": "{icon} {percent}%",
+    "format-icons": ["", ""]
+  },
+  "temperature": {
+    "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
+    "critical-threshold": 80,
+    // "format-critical": "{temperatureC}°C {icon}",
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": ["", "", ""]
+  },
+  "sway/language": {
+    "format": "{short}",
+  },
+  "network": {
+    "interval": 1,
+    "format": "",
+    "format-alt": " {ifname}: ⇩{bandwidthDownBits} ⇧{bandwidthUpBits}",
+    "tooltip-format": " {ifname} ({ipaddr}/{cidr}): ⇩{bandwidthDownBits} ⇧{bandwidthUpBits}",
+  },
 
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
-    },
-    "tray": {
-        "icon-size": 14,
-        "spacing": 3,
-    },
+  "sway/mode": {
+    "format": "<span style=\"italic\">{}</span>"
+  },
+  "tray": {
+    "icon-size": 14,
+    "spacing": 3,
+  },
 }

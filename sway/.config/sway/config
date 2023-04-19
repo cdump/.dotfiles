@@ -259,6 +259,8 @@ for_window {
 
     [app_id="Alacritty"] move container to workspace $ws5; workspace $ws5;
 
+    [app_id="gimp"] move container to workspace $ws6; workspace $ws6;
+
     [app_id="libreoffice-*"] exec ~/.config/sway/scripts/workspaces.py --window-to-new-workspace
     [app_id="org.qbittorrent.qBittorrent" title="Bittorrent v*"] exec ~/.config/sway/scripts/workspaces.py --window-to-new-workspace
 }
