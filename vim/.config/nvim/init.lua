@@ -19,7 +19,7 @@ require('colorscheme')
 
 --[[ general options ]]
 vim.opt.number = true -- show line numbers
-vim.opt.relativenumber = true
+-- vim.opt.relativenumber = true
 vim.opt.showmode = false -- already have mode in lualine plugin
 vim.opt.confirm = true -- raise a dialogue asking if you wish to save changed files
 vim.opt.cursorline = true -- higlight current line
