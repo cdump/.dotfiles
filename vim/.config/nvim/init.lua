@@ -56,15 +56,15 @@ vim.opt.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for.
 --[[ Search ]]
 vim.opt.ignorecase = true -- Ignore case when searching...
 vim.opt.smartcase = true -- ...unless we type a capital
-vim.keymap.set('n', '//', '<cmd>nohlsearch<cr>') -- clear current search highlight
+vim.keymap.set('n', '//', '<cmd>nohlsearch<cr>', {desc='clear current search highlight'})
 
 
 --[[ Splits ]]
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-vim.keymap.set('n', 'vv', '<cmd>vsplit<cr>') -- vertical split (C-w v)
+vim.keymap.set('n', 'vv', '<cmd>vsplit<cr>', {desc='vertical split'})
 -- vim.keymap.set('n', 'ss', '<cmd>split<cr>') -- horizontal split
-vim.keymap.set('n', '<leader>w', '<C-w>w') -- jump to next split
+vim.keymap.set('n', '<leader>w', '<C-w>w', {desc='jump to the next split'})
 vim.keymap.set('n', '+', '2<C-w>+')
 vim.keymap.set('n', '-', '2<C-w>-')
 vim.keymap.set('n', '>', '2<C-w>>')
@@ -78,6 +78,7 @@ end
 vim.keymap.set('n', '<leader>j', '<cmd>HopLineStart<cr>')
 vim.keymap.set('n', 's', '<cmd>HopWord<cr>')
 vim.keymap.set('v', '<Enter>', '<Plug>(EasyAlign)')
+vim.keymap.set('v', 'y', 'ygv<Esc>', {desc='do not move cursor to the start of selection'})
 
 
 --[[ Fuzzy search ]]
