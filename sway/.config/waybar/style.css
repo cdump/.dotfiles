@@ -17,10 +17,11 @@ window#waybar.hidden {
     opacity: 0.2;
 }
 tooltip {
+    font-family: DejaVuSansM Nerd Font Mono;
     background-color: #111111;
 }
 tooltip label {
-	font-family: DejaVuSansMono Nerd Font Mono;
+    font-family: DejaVuSansM Nerd Font Mono;
     font-size: 10pt;
     background-color: #111111;
     color: #aaaaaa;
@@ -29,7 +30,7 @@ tooltip label {
 }
 
 #custom-arrow {
-	font-family: DejaVuSansMono Nerd Font Mono;
+    font-family: DejaVuSansM Nerd Font Mono;
     font-size: 11pt;
     padding: 0;
 }

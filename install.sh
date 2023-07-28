@@ -58,5 +58,9 @@ for X in ${TARGETS[@]}; do
 
     stow -D $X
     stow $X
+
+    if [[ "$X" == "fonts" ]]; then
+        ~/.local/share/fonts/nerd-fonts/install.sh
+    fi;
 done;
 popd

@@ -25,8 +25,8 @@
   },
   "custom/stonks": {
     "exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:EUR_RUB__TOM:€' --ticker 'moex_currency:USD000UTSTOM:$' --ticker 'binance:BTCUSDT:₿' --ticker 'binance:ETHUSDT:Ð'",
+    // "exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:EUR_RUB__TOM:€' --ticker 'moex_currency:USD000UTSTOM:$'",
     "on-click": "~/.config/awesome/stonks/stonks.py --cmd update-now",
-    // "exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:USD000UTSTOM:$'",
     "return-type": "json",
   },
 
@@ -66,15 +66,15 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "{icon} {capacity}%",
-    "format-charging": " {capacity}%",
-    "format-plugged": " {capacity}%",
+    "format": "{icon}  {capacity}%",
+    "format-charging": "󰂄  {capacity}%",
+    "format-plugged": "  {capacity}%",
     "format-alt": "{icon} {time}",
     "format-icons": ["", "", "", "", ""]
   },
   "pulseaudio": {
     "scroll-step": 5,
-    "format": "{icon} {volume}%", // {format_source}",
+    "format": "{icon}  {volume}%", // {format_source}",
     //"format-bluetooth": "{volume}% {icon} {format_source}",
     //"format-bluetooth-muted": " {icon} {format_source}",
     "format-muted": "{icon} MT",
@@ -90,7 +90,7 @@
     "device": "amdgpu_bl0",
     "on-scroll-up": "sudo light -A 2",
     "on-scroll-down": "sudo light -U 2",
-    "format": "{icon} {percent}%",
+    "format": "{icon}  {percent}%",
     "format-icons": ["", ""]
   },
   "temperature": {
@@ -105,9 +105,9 @@
   },
   "network": {
     "interval": 1,
-    "format": "",
-    "format-alt": " {ifname}: ⇩{bandwidthDownBits} ⇧{bandwidthUpBits}",
-    "tooltip-format": " {ifname} ({ipaddr}/{cidr}): ⇩{bandwidthDownBits} ⇧{bandwidthUpBits}",
+    "format": "󰓅",
+    "format-alt": "󰓅  {ifname}: ⇩{bandwidthDownBits} ⇧{bandwidthUpBits}",
+    "tooltip-format": "󰓅  {ifname} ({ipaddr}/{cidr}): ⇩{bandwidthDownBits} ⇧{bandwidthUpBits}",
   },
 
   "sway/mode": {
