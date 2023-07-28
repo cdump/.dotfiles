@@ -24,7 +24,6 @@ Linux)
         firejail
         picom
         rofi
-        urxvt
         xorg
         zathura
 
