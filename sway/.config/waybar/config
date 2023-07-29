@@ -91,14 +91,14 @@
     "on-scroll-up": "sudo light -A 2",
     "on-scroll-down": "sudo light -U 2",
     "format": "{icon}  {percent}%",
-    "format-icons": ["", ""]
+    "format-icons": ["󰃟"]
   },
   "temperature": {
     "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
     "critical-threshold": 80,
     // "format-critical": "{temperatureC}°C {icon}",
     "format": "{icon} {temperatureC}°C",
-    "format-icons": ["", "", ""]
+    "format-icons": ["", "", ""]
   },
   "sway/language": {
     "format": "{short}",
