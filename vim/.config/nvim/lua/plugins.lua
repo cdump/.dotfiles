@@ -152,6 +152,7 @@ return require('lazy').setup({
                     'javascript',
                     'json',
                     'lua',
+                    'make',
                     'markdown',
                     'markdown_inline',
                     'python',
@@ -407,9 +408,6 @@ return require('lazy').setup({
                     null_ls.builtins.diagnostics.mypy.with {
                         only_local = '.venv/bin',
                     },
-                    null_ls.builtins.diagnostics.flake8.with {
-                        only_local = '.venv/bin',
-                    },
                 },
             }
         end
@@ -428,7 +426,10 @@ return require('lazy').setup({
         'williamboman/mason-lspconfig.nvim'
     },
     {
-        'neovim/nvim-lspconfig'
+        'neovim/nvim-lspconfig',
+        config = function()
+            require('lspconfig.ui.windows').default_options.border = 'rounded'
+        end
     },
 
     { -- a tree like view for symbols using LSP

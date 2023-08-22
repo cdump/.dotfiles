@@ -14,6 +14,7 @@ for _, server_name in pairs({
     'dockerls',
     'gopls',
     'golangci_lint_ls',
+    'ruff_lsp',
     'volar',
 }) do
     local cfg = {
@@ -30,7 +31,16 @@ for _, server_name in pairs({
             '-j=2',
         }
     elseif server_name == 'pyright' then
-        cfg.settings = { python = { pythonPath = '.venv/bin/python' } }
+        cfg.settings = {
+            python = {
+                pythonPath = '.venv/bin/python',
+                analysis = {
+                    autoSearchPaths = true,
+                    useLibraryCodeForTypes = false,
+                    diagnosticMode = 'openFilesOnly',
+                },
+            }
+        }
     elseif server_name == 'lua_ls' then
         cfg.settings = { Lua = { diagnostics = { globals = { 'vim' } } } }
     elseif server_name == 'gopls' then
