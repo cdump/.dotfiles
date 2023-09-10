@@ -1,4 +1,7 @@
-local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
+lsp_capabilities = vim.tbl_extend('force', lsp_capabilities, require('cmp_nvim_lsp').default_capabilities())
+lsp_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+
 local lsp_on_attach = require('lsp_on_attach').lsp_on_attach
 require('mason-lspconfig').setup {
     automatic_installation = { exclude = { 'clangd' } },
@@ -7,31 +10,28 @@ require('mason-lspconfig').setup {
 -- local eslint_d = require('mason-registry').get_package('eslint_d')
 -- if not eslint_d:is_installed() then eslint_d:install() end
 
-for _, server_name in pairs({
-    'clangd',
-    'lua_ls',
-    'pyright',
-    'dockerls',
-    'gopls',
-    'golangci_lint_ls',
-    'ruff_lsp',
-    'volar',
-}) do
-    local cfg = {
-        capabilities = lsp_capabilities,
-        on_attach = lsp_on_attach
-    }
-    if server_name == 'clangd' then
-        cfg.cmd = { 'clangd',
+local servers = {
+    ['clangd'] = {
+        cmd = { 'clangd',
             '--background-index',
             '--clang-tidy',
             '--pch-storage=memory',
             '--completion-style=detailed',
-            -- '--inlay-hints',
             '-j=2',
-        }
-    elseif server_name == 'pyright' then
-        cfg.settings = {
+        },
+    },
+
+    -- ['pylsp'] = {
+    --     plugins = {
+    --         black = { enabled = false },
+    --         autopep8 = { enabled = false },
+    --         pyflakes = { enabled = false },
+    --         yapf = { enabled = false },
+    --         pycodestyle = { enabled = false },
+    --     },
+    -- },
+    ['pyright'] = {
+        settings = {
             python = {
                 pythonPath = '.venv/bin/python',
                 analysis = {
@@ -39,16 +39,30 @@ for _, server_name in pairs({
                     useLibraryCodeForTypes = false,
                     diagnosticMode = 'openFilesOnly',
                 },
-            }
-        }
-    elseif server_name == 'lua_ls' then
-        cfg.settings = { Lua = { diagnostics = { globals = { 'vim' } } } }
-    elseif server_name == 'gopls' then
-        -- go install mvdan.cc/gofumpt@latest
-        cfg.settings = { gopls = { gofumpt = true } }
-    elseif server_name == 'volar' then
-        cfg.settings = { volar = { filetypes = { 'typescript', 'javascript', 'vue', 'json' } } }
-    end
+            },
+        },
+    },
+    ['ruff_lsp'] = {},
+
+    ['lua_ls'] = {
+        settings = { Lua = { diagnostics = { globals = { 'vim' } } } }
+    },
+
+    ['gopls'] = {
+        settings = { gopls = { gofumpt = true } }
+    },
+    ['golangci_lint_ls'] = {},
+
+    ['volar'] = {
+        settings = { volar = { filetypes = { 'typescript', 'javascript', 'vue', 'json' } } }
+    },
+
+    ['dockerls'] = {},
+}
+
+for server_name, cfg in pairs(servers) do
+    cfg.capabilities = lsp_capabilities
+    cfg.on_attach = lsp_on_attach
     require('lspconfig')[server_name].setup(cfg)
 end
 
