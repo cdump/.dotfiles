@@ -16,6 +16,16 @@ require('plugins')
 --[[ colorscheme ]]
 require('colorscheme')
 
+-- vim.o.foldcolumn = '0' -- '0' is not bad
+-- vim.o.fillchars = [[eob:q,fold: ,foldopen:,foldsep: ,foldclose:]]
+-- vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+-- vim.opt.foldlevelstart = 99
+-- vim.opt.foldnestmax = 3
+-- vim.opt.foldenable = true
+-- vim.opt.foldmethod = 'indent'
+-- vim.opt.fillchars = { fold = ' ' }
+-- vim.opt.foldtext=[[ substitute(getline(v:foldstart),'\t',repeat(' ',&tabstop),'g') . '...' . trim(getline(v:foldend)) ]]
+
 
 --[[ general options ]]
 vim.opt.number = true -- show line numbers
@@ -86,6 +96,7 @@ vim.keymap.set('n', '<C-g>', require('telescope.builtin').git_files)
 vim.keymap.set('n', '<C-p>', require('telescope.builtin').find_files)
 vim.keymap.set('n', '<leader>a', require('telescope.builtin').live_grep)
 vim.keymap.set('n', '<leader>\'', require('telescope.builtin').marks)
+vim.keymap.set('n', '<leader>r', require('telescope.builtin').resume)
 
 
 --[[ File manager ]]

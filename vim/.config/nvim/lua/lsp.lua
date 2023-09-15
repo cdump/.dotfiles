@@ -7,8 +7,8 @@ require('mason-lspconfig').setup {
     automatic_installation = { exclude = { 'clangd' } },
 }
 
--- local eslint_d = require('mason-registry').get_package('eslint_d')
--- if not eslint_d:is_installed() then eslint_d:install() end
+local eslint_d = require('mason-registry').get_package('eslint_d')
+if not eslint_d:is_installed() then eslint_d:install() end
 
 local servers = {
     ['clangd'] = {
@@ -54,7 +54,7 @@ local servers = {
     ['golangci_lint_ls'] = {},
 
     ['volar'] = {
-        settings = { volar = { filetypes = { 'typescript', 'javascript', 'vue', 'json' } } }
+        filetypes = { 'typescript', 'javascript', 'vue', 'json' }
     },
 
     ['dockerls'] = {},
