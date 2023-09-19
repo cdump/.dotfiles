@@ -28,7 +28,7 @@ vim.cmd [[
     hi InfoFloat guifg=#76cce0 guibg=#1e222a
     hi HintFloat guifg=#9ed072 guibg=#1e222a
 
-    " p00f/nvim-ts-rainbow
+    " hiphish/rainbow-delimiters.nvim
     hi rainbowcol1 guifg=#5fd7ff
     hi rainbowcol2 guifg=#ffffaf
     hi rainbowcol3 guifg=#afffff

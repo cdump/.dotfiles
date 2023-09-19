@@ -164,21 +164,33 @@ return require('lazy').setup({
         'bfrg/vim-cpp-modern'
     },
 
+    {
+        'hiphish/rainbow-delimiters.nvim',
+        config = function()
+            vim.g.rainbow_delimiters = {
+                highlight = {
+                    'rainbowcol1',
+                    'rainbowcol2',
+                    'rainbowcol3',
+                    'rainbowcol4',
+                    'rainbowcol5',
+                    'rainbowcol6',
+                    'rainbowcol7',
+                }
+            }
+        end
+    },
+
     { -- highlight, edit, and navigate code using a fast incremental parsing library
         'nvim-treesitter/nvim-treesitter',
         -- version = nil,
         dependencies = {
-            'p00f/nvim-ts-rainbow',
             'nvim-treesitter/nvim-treesitter-textobjects',
             'JoosepAlviste/nvim-ts-context-commentstring',
         },
         -- build = ':TSUpdate',
         config = function()
             require('nvim-treesitter.configs').setup {
-                rainbow = {
-                    enable = true,
-                    colors = { '#5fd7ff', '#ffffaf', '#afffff', '#ffd7ff' }
-                },
                 ensure_installed = {
                     'bash',
                     'c',
