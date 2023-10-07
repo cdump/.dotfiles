@@ -92,7 +92,8 @@ vim.keymap.set('v', 'y', 'ygv<Esc>', {desc='do not move cursor to the start of s
 
 
 --[[ Fuzzy search ]]
-vim.keymap.set('n', '<C-g>', require('telescope.builtin').git_files)
+vim.keymap.set('n', '<C-g>', function () require('telescope.builtin').git_files({use_git_root=false}) end)
+vim.keymap.set('n', '<C-f>', function () require('telescope.builtin').git_files({use_git_root=true}) end)
 vim.keymap.set('n', '<C-p>', require('telescope.builtin').find_files)
 vim.keymap.set('n', '<leader>a', require('telescope.builtin').live_grep)
 vim.keymap.set('n', '<leader>\'', require('telescope.builtin').marks)
