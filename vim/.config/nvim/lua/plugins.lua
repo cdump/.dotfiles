@@ -374,11 +374,25 @@ return require('lazy').setup({
 
     {
         'lukas-reineke/indent-blankline.nvim',
-        opts = {
-            -- enabled = false,
-            char = '▏',
-            filetype_exclude = { 'help', 'markdown', 'text' },
-        }
+        main = 'ibl',
+        config = function()
+            local hooks = require 'ibl.hooks'
+            hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+                 vim.api.nvim_set_hl(0, 'IblIndent', { fg = '#282c34' })
+            end)
+            require('ibl').setup{
+                indent = {
+                    char = '▏',
+                },
+                scope = {
+                    enabled = false,
+                },
+                exclude = {
+                    filetypes = { 'help', 'markdown', 'text' },
+                },
+            }
+
+        end
     },
 
     {

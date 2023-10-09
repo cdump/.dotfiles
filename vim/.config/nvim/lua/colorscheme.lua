@@ -10,8 +10,6 @@ vim.cmd [[
     hi NvimTreeWinSeparator guifg=#222327 guibg=#222327
     hi NvimTreeCursorLine guibg=#383838
 
-    hi IndentBlanklineChar guifg=#282c34
-
     hi BufferLineBufferSelected guifg=#e2e2e3 guibg=#1e222a gui=bold
 
     hi Todo guifg=#ffffff guibg=#080808 gui=bold
