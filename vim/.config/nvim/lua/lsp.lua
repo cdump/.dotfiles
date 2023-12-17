@@ -58,6 +58,22 @@ local servers = {
     },
 
     ['dockerls'] = {},
+    ['rust_analyzer'] = {
+        -- check = {
+        --     command = "clippy"
+        -- },
+        completion = {
+            fullFunctionSignatures = {
+                enable = true,
+            }
+        },
+        imports = {
+            granularity = {
+                group = "module",
+            },
+            -- prefix = "self",
+        },
+    },
 }
 
 for server_name, cfg in pairs(servers) do

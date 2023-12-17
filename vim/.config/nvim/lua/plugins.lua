@@ -206,6 +206,7 @@ return require('lazy').setup({
                     'markdown_inline',
                     'python',
                     'regex',
+                    'rust',
                     'typescript',
                     'vim',
                     'vimdoc',
@@ -218,9 +219,6 @@ return require('lazy').setup({
                     disable = { 'c', 'cpp' }, -- bfrg/vim-cpp-modern is better (#if 0 support, auto type support, ...)
                 },
                 indent = {
-                    enable = true,
-                },
-                context_commentstring = {
                     enable = true,
                 },
                 incremental_selection = {
