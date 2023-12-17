@@ -78,6 +78,7 @@ bindsym --to-code {
     $mod+e exec $term --class ranger -e ranger
     $mod+r exec rofi -show run
     $mod+n exec l3afpad
+    $mod+c exec qalculate-gtk
     $mod+F5 exec ~/.local/bin/telegram-desktop -scale 75
     $mod+F6 exec ~/.local/bin/mattermost-desktop --ozone-platform-hint=auto
 
@@ -248,7 +249,7 @@ for_window {
     [app_id="firefox|chromium|google-chrome.*"] move container to workspace $ws1; workspace $ws1; layout tabbed;
 
     [title="Save File"] floating enable
-    [app_id="nwg-look|l3afpad|pavucontrol-qt"] floating enable
+    [app_id="nwg-look|l3afpad|pavucontrol-qt|qalculate-gtk"] floating enable
 
     [app_id="ranger"] move container to workspace $ws2; workspace $ws2;
 
