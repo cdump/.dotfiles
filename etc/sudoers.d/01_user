@@ -6,6 +6,7 @@ Defaults always_set_home
 
 user ALL=(ALL) ALL
 user ALL=NOPASSWD:/usr/bin/systemctl suspend
+user ALL=NOPASSWD:/usr/bin/systemctl poweroff
 user ALL=NOPASSWD:/usr/bin/tee /sys/class/backlight/*
 
 #user ALL=(ALL) NOPASSWD: ALL
