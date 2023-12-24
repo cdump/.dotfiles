@@ -59,19 +59,12 @@ local servers = {
 
     ['dockerls'] = {},
     ['rust_analyzer'] = {
-        -- check = {
-        --     command = "clippy"
-        -- },
-        completion = {
-            fullFunctionSignatures = {
-                enable = true,
-            }
-        },
-        imports = {
-            granularity = {
-                group = "module",
+        settings = {
+            ['rust-analyzer'] = {
+                check = {
+                    command = "clippy"
+                },
             },
-            -- prefix = "self",
         },
     },
 }
