@@ -43,7 +43,6 @@ return require('lazy').setup({
 
             }
             require('mini.bracketed').setup()
-            require('mini.surround').setup()
 
             require('mini.splitjoin').setup {
                 mappings = {
@@ -152,11 +151,15 @@ return require('lazy').setup({
     },
 
     { -- motions on speed
-        'phaazon/hop.nvim',
-        branch = 'v1',
+        'smoka7/hop.nvim',
+        version = '*',
         opts = {
             keys = 'etovxqpdygfblzhckisuran'
-        }
+        },
+        keys = {
+            { '<leader>j', '<cmd>HopLineStart<cr>'},
+            { 's', '<cmd>HopWord<cr>'},
+        },
     },
 
 
@@ -358,16 +361,23 @@ return require('lazy').setup({
     { -- A blazing fast and easy to configure neovim statusline plugin written in pure lua
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        opts = {
+        opts = function() return {
             options = {
                 globalstatus = true,
                 component_separators = { left = ' ', right = ' ' },
                 section_separators = { left = '', right = '' },
             },
             sections = {
-                lualine_c = { { 'filename', path = 1 } } -- relative path
+                lualine_b = { { 'filename', path = 1 } }, -- relative path
+                lualine_c = {
+                    {
+                        require('noice').api.status.search.get,
+                        cond = require('noice').api.status.search.has,
+                        color = { fg = '#ff9e64' },
+                    },
+                },
             }
-        }
+        } end
     },
 
     {
@@ -397,6 +407,9 @@ return require('lazy').setup({
         'nvim-tree/nvim-tree.lua',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         tag = 'nightly', -- optional, updated every week. (see issue #1193)
+        keys = {
+            { '<C-\\>', function() require('nvim-tree.api').tree.open({find_file=true, update_root=true}) end },
+        },
         config = function()
             require('nvim-tree').setup({
                 sort_by = 'case_sensitive',
@@ -471,7 +484,7 @@ return require('lazy').setup({
     },
 
     {
-        'jose-elias-alvarez/null-ls.nvim',
+        'nvimtools/none-ls.nvim',
         config = function()
             local null_ls = require('null-ls')
             null_ls.setup {
@@ -507,13 +520,16 @@ return require('lazy').setup({
     },
     {
         'neovim/nvim-lspconfig',
-        config = function()
-            require('lspconfig.ui.windows').default_options.border = 'rounded'
-        end
+        -- config = function()
+        --     require('lspconfig.ui.windows').default_options.border = 'rounded'
+        -- end
     },
 
     { -- a tree like view for symbols using LSP
-        'simrat39/symbols-outline.nvim',
+        'hedyhli/outline.nvim',
+        keys = {
+            { '<leader>t', '<cmd>Outline<CR>', desc = 'Toggle outline' },
+        },
         opts = {
             highlight_hovered_item = false,
         }
@@ -601,37 +617,67 @@ return require('lazy').setup({
     --     ft = {'go'},
     -- }
 
-    -- {
-    --     'folke/noice.nvim',
-    --     event = 'VeryLazy',
-    --     opts = {
-    --         cmdline = {
-    --             enabled = true,
-    --             view = 'cmdline',
-    --             format = {
-    --                 cmdline = { pattern = '^:', icon = '', conceal = false },
-    --             },
-    --         },
-    --         messages = {
-    --             view_search = 'cmdline',
-    --         },
-    --         views = {
-    --             mini = {
-    --                 timeout = 5000,
-    --                 border = {
-    --                     style = 'rounded',
-    --                 },
-    --                 position = {
-    --                     row = -1,
-    --                     col = '100%',
-    --                 },
-    --             },
-    --         },
-    --     },
-    --     dependencies = {
-    --         'MunifTanjim/nui.nvim',
-    --     }
-    -- },
+    {
+        'folke/noice.nvim',
+        event = 'VeryLazy',
+        opts = {
+            routes = {
+                {
+                    view = 'split',
+                    filter = { event = 'msg_show', min_height = 10 },
+                },
+                {
+                    filter = { event = 'msg_show', kind = 'search_count' },
+                    opts = { skip = true },
+                },
+                {
+                    filter = { event = 'msg_show', kind = '', find = 'written' },
+                    opts = { skip = true },
+                },
+                {
+                    filter = { event = 'lsp', kind = 'progress', cond = function(message) return vim.tbl_get(message.opts, 'progress', 'client') == 'null-ls' end },
+                    opts = { skip = true },
+                },
+            },
+            cmdline = {
+                enabled = true,
+                view = 'cmdline',
+                format = {
+                    cmdline = { conceal = false },
+                    input = false,
+                },
+            },
+            lsp = {
+                hover = {
+                    enabled = false,
+                },
+                signature = {
+                    enabled = false,
+                },
+            },
+            messages = {
+                view_search = false,
+            },
+            views = {
+                mini = {
+                    timeout = 8000,
+                    border = {
+                        style = 'rounded',
+                    },
+                    position = {
+                        row = -2,
+                        col = '100%',
+                    },
+                    win_options = {
+                        winblend = 0, -- disable transparency
+                    },
+                },
+            },
+        },
+        dependencies = {
+            'MunifTanjim/nui.nvim',
+        }
+    },
 
     -- {
     --     'nvim-neo-tree/neo-tree.nvim',

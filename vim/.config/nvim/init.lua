@@ -86,8 +86,6 @@ vim.keymap.set('n', '<', '2<C-w><')
 for i = 1, 9 do
     vim.keymap.set('n', '<M-' .. i .. '>', function() require('bufferline').go_to_buffer(i, true) end)
 end
-vim.keymap.set('n', '<leader>j', '<cmd>HopLineStart<cr>')
-vim.keymap.set('n', 's', '<cmd>HopWord<cr>')
 vim.keymap.set('v', 'y', 'ygv<Esc>', {desc='do not move cursor to the start of selection'})
 
 
@@ -98,13 +96,6 @@ vim.keymap.set('n', '<C-p>', require('telescope.builtin').find_files)
 vim.keymap.set('n', '<leader>a', require('telescope.builtin').live_grep)
 vim.keymap.set('n', '<leader>\'', require('telescope.builtin').marks)
 vim.keymap.set('n', '<leader>r', require('telescope.builtin').resume)
-
-
---[[ File manager ]]
--- vim.keymap.set('n', '<C-\\>', '<cmd>Neotree source=filesystem position=left reveal_force_cwd<cr>')
-vim.keymap.set('n', '<C-\\>', function() require('nvim-tree.api').tree.open({find_file=true, update_root=true}) end)
-
-vim.keymap.set('n', '<leader>t', '<cmd>SymbolsOutline<cr>')
 
 vim.keymap.set('n', '<leader>x', function() require('telescope.builtin').diagnostics({ bufnr = 0 }) end)
 
