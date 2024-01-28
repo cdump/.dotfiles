@@ -91,7 +91,7 @@ bindsym --to-code {
 
     Ctrl+Delete exec sleep 0.3 && killall -SIGUSR1 swayidle
     $mod+F12 exec sleep 0.3 && swaylock -f && sudo systemctl suspend
-    $mod+F9 exec sudo systemctl poweroff
+    $mod+F9 exec sudo systemctl poweroff --force
 
     Print exec GRIM_DEFAULT_DIR=~/shots/ grim -g "$(slurp -b '#000000bb' -s '#00000011')"
     $mod+F11 exec GRIM_DEFAULT_DIR=~/shots/ grim -g "$(slurp -b '#000000bb' -s '#00000011')"

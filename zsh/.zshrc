@@ -6,8 +6,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 export GOPATH=$HOME/devel/go
-export PATH=$HOME/.local/bin/:$HOME/.poetry/bin:/opt/gotools/bin:$GOPATH/bin:$PATH
-export CUDACXX=/usr/local/cuda/bin/nvcc
+export PATH=$HOME/.local/bin/:$GOPATH/bin:$PATH
+export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 
 export LANG=en_US.UTF-8
 export EDITOR=nvim

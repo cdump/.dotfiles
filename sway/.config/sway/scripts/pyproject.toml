@@ -3,8 +3,6 @@ name = "sway-scripts"
 version = "0.1.0"
 description = ""
 authors = ["Maxim Andreev <andreevmaxim@gmail.com>"]
-readme = "README.md"
-packages = [{include = "sway_scripts"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
