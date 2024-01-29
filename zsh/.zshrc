@@ -7,7 +7,7 @@ fi
 
 export GOPATH=$HOME/devel/go
 export PATH=$HOME/.local/bin/:$GOPATH/bin:$PATH
-export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
+export SSH_AUTH_SOCK=${SSH_AUTH_SOCK-$XDG_RUNTIME_DIR/ssh-agent.socket}
 
 export LANG=en_US.UTF-8
 export EDITOR=nvim
