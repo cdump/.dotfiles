@@ -28,6 +28,7 @@ Linux)
         zathura
 
         alacritty
+        ssh-agent
         sway
     )
 ;;
@@ -54,6 +55,11 @@ for X in ${TARGETS[@]}; do
 
     if [[ "$X" == "xorg" ]]; then
         touch ~/.Xresources.local
+    fi;
+
+    if [[ "$X" == "ssh-agent" ]]; then
+        # systemd needs a real directory, not a symlink
+        mkdir -p ~/.config/systemd/user/ssh-agent.service.d/
     fi;
 
     stow -D $X
