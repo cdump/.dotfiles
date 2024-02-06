@@ -250,7 +250,7 @@ for_window {
     [app_id="firefox|chromium|google-chrome.*"] move container to workspace $ws1; workspace $ws1; layout tabbed;
 
     [title="Save File"] floating enable
-    [app_id="nwg-look|nwg-displays|l3afpad|pavucontrol-qt|qalculate-gtk"] floating enable
+    [app_id="nwg-look|nwg-displays|l3afpad|pavucontrol-qt|qalculate-gtk|iwgtk"] floating enable
 
     [app_id="ranger"] move container to workspace $ws2; workspace $ws2;
 
