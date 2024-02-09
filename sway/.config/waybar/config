@@ -24,9 +24,9 @@
     "tooltip": false
   },
   "custom/stonks": {
-    "exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:EUR_RUB__TOM:€' --ticker 'moex_currency:USD000UTSTOM:$' --ticker 'binance:BTCUSDT:₿' --ticker 'binance:ETHUSDT:Ð'",
-    // "exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:EUR_RUB__TOM:€' --ticker 'moex_currency:USD000UTSTOM:$'",
+    "exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'moex_currency:EUR_RUB__TOM:€' --ticker 'moex_currency:USD000UTSTOM:$' --ticker 'binance:BTCUSDT:₿' --ticker 'binance:ETHUSDT:Ξ'",
     "on-click": "~/.config/awesome/stonks/stonks.py --cmd update-now",
+    "on-click-right": "~/.config/awesome/stonks/stonks.py --cmd toggle-mode",
     "return-type": "json",
   },
 
