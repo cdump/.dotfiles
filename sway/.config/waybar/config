@@ -32,8 +32,7 @@
 
   // Modules configuration
   "custom/weather": {
-    "exec": "~/.config/awesome/stonks/weather.py",
-    "return-type": "json",
+    "exec": "curl --max-time 2 -s 'https://wttr.in/Moscow?format=%c%t'|awk '{print \"<span font=\\\"Noto Color Emoji\\\">\"$1\"</span> \"$2}'",
   },
   "sway/workspaces": {
     "all-outputs": true,
