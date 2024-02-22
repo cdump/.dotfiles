@@ -82,8 +82,8 @@ bindsym --to-code {
     $mod+F5 exec ~/.local/bin/telegram-desktop -scale 75
 
     # add user to 'video' group
-    XF86MonBrightnessUp exec light -A 10
-    XF86MonBrightnessDown exec light -U 10
+    XF86MonBrightnessUp exec brightnessctl set +5%
+    XF86MonBrightnessDown exec brightnessctl set 5%-
 
     XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
     XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
