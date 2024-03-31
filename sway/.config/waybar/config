@@ -43,8 +43,8 @@
     "timezone": "Europe/Moscow",
     "locale": "ru_RU.UTF-8",
     "tooltip-format": "<tt>{calendar}</tt>",
-    "format-alt": "{:%H:%M:%OS}",
-    "format": "{:%d %B, %a · %H:%M:%OS}",
+    "format-alt": "{:L%H:%M:%OS}",
+    "format": "{:L%d %B, %a · %H:%M:%OS}",
     "calendar": {
       "mode-mon-col": 3,
       "format": {
