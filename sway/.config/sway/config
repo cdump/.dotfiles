@@ -79,6 +79,7 @@ bindsym --to-code {
     $mod+r exec rofi -show run
     $mod+n exec l3afpad
     $mod+c exec qalculate-gtk
+    $mod+F4 exec OBSIDIAN_USE_WAYLAND=1 obsidian -enable-features=UseOzonePlatform -ozone-platform=wayland
     $mod+F5 exec ~/.local/bin/telegram-desktop -scale 75
 
     # add user to 'video' group
@@ -260,7 +261,7 @@ for_window {
 
     [app_id="Alacritty"] move container to workspace $ws5; workspace $ws5;
 
-    [app_id="gimp|audacity"] move container to workspace $ws6; workspace $ws6;
+    [app_id="gimp|audacity|obsidian"] move container to workspace $ws6; workspace $ws6;
 
     [app_id="libreoffice-*"] exec ~/.config/sway/scripts/workspaces.py --window-to-new-workspace
     [app_id="org.qbittorrent.qBittorrent" title="Bittorrent v*"] exec ~/.config/sway/scripts/workspaces.py --window-to-new-workspace
