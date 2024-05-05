@@ -375,6 +375,11 @@ return require('lazy').setup({
                         cond = require('noice').api.status.search.has,
                         color = { fg = '#ff9e64' },
                     },
+                    {
+                        require("noice").api.statusline.mode.get,
+                        cond = require("noice").api.statusline.mode.has,
+                        color = { fg = "#ff9e64" },
+                    },
                 },
             }
         } end
@@ -491,9 +496,9 @@ return require('lazy').setup({
                 -- debug = true,
                 on_attach = require('lsp_on_attach').lsp_on_attach,
                 sources = {
-                    null_ls.builtins.diagnostics.eslint_d,
-                    null_ls.builtins.code_actions.eslint_d,
-                    null_ls.builtins.formatting.prettier,
+                    -- null_ls.builtins.diagnostics.eslint_d,
+                    -- null_ls.builtins.code_actions.eslint_d,
+                    -- null_ls.builtins.formatting.prettier,
 
                     null_ls.builtins.formatting.black.with {
                         only_local = '.venv/bin',
