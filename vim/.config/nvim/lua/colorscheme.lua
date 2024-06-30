@@ -34,6 +34,10 @@ vim.cmd [[
     hi rainbowcol5 guifg=#5fd7ff
     hi rainbowcol6 guifg=#ffffaf
     hi rainbowcol7 guifg=#afffff
+
+    hi link MiniDiffOverAdd GreenSign
+    hi link MiniDiffOverDelete RedSign
+    hi link MiniDiffOverChange BlueSign
 ]]
 
 -- vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })

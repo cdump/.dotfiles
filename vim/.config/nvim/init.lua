@@ -81,6 +81,7 @@ vim.keymap.set('n', '-', '2<C-w>-')
 vim.keymap.set('n', '>', '2<C-w>>')
 vim.keymap.set('n', '<', '2<C-w><')
 
+vim.keymap.set('n', '<leader>ht', function() require('mini.diff').toggle_overlay() end)
 
 --[[ Jumps ]]
 for i = 1, 9 do

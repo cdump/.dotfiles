@@ -1,12 +1,12 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
     vim.fn.system({
         "git",
         "clone",
         "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
         "--branch=stable", -- latest stable release
-        lazypath,
+        "https://github.com/folke/lazy.nvim.git",
+        lazypath
     })
 end
 vim.opt.rtp:prepend(lazypath)
@@ -32,6 +32,18 @@ return require('lazy').setup({
         'echasnovski/mini.nvim',
         version = false,
         config = function()
+            require('mini.diff').setup({
+                view = {
+                    signs = { add = '┃', change = '┃', delete = '_' },
+                },
+            })
+
+            require('mini.comment').setup({
+                mappings = {
+                    textobject = 'ic',
+                }
+            })
+
             local treesitter = require("mini.ai").gen_spec.treesitter
             require('mini.ai').setup{
                 n_lines = 500,
@@ -40,8 +52,8 @@ return require('lazy').setup({
                     k = treesitter { a = '@block.outer', i = '@block.inner' },
                     o = treesitter { a = { '@conditional.outer', '@loop.outer' }, i = { '@conditional.inner', '@loop.inner' } },
                 },
-
             }
+
             require('mini.bracketed').setup()
 
             require('mini.splitjoin').setup {
@@ -145,11 +157,6 @@ return require('lazy').setup({
         end
     },
 
-    { -- smart and powerful comment plugin
-        'numToStr/Comment.nvim',
-        opts = {},
-    },
-
     { -- motions on speed
         'smoka7/hop.nvim',
         version = '*',
@@ -232,68 +239,12 @@ return require('lazy').setup({
                         node_decremental = '<C-A-space>',
                     },
                 },
-                -- textobjects = {
-                --     select = {
-                --         enable = true,
-                --         lookahead = true,
-                --         keymaps = {
-                --             -- ['af'] = '@function.outer',
-                --             -- ['if'] = '@function.inner',
-                --             -- ['al'] = '@loop.outer',
-                --             -- ['il'] = '@loop.inner',
-                --             -- ['ab'] = '@block.outer',
-                --             -- ['ib'] = '@block.inner',
-                --         }
-                --     },
-                --     move = {
-                --         enable = true,
-                --         set_jumps = true,
-                --         goto_next_start = {
-                --             [']f'] = '@function.outer',
-                --         },
-                --         goto_next_end = {
-                --             [']F'] = '@function.outer',
-                --         },
-                --         goto_previous_start = {
-                --             ['[f'] = '@function.outer',
-                --         },
-                --         goto_previous_end = {
-                --             ['[F'] = '@function.outer',
-                --         },
-                --     },
-                -- },
             }
         end
     },
 
     { -- a Git wrapper so awesome, it should be illegal
         'tpope/vim-fugitive'
-    },
-
-    { -- git signs in signcolumn
-        'lewis6991/gitsigns.nvim',
-        opts = {
-            attach_to_untracked = false,
-            on_attach = function(bufnr)
-                local gs = package.loaded.gitsigns
-                local function map(mode, l, r, opts)
-                    opts = opts or {}
-                    opts.buffer = bufnr
-                    vim.keymap.set(mode, l, r, opts)
-                end
-                map('n', ']g', function()
-                    if vim.wo.diff then return ']c' end
-                    vim.schedule(function() gs.next_hunk() end)
-                    return '<Ignore>'
-                end, {expr=true})
-
-                map('n', '[g', function()
-                    if vim.wo.diff then return '[c' end
-                    vim.schedule(function() gs.prev_hunk() end)
-                    return '<Ignore>'
-                end, {expr=true})
-            end
-        },
     },
 
     { -- Find, Filter, Preview, Pick. All lua, all the time
@@ -490,15 +441,18 @@ return require('lazy').setup({
 
     {
         'nvimtools/none-ls.nvim',
+        dependencies = {
+            'nvimtools/none-ls-extras.nvim',
+        },
         config = function()
             local null_ls = require('null-ls')
             null_ls.setup {
                 -- debug = true,
                 on_attach = require('lsp_on_attach').lsp_on_attach,
                 sources = {
-                    -- null_ls.builtins.diagnostics.eslint_d,
-                    -- null_ls.builtins.code_actions.eslint_d,
-                    -- null_ls.builtins.formatting.prettier,
+                    require('none-ls.diagnostics.eslint_d'),
+                    require('none-ls.code_actions.eslint_d'),
+                    null_ls.builtins.formatting.prettier,
 
                     null_ls.builtins.formatting.black.with {
                         only_local = '.venv/bin',
@@ -525,9 +479,9 @@ return require('lazy').setup({
     },
     {
         'neovim/nvim-lspconfig',
-        -- config = function()
-        --     require('lspconfig.ui.windows').default_options.border = 'rounded'
-        -- end
+        config = function()
+            require('lspconfig.ui.windows').default_options.border = 'rounded'
+        end
     },
 
     { -- a tree like view for symbols using LSP
