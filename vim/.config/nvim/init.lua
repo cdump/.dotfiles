@@ -97,6 +97,7 @@ vim.keymap.set('n', '<C-p>', require('telescope.builtin').find_files)
 vim.keymap.set('n', '<leader>a', require('telescope.builtin').live_grep)
 vim.keymap.set('n', '<leader>\'', require('telescope.builtin').marks)
 vim.keymap.set('n', '<leader>r', require('telescope.builtin').resume)
+vim.keymap.set('n', '<leader>b', require('telescope.builtin').buffers)
 
 vim.keymap.set('n', '<leader>x', function() require('telescope.builtin').diagnostics({ bufnr = 0 }) end)
 
@@ -110,4 +111,12 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 vim.api.nvim_create_autocmd('Filetype', {
     pattern = { 'html', 'vue',  'css', 'scss', 'javascript', 'typescript' },
     command = 'setlocal shiftwidth=2 tabstop=2'
+})
+
+-- highlighting on yank
+vim.api.nvim_create_autocmd('TextYankPost', {
+	callback = function()
+		vim.highlight.on_yank({timeout=500})
+	end,
+	pattern = '*',
 })

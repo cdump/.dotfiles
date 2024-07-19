@@ -362,7 +362,6 @@ return require('lazy').setup({
     {
         'nvim-tree/nvim-tree.lua',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        tag = 'nightly', -- optional, updated every week. (see issue #1193)
         keys = {
             { '<C-\\>', function() require('nvim-tree.api').tree.open({find_file=true, update_root=true}) end },
         },
