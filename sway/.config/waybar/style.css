@@ -109,6 +109,15 @@ tooltip label {
     color: #aaaaaa;
 }
 
+#battery.warning {
+    background-color: #b5a32d;
+    color: #000;
+}
+#battery.critical {
+    background-color: #ff2828;
+    color: #000;
+}
+
 
 #tray {
     background-color: #000000;
