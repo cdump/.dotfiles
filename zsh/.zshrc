@@ -80,6 +80,7 @@ setopt inc_append_history_time
 setopt extended_history     # save each command's beginning timestamp (in seconds since the epoch) and the duration (in seconds) to the history file
 unsetopt share_history
 alias rh='fc -RI'           # refresh-history
+alias dh=" function zshaddhistory() { return 1 }; echo 'History disabled'"
 
 # setopt menu_complete        # on an ambiguous completion, instead of listing possibilities or beeping, insert the first match immediately
 setopt complete_in_word
