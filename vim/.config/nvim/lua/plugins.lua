@@ -368,44 +368,38 @@ return require('lazy').setup({
         config = function()
             require('nvim-tree').setup({
                 sort_by = 'case_sensitive',
-                -- sync_root_with_cwd = true,
+                on_attach = function(bufnr)
+                    local api = require "nvim-tree.api"
+                    local lib = require "nvim-tree.lib"
+                    local function opts(desc)
+                        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+                    end
+                    api.config.mappings.default_on_attach(bufnr)
+
+                    vim.keymap.set('n', 'u', api.tree.change_root_to_parent,        opts('Up'))
+
+                    vim.keymap.set('n', 'cd', function()
+                        local node = lib.get_node_at_cursor()
+                        local path = node.type == 'directory' and node.absolute_path or
+                        node.parent.absolute_path
+                        vim.cmd('cd ' .. path)
+                        print('directory changed to ' .. path)
+                    end, opts('cd'))
+
+                    vim.keymap.set('n', '.', function()
+                        local node = api.tree.get_node_under_cursor()
+                        local cnode = node.type == 'directory' and node.parent or
+                        (node.parent.parent or node.parent)
+                        api.tree.change_root_to_node(cnode)
+                        api.tree.find_file(node.absolute_path)
+                        print('root set to ' .. cnode.absolute_path)
+                    end, opts('set root'))
+                end,
                 view = {
+                    signcolumn = 'no',
                     width = {
                         min = 25,
                         max = 60,
-                    },
-                    -- signcolumn = 'no',
-                    mappings = {
-                        list = {
-                            { key = 'u', action = 'dir_up' },
-                            { key = 'r', action = 'refresh' },
-                            { key = 'R', action = 'rename' },
-                            {
-                                key = '.',
-                                action = '. descr',
-                                action_cb = function()
-                                    local api = require('nvim-tree.api')
-                                    local node = api.tree.get_node_under_cursor()
-                                    local cnode = node.type == 'directory' and node.parent or
-                                    (node.parent.parent or node.parent)
-                                    api.tree.change_root_to_node(cnode)
-                                    api.tree.find_file(node.absolute_path)
-                                    print('root set to ' .. cnode.absolute_path)
-                                end
-                            },
-                            {
-                                key = 'cd',
-                                action = 'cd descr',
-                                action_cb = function()
-                                    local lib = require('nvim-tree.lib')
-                                    local node = lib.get_node_at_cursor()
-                                    local path = node.type == 'directory' and node.absolute_path or
-                                    node.parent.absolute_path
-                                    vim.cmd('cd ' .. path)
-                                    print('directory changed to ' .. path)
-                                end
-                            },
-                        },
                     },
                 },
                 renderer = {
@@ -449,10 +443,6 @@ return require('lazy').setup({
                 -- debug = true,
                 on_attach = require('lsp_on_attach').lsp_on_attach,
                 sources = {
-                    require('none-ls.diagnostics.eslint_d'),
-                    require('none-ls.code_actions.eslint_d'),
-                    null_ls.builtins.formatting.prettier,
-
                     null_ls.builtins.formatting.black.with {
                         only_local = '.venv/bin',
                     },
@@ -606,6 +596,9 @@ return require('lazy').setup({
                 },
             },
             lsp = {
+                progress = {
+                    enabled = false,
+                },
                 hover = {
                     enabled = false,
                 },

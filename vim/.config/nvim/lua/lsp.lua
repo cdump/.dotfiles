@@ -67,6 +67,7 @@ local servers = {
             },
         },
     },
+    ['biome'] = {},
 }
 
 for server_name, cfg in pairs(servers) do
