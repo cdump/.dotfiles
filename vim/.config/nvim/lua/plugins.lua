@@ -449,6 +449,7 @@ return require('lazy').setup({
                     null_ls.builtins.diagnostics.mypy.with {
                         only_local = '.venv/bin',
                     },
+                    null_ls.builtins.formatting.yamlfmt,
                 },
             }
         end
