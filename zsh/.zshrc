@@ -97,6 +97,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # match uppercase from lower
 export MC_SKIN=xoria256_patched
 
 # Color MAN
+export GROFF_NO_SGR=true
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;38;5;74m'
 export LESS_TERMCAP_me=$'\E[0m'
