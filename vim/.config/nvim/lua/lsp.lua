@@ -42,7 +42,7 @@ local servers = {
             },
         },
     },
-    ['ruff_lsp'] = {},
+    ['ruff'] = {},
 
     ['lua_ls'] = {
         settings = { Lua = { diagnostics = { globals = { 'vim' } } } }

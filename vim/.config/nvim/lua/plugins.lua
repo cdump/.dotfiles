@@ -270,15 +270,19 @@ return require('lazy').setup({
         end
     },
 
-    { -- markdown preview plugin
+   { -- markdown preview plugin
         'iamcco/markdown-preview.nvim',
-        build = function() vim.fn['mkdp#util#install']() end,
+        cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
         ft = { 'markdown' },
+        build = function()
+          vim.opt.rtp:prepend(vim.fn.stdpath('data') .. '/lazy/markdown-preview.nvim')
+          vim.fn['mkdp#util#install']()
+        end,
         init = function()
             vim.g.mkdp_open_to_the_world = 1
             vim.g.mkdp_echo_preview_url = 1
         end,
-    },
+   },
 
     { -- highlight trailing whitespaces
         'ntpeters/vim-better-whitespace',
