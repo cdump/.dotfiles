@@ -94,6 +94,7 @@ bindsym --to-code {
     $mod+F12 exec sleep 0.3 && swaylock -f && sudo systemctl suspend
     $mod+F9 exec sudo systemctl poweroff --force
 
+    Alt+Print exec GRIM_DEFAULT_DIR=~/shots/ grim
     Print exec GRIM_DEFAULT_DIR=~/shots/ grim -g "$(slurp -b '#000000bb' -s '#00000011')"
     $mod+F11 exec GRIM_DEFAULT_DIR=~/shots/ grim -g "$(slurp -b '#000000bb' -s '#00000011')"
     Ctrl+Print exec killall -SIGINT wf-recorder && notify-send 'Recording finished' || (notify-send 'Recording started' && wf-recorder -g "$(slurp -b '#000000bb' -s '#00000011')" -f ~/shots/vid-$(date +"%Y%m%d-%Hh%Mm%Ss").mp4)
