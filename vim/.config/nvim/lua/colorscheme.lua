@@ -20,7 +20,7 @@ vim.cmd [[
     hi FloatBorder guibg=#1e222a guifg=#7f8490
     hi PmenuThumb guibg=#7f8490
 
-    hi NormalFloat guifg=#e2e2e3 guibg=#1e222a
+    hi NormalFloat guifg=#a2a2a3 guibg=#1e222a
     hi ErrorFloat guifg=#fc5d7c guibg=#1e222a
     hi WarningFloat guifg=#e7c664 guibg=#1e222a
     hi InfoFloat guifg=#76cce0 guibg=#1e222a
@@ -34,21 +34,34 @@ vim.cmd [[
     hi rainbowcol5 guifg=#5fd7ff
     hi rainbowcol6 guifg=#ffffaf
     hi rainbowcol7 guifg=#afffff
+
+    hi SnacksIndent guifg=#282c34
+    hi IblIndent guifg=#282c34
+
+    hi! DiagnosticLineNrError guibg=#51202A guifg=#FF0000 gui=bold
+    hi! DiagnosticLineNrWarn guibg=#51412A guifg=#FFA500 gui=bold
+    hi! DiagnosticLineNrInfo guibg=#1E535D guifg=#00FFFF gui=bold
+    hi! DiagnosticLineNrHint guibg=#1E205D guifg=#0000FF gui=bold
+
+    hi! DiffText guibg=#62a9ba
+    hi! link BlinkCmpMenuBorder NormalFloat
+    hi! link Pmenu NormalFloat
+
 ]]
 
--- vim.fn.sign_define('DiagnosticSignError', { text = ' ', texthl = 'DiagnosticSignError' })
--- vim.fn.sign_define('DiagnosticSignWarn', { text = ' ', texthl = 'DiagnosticSignWarn' })
--- vim.fn.sign_define('DiagnosticSignInfo', { text = ' ', texthl = 'DiagnosticSignInfo' })
--- vim.fn.sign_define('DiagnosticSignHint', { text = ' ', texthl = 'DiagnosticSignHint' })
--- hl line number
-vim.cmd [[
-  highlight! DiagnosticLineNrError guibg=#51202A guifg=#FF0000 gui=bold
-  highlight! DiagnosticLineNrWarn guibg=#51412A guifg=#FFA500 gui=bold
-  highlight! DiagnosticLineNrInfo guibg=#1E535D guifg=#00FFFF gui=bold
-  highlight! DiagnosticLineNrHint guibg=#1E205D guifg=#0000FF gui=bold
-
-  sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticLineNrError
-  sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticLineNrWarn
-  sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticLineNrInfo
-  sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticLineNrHint
-]]
+vim.diagnostic.config({
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = '',
+            [vim.diagnostic.severity.WARN] = '',
+            [vim.diagnostic.severity.INFO] = '',
+            [vim.diagnostic.severity.HINT] = '',
+        },
+        numhl = {
+            [vim.diagnostic.severity.ERROR] = 'DiagnosticLineNrError',
+            [vim.diagnostic.severity.WARN] = 'DiagnosticLineNrWarn',
+            [vim.diagnostic.severity.INFO] = 'DiagnosticLineNrInfo',
+            [vim.diagnostic.severity.HINT] = 'DiagnosticLineNrHint',
+        },
+    },
+})

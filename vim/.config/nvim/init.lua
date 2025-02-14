@@ -1,9 +1,5 @@
 vim.cmd [[language C]] -- Show VIM messages in English
 
--- nvim-tree: disable netrw at the very start of your init.lua (strongly advised)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 --[[ Space = leader key ]]
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.g.mapleader = ' '
@@ -16,15 +12,11 @@ require('plugins')
 --[[ colorscheme ]]
 require('colorscheme')
 
--- vim.o.foldcolumn = '0' -- '0' is not bad
--- vim.o.fillchars = [[eob:q,fold: ,foldopen:,foldsep: ,foldclose:]]
--- vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
--- vim.opt.foldlevelstart = 99
--- vim.opt.foldnestmax = 3
--- vim.opt.foldenable = true
--- vim.opt.foldmethod = 'indent'
--- vim.opt.fillchars = { fold = ' ' }
--- vim.opt.foldtext=[[ substitute(getline(v:foldstart),'\t',repeat(' ',&tabstop),'g') . '...' . trim(getline(v:foldend)) ]]
+vim.opt.foldmethod = 'marker'
+vim.o.fillchars = [[diff: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+vim.o.foldcolumn = 'auto'
+vim.o.foldlevel = 99
+vim.opt.foldlevelstart = 99
 
 
 --[[ general options ]]
@@ -88,18 +80,6 @@ for i = 1, 9 do
     vim.keymap.set('n', '<M-' .. i .. '>', function() require('bufferline').go_to_buffer(i, true) end)
 end
 vim.keymap.set('v', 'y', 'ygv<Esc>', {desc='do not move cursor to the start of selection'})
-
-
---[[ Fuzzy search ]]
-vim.keymap.set('n', '<C-g>', function () require('telescope.builtin').git_files({use_git_root=false}) end)
-vim.keymap.set('n', '<C-f>', function () require('telescope.builtin').git_files({use_git_root=true}) end)
-vim.keymap.set('n', '<C-p>', require('telescope.builtin').find_files)
-vim.keymap.set('n', '<leader>a', require('telescope.builtin').live_grep)
-vim.keymap.set('n', '<leader>\'', require('telescope.builtin').marks)
-vim.keymap.set('n', '<leader>r', require('telescope.builtin').resume)
-vim.keymap.set('n', '<leader>b', require('telescope.builtin').buffers)
-
-vim.keymap.set('n', '<leader>x', function() require('telescope.builtin').diagnostics({ bufnr = 0 }) end)
 
 require('lsp')
 

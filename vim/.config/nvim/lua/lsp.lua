@@ -1,7 +1,3 @@
-local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
-lsp_capabilities = vim.tbl_extend('force', lsp_capabilities, require('cmp_nvim_lsp').default_capabilities())
-lsp_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
-
 local lsp_on_attach = require('lsp_on_attach').lsp_on_attach
 require('mason-lspconfig').setup {
     automatic_installation = { exclude = { 'clangd' } },
@@ -21,15 +17,6 @@ local servers = {
         },
     },
 
-    -- ['pylsp'] = {
-    --     plugins = {
-    --         black = { enabled = false },
-    --         autopep8 = { enabled = false },
-    --         pyflakes = { enabled = false },
-    --         yapf = { enabled = false },
-    --         pycodestyle = { enabled = false },
-    --     },
-    -- },
     ['pyright'] = {
         settings = {
             python = {
@@ -71,7 +58,8 @@ local servers = {
 }
 
 for server_name, cfg in pairs(servers) do
-    cfg.capabilities = lsp_capabilities
+    -- cfg.capabilities = vim.tbl_extend('force', cfg.capabilities, require('cmp_nvim_lsp').default_capabilities())
+    cfg.capabilities = require('blink.cmp').get_lsp_capabilities(cfg.capabilities)
     cfg.on_attach = lsp_on_attach
     require('lspconfig')[server_name].setup(cfg)
 end

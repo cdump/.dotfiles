@@ -18,14 +18,11 @@ return require('lazy').setup({
     },
 
     {
-        'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
-        keys = {
-            { '<leader>l', function() require('lsp_lines').toggle() end, desc = 'Toggle lsp_lines' },
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        lazy = true,
+        opts = {
+            enable_autocmd = false,
         },
-        config = function()
-            require('lsp_lines').setup()
-            vim.diagnostic.config({ virtual_lines = false })
-        end,
     },
 
     {
@@ -41,11 +38,17 @@ return require('lazy').setup({
             require('mini.comment').setup({
                 mappings = {
                     textobject = 'ic',
-                }
+                },
+                options = {
+                    custom_commentstring = function()
+                        return require("ts_context_commentstring.internal").calculate_commentstring() or
+                        vim.bo.commentstring
+                    end,
+                },
             })
 
             local treesitter = require("mini.ai").gen_spec.treesitter
-            require('mini.ai').setup{
+            require('mini.ai').setup {
                 n_lines = 500,
                 custom_textobjects = {
                     f = treesitter { a = '@function.outer', i = '@function.inner' },
@@ -75,48 +78,65 @@ return require('lazy').setup({
                 },
             }
 
-            local miniclue = require('mini.clue')
-            miniclue.setup {
-                triggers = {
-                    -- Leader triggers
-                    { mode = 'n', keys = '<Leader>' },
-                    { mode = 'x', keys = '<Leader>' },
-
-                    -- `g` key
-                    { mode = 'n', keys = 'g' },
-                    { mode = 'x', keys = 'g' },
-
-                    -- Marks
-                    { mode = 'n', keys = "'" },
-                    { mode = 'n', keys = '`' },
-                    { mode = 'x', keys = "'" },
-                    { mode = 'x', keys = '`' },
-
-                    -- Registers
-                    { mode = 'n', keys = '"' },
-                    { mode = 'x', keys = '"' },
-                    { mode = 'i', keys = '<C-r>' },
-                    { mode = 'c', keys = '<C-r>' },
-
-                    -- Window commands
-                    { mode = 'n', keys = '<C-w>' },
-
-                    -- `z` key
-                    { mode = 'n', keys = 'z' },
-                    { mode = 'x', keys = 'z' },
-                },
-
-                clues = {
-                    -- Enhance this by adding descriptions for <Leader> mapping groups
-                    miniclue.gen_clues.builtin_completion(),
-                    miniclue.gen_clues.g(),
-                    miniclue.gen_clues.marks(),
-                    miniclue.gen_clues.registers(),
-                    miniclue.gen_clues.windows(),
-                    miniclue.gen_clues.z(),
-                },
-            }
+            -- local miniclue = require('mini.clue')
+            -- miniclue.setup {
+            --     triggers = {
+            --         -- Leader triggers
+            --         { mode = 'n', keys = '<Leader>' },
+            --         { mode = 'x', keys = '<Leader>' },
+            --
+            --         -- `g` key
+            --         { mode = 'n', keys = 'g' },
+            --         { mode = 'x', keys = 'g' },
+            --
+            --         -- Marks
+            --         { mode = 'n', keys = "'" },
+            --         { mode = 'n', keys = '`' },
+            --         { mode = 'x', keys = "'" },
+            --         { mode = 'x', keys = '`' },
+            --
+            --         -- Registers
+            --         { mode = 'n', keys = '"' },
+            --         { mode = 'x', keys = '"' },
+            --         { mode = 'i', keys = '<C-r>' },
+            --         { mode = 'c', keys = '<C-r>' },
+            --
+            --         -- Window commands
+            --         { mode = 'n', keys = '<C-w>' },
+            --
+            --         -- `z` key
+            --         { mode = 'n', keys = 'z' },
+            --         { mode = 'x', keys = 'z' },
+            --     },
+            --
+            --     clues = {
+            --         -- Enhance this by adding descriptions for <Leader> mapping groups
+            --         miniclue.gen_clues.builtin_completion(),
+            --         miniclue.gen_clues.g(),
+            --         miniclue.gen_clues.marks(),
+            --         miniclue.gen_clues.registers(),
+            --         miniclue.gen_clues.windows(),
+            --         miniclue.gen_clues.z(),
+            --     },
+            --     window = {
+            --         config = {
+            --             width = 'auto',
+            --             row = 'auto',
+            --         },
+            --     },
+            -- }
         end
+    },
+
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        opts = {
+            delay = 1000,
+            win = {
+                border = 'rounded',
+            },
+        },
     },
 
     { -- a better user experience for viewing and interacting with Vim marks
@@ -141,22 +161,6 @@ return require('lazy').setup({
         }
     },
 
-    {
-        'stevearc/dressing.nvim',
-        event = 'VeryLazy',
-        config = function() require('dressing').setup {
-            input = {
-                win_options = {
-                    winblend = 0, -- disable transparency
-                },
-            },
-            select = {
-                telescope = require('telescope.themes').get_cursor(),
-            }
-        }
-        end
-    },
-
     { -- motions on speed
         'smoka7/hop.nvim',
         version = '*',
@@ -164,8 +168,8 @@ return require('lazy').setup({
             keys = 'etovxqpdygfblzhckisuran'
         },
         keys = {
-            { '<leader>j', '<cmd>HopLineStart<cr>'},
-            { 's', '<cmd>HopWord<cr>'},
+            { '<leader>j', '<cmd>HopLineStart<cr>' },
+            { 's',         '<cmd>HopWord<cr>' },
         },
     },
 
@@ -247,42 +251,19 @@ return require('lazy').setup({
         'tpope/vim-fugitive'
     },
 
-    { -- Find, Filter, Preview, Pick. All lua, all the time
-        'nvim-telescope/telescope.nvim',
-        dependencies = {
-            { 'nvim-lua/plenary.nvim' },
-            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
-        },
-        config = function()
-            require('telescope').setup {
-                defaults = {
-                    borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
-                    mappings = {
-                        i = {
-                            ['<C-k>'] = 'move_selection_previous',
-                            ['<C-j>'] = 'move_selection_next',
-                            ['<Esc>'] = 'close',
-                        }
-                    },
-                },
-            }
-            require('telescope').load_extension('fzf')
-        end
-    },
-
-   { -- markdown preview plugin
+    { -- markdown preview plugin
         'iamcco/markdown-preview.nvim',
         cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
         ft = { 'markdown' },
         build = function()
-          vim.opt.rtp:prepend(vim.fn.stdpath('data') .. '/lazy/markdown-preview.nvim')
-          vim.fn['mkdp#util#install']()
+            vim.opt.rtp:prepend(vim.fn.stdpath('data') .. '/lazy/markdown-preview.nvim')
+            vim.fn['mkdp#util#install']()
         end,
         init = function()
             vim.g.mkdp_open_to_the_world = 1
             vim.g.mkdp_echo_preview_url = 1
         end,
-   },
+    },
 
     { -- highlight trailing whitespaces
         'ntpeters/vim-better-whitespace',
@@ -316,125 +297,108 @@ return require('lazy').setup({
     { -- A blazing fast and easy to configure neovim statusline plugin written in pure lua
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
-        opts = function() return {
-            options = {
-                globalstatus = true,
-                component_separators = { left = ' ', right = ' ' },
-                section_separators = { left = '', right = '' },
-            },
-            sections = {
-                lualine_b = { { 'filename', path = 1 } }, -- relative path
-                lualine_c = {
-                    {
-                        require('noice').api.status.search.get,
-                        cond = require('noice').api.status.search.has,
-                        color = { fg = '#ff9e64' },
-                    },
-                    {
-                        require("noice").api.statusline.mode.get,
-                        cond = require("noice").api.statusline.mode.has,
-                        color = { fg = "#ff9e64" },
-                    },
+        opts = function()
+            return {
+                options = {
+                    globalstatus = true,
+                    component_separators = { left = ' ', right = ' ' },
+                    section_separators = { left = '', right = '' },
                 },
-            }
-        } end
-    },
-
-    {
-        'lukas-reineke/indent-blankline.nvim',
-        main = 'ibl',
-        config = function()
-            local hooks = require 'ibl.hooks'
-            hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-                 vim.api.nvim_set_hl(0, 'IblIndent', { fg = '#282c34' })
-            end)
-            require('ibl').setup{
-                indent = {
-                    char = '▏',
-                },
-                scope = {
-                    enabled = false,
-                },
-                exclude = {
-                    filetypes = { 'help', 'markdown', 'text' },
-                },
-            }
-
-        end
-    },
-
-    {
-        'nvim-tree/nvim-tree.lua',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
-        keys = {
-            { '<C-\\>', function() require('nvim-tree.api').tree.open({find_file=true, update_root=true}) end },
-        },
-        config = function()
-            require('nvim-tree').setup({
-                sort_by = 'case_sensitive',
-                on_attach = function(bufnr)
-                    local api = require "nvim-tree.api"
-                    local lib = require "nvim-tree.lib"
-                    local function opts(desc)
-                        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-                    end
-                    api.config.mappings.default_on_attach(bufnr)
-
-                    vim.keymap.set('n', 'u', api.tree.change_root_to_parent,        opts('Up'))
-
-                    vim.keymap.set('n', 'cd', function()
-                        local node = lib.get_node_at_cursor()
-                        local path = node.type == 'directory' and node.absolute_path or
-                        node.parent.absolute_path
-                        vim.cmd('cd ' .. path)
-                        print('directory changed to ' .. path)
-                    end, opts('cd'))
-
-                    vim.keymap.set('n', '.', function()
-                        local node = api.tree.get_node_under_cursor()
-                        local cnode = node.type == 'directory' and node.parent or
-                        (node.parent.parent or node.parent)
-                        api.tree.change_root_to_node(cnode)
-                        api.tree.find_file(node.absolute_path)
-                        print('root set to ' .. cnode.absolute_path)
-                    end, opts('set root'))
-                end,
-                view = {
-                    signcolumn = 'no',
-                    width = {
-                        min = 25,
-                        max = 60,
-                    },
-                },
-                renderer = {
-                    group_empty = true,
-                    indent_width = 1,
-                    icons = {
-                        show = {
-                            folder_arrow = false,
+                sections = {
+                    lualine_b = { { 'filename', path = 1 } }, -- relative path
+                    lualine_c = {
+                        {
+                            require('noice').api.status.search.get,
+                            cond = require('noice').api.status.search.has,
+                            color = { fg = '#ff9e64' },
+                        },
+                        {
+                            require("noice").api.statusline.mode.get,
+                            cond = require("noice").api.statusline.mode.has,
+                            color = { fg = "#ff9e64" },
                         },
                     },
-                },
-                filters = {
-                    dotfiles = true,
-                },
-                git = {
-                    enable = false,
-                },
-                live_filter = {
-                    always_show_folders = false, -- Turn into false from true by default
-                },
-            })
-            vim.api.nvim_create_autocmd('BufEnter', {
-                nested = true,
-                callback = function()
-                    if #vim.api.nvim_list_wins() == 1 and require('nvim-tree.utils').is_nvim_tree_buf() then
-                        vim.cmd 'quit'
-                    end
-                end
-            })
+                }
+            }
         end
     },
+
+    -- {
+    --     'nvim-tree/nvim-tree.lua',
+    --     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    --     keys = {
+    --         -- { '<C-\\>', function() require('nvim-tree.api').tree.open({find_file=true, update_root=true}) end },
+    --         -- { '<C-\\>', function() require('nvim-tree.api').tree.toggle({find_file=true, update_root=true}) end },
+    --         { '<C-h>', function() require('nvim-tree.api').tree.toggle({find_file=true, update_root=true}) end },
+    --     },
+    --     config = function()
+    --         require('nvim-tree').setup({
+    --             sort_by = 'case_sensitive',
+    --             on_attach = function(bufnr)
+    --                 local api = require "nvim-tree.api"
+    --                 local function opts(desc)
+    --                     return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+    --                 end
+    --                 api.config.mappings.default_on_attach(bufnr)
+    --
+    --                 vim.keymap.set('n', 'u', api.tree.change_root_to_parent,        opts('Up'))
+    --
+    --                 vim.keymap.set('n', 'cd', function()
+    --                     local node = api.tree.get_node_under_cursor()
+    --                     local path = node.type == 'directory' and node.absolute_path or
+    --                     node.parent.absolute_path
+    --                     vim.cmd('cd ' .. path)
+    --                     print('directory changed to ' .. path)
+    --                 end, opts('cd'))
+    --
+    --                 vim.keymap.set('n', '.', function()
+    --                     local node = api.tree.get_node_under_cursor()
+    --                     local cnode = node.type == 'directory' and node.parent or
+    --                     (node.parent.parent or node.parent)
+    --                     api.tree.change_root_to_node(cnode)
+    --                     api.tree.find_file(node.absolute_path)
+    --                     print('root set to ' .. cnode.absolute_path)
+    --                 end, opts('set root'))
+    --             end,
+    --             view = {
+    --                 float = {
+    --                     enable = true,
+    --                 },
+    --                 signcolumn = 'no',
+    --                 width = {
+    --                     min = 25,
+    --                     max = 60,
+    --                 },
+    --             },
+    --             renderer = {
+    --                 group_empty = true,
+    --                 indent_width = 1,
+    --                 icons = {
+    --                     show = {
+    --                         folder_arrow = false,
+    --                     },
+    --                 },
+    --             },
+    --             filters = {
+    --                 dotfiles = true,
+    --             },
+    --             git = {
+    --                 enable = false,
+    --             },
+    --             live_filter = {
+    --                 always_show_folders = false, -- Turn into false from true by default
+    --             },
+    --         })
+    --         vim.api.nvim_create_autocmd('BufEnter', {
+    --             nested = true,
+    --             callback = function()
+    --                 if #vim.api.nvim_list_wins() == 1 and require('nvim-tree.utils').is_nvim_tree_buf() then
+    --                     vim.cmd 'quit'
+    --                 end
+    --             end
+    --         })
+    --     end
+    -- },
 
     {
         'nvimtools/none-ls.nvim',
@@ -478,16 +442,6 @@ return require('lazy').setup({
         end
     },
 
-    { -- a tree like view for symbols using LSP
-        'hedyhli/outline.nvim',
-        keys = {
-            { '<leader>t', '<cmd>Outline<CR>', desc = 'Toggle outline' },
-        },
-        opts = {
-            highlight_hovered_item = false,
-        }
-    },
-
     { -- snippets
         'L3MON4D3/LuaSnip',
         dependencies = {
@@ -499,76 +453,89 @@ return require('lazy').setup({
         end
     },
 
-    { -- autocompletion
-        'hrsh7th/nvim-cmp',
-        dependencies = {
-            'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-nvim-lsp-signature-help',
-            'hrsh7th/cmp-path',
-            'saadparwaiz1/cmp_luasnip',
-        },
-        config = function()
-            local cmp = require('cmp')
-            local luasnip = require('luasnip')
+    {
+        'saghen/blink.cmp',
+        dependencies = 'rafamadriz/friendly-snippets',
+        version = '*',
+        build = 'cargo build --release',
+        opts = {
+            snippets = { preset = 'luasnip' },
+            keymap = {
+                preset = 'none',
+                ['<C-k>'] = { 'select_prev', 'fallback' },
+                ['<C-j>'] = { 'select_next', 'fallback' },
+                ['<Up>'] = { 'select_prev', 'fallback' },
+                ['<Down>'] = { 'select_next', 'fallback' },
 
-            local border_opts = {
-                border = 'rounded',
-                winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None',
-            }
+                ['<CR>'] = { 'accept', 'fallback' },
+                ['<C-e>'] = { 'cancel', 'fallback' },
 
-            cmp.setup {
-                preselect = cmp.PreselectMode.None,
+                ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+                ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+
+                ['<Tab>'] = { 'snippet_forward', 'fallback' },
+                ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+            },
+            signature = {
+                enabled = true,
                 window = {
-                    completion = cmp.config.window.bordered(border_opts),
-                    documentation = cmp.config.window.bordered(border_opts),
+                    border = 'rounded',
                 },
-                snippet = {
-                    expand = function(args)
-                        require('luasnip').lsp_expand(args.body)
+            },
+            completion = {
+                accept = {
+                    auto_brackets = {
+                        enabled = false,
+                    },
+                },
+                list = {
+                    selection = {
+                        preselect = false,
+                        auto_insert = true,
+                    },
+                },
+                documentation = {
+                    auto_show = true,
+                    window = {
+                        border = 'rounded',
+                    },
+                },
+                menu = {
+                    auto_show = function(ctx)
+                        return ctx.mode ~= 'cmdline' and not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
                     end,
+                    border = 'rounded',
+                    draw = {
+                        columns = { { 'label' }, { 'kind' }, { 'source_name' } },
+                    },
                 },
-                mapping = cmp.mapping.preset.insert({
-                    ['<CR>'] = cmp.mapping.confirm({ select = false }), -- explicitly selected items only
-                    ['<C-k>'] = cmp.mapping.select_prev_item(),
-                    ['<C-j>'] = cmp.mapping.select_next_item(),
-                    ['<Tab>'] = cmp.mapping(function(fallback)
-                        if luasnip.expand_or_jumpable() then
-                            luasnip.expand_or_jump()
-                        else
-                            fallback()
-                        end
-                    end, { 'i', 's' }),
-                }),
-                sources = {
-                    { name = 'nvim_lsp' },
-                    { name = 'nvim_lsp_signature_help' },
-                    { name = 'path' },
-                    { name = 'luasnip' },
-                    { name = 'buffer' },
-                },
-                formatting = {
-                    format = function(entry, item)
-                        local sources = {
-                            buffer = 'Buffer',
-                            nvim_lsp = 'LSP',
-                            luasnip = 'Snippet',
-                            nvim_lsp_signature_help = 'Sign',
-                            path = 'Path',
-                        }
-                        item.menu = sources[entry.source.name] or entry.source.name
-                        return item
-                    end
-                },
-            }
-        end
-    },
 
-    -- use {
-    --     'fatih/vim-go',
-    --     -- run = function() vim.cmd[[<cmd>GoInstallBinaries<cr>]] end,
-    --     ft = {'go'},
-    -- }
+                ghost_text = {
+                    enabled = true,
+                },
+            },
+
+            appearance = {
+                -- Sets the fallback highlight groups to nvim-cmp's highlight groups
+                use_nvim_cmp_as_default = true,
+            },
+            cmdline = {
+                keymap = {
+                    ['<Tab>'] = { 'show_and_insert', 'select_next' },
+                    ['<C-k>'] = { 'select_prev', 'fallback' },
+                    ['<C-j>'] = { 'select_next', 'fallback' },
+                    ['<Up>'] = { 'select_prev', 'fallback' },
+                    ['<Down>'] = { 'select_next', 'fallback' },
+                    ['<C-c>'] = { 'cancel', 'fallback' },
+                },
+            },
+
+            sources = {
+                default = { 'lsp', 'path', 'snippets', 'buffer' },
+            },
+        },
+        opts_extend = { "sources.default" }
+    },
 
     {
         'folke/noice.nvim',
@@ -597,7 +564,7 @@ return require('lazy').setup({
                 view = 'cmdline',
                 format = {
                     cmdline = { conceal = false },
-                    input = false,
+                    -- input = false,
                 },
             },
             lsp = {
@@ -611,8 +578,8 @@ return require('lazy').setup({
                     enabled = false,
                 },
             },
-            messages = {
-                view_search = false,
+            notify = {
+                enabled = false,
             },
             views = {
                 mini = {
@@ -635,76 +602,245 @@ return require('lazy').setup({
         }
     },
 
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        opts = {
+            styles = {
+                input = {
+                    relative = "cursor",
+                    row = -3,
+                    title_pos = "left",
+                    keys = {
+                        n_cc = { "<C-c>", { "cmp_close", "cancel" }, mode = "n", expr = true },
+                        i_cc = { "<C-c>", { "cmp_close", "cancel" }, mode = "i", expr = true },
+                    },
+                },
+                notification = {
+                    focusable = false,
+                },
+            },
+            dim = { enabled = true, animate = { enabled = false } },
+            notifier = {
+                enabled = true,
+            },
+            bigfile = { enabled = true },
+            explorer = { enabled = true },
+            quickfile = { enabled = true },
+            indent = {
+                enabled = true,
+                indent = {
+                    char = '▏',
+                },
+                animate = {
+                    enabled = false,
+                },
+                scope = {
+                    enabled = false,
+                },
+                filter = function(buf)
+                    local exclude = { 'help', 'markdown', 'text' }
+                    return vim.g.snacks_indent ~= false
+                        and vim.b[buf].snacks_indent ~= false
+                        and vim.bo[buf].buftype == ""
+                        and not vim.tbl_contains(exclude, vim.bo[buf].filetype)
+                end,
+            },
+            input = {
+                enabled = true,
+                icon = "",
+            },
+            picker = {
+                enabled = true,
+                formatters = {
+                    file = {
+                        git_status_hl = false,
+                    },
+                },
+                sources = {
+                    files = {
+                        layout = { preset = "telescope" },
+                    },
+                    grep = {
+                        layout = { preset = "telescope" },
+                    },
+                    diagnostics = {
+                        layout = { preset = "telescope" },
+                    },
+                    diagnostics_buffer = {
+                        layout = { preset = "telescope" },
+                    },
+                    explorer = {
+                        auto_close = true,
+                        replace_netrw = false,
+                        win = {
+                            list = {
+                                keys = {
+                                    ["<C-c>"] = "close",
+                                    ["<leader>w"] = "close",
+                                    ["<C-\\>"] = "close",
+                                    ["u"] = "explorer_up",
+                                    ["cd"] = "tcd",
+                                    ["z"] = "toggle_maximize",
+                                    ["c"] = "tcd",
+                                    -- ["l"] = "confirm",
+                                    -- ["h"] = "explorer_close", -- close directory
+                                    -- ["a"] = "explorer_add",
+                                    -- ["d"] = "explorer_del",
+                                    -- ["r"] = "explorer_rename",
+                                    -- ["m"] = "explorer_move",
+                                    -- ["o"] = "explorer_open", -- open with system application
+                                    -- ["P"] = "toggle_preview",
+                                    -- ["y"] = "explorer_yank",
+                                    -- ["u"] = "explorer_update",
+                                    -- ["<c-c>"] = "tcd",
+                                    -- ["<leader>/"] = "picker_grep",
+                                    -- ["<c-t>"] = "terminal",
+                                    -- ["I"] = "toggle_ignored",
+                                    -- ["H"] = "toggle_hidden",
+                                    -- ["Z"] = "explorer_close_all",
+                                    -- ["]g"] = "explorer_git_next",
+                                    -- ["[g"] = "explorer_git_prev",
+                                    -- ["]d"] = "explorer_diagnostic_next",
+                                    -- ["[d"] = "explorer_diagnostic_prev",
+                                    -- ["]w"] = "explorer_warn_next",
+                                    -- ["[w"] = "explorer_warn_prev",
+                                    -- ["]e"] = "explorer_error_next",
+                                    -- ["[e"] = "explorer_error_prev",
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+        keys = {
+            { '<C-g>',      function() Snacks.picker.git_files() end },
+            { '<C-p>',      function() Snacks.picker.files() end },
+            { "<leader>a",  function() Snacks.picker.grep() end },
+            { "<leader>\'", function() Snacks.picker.marks() end,                 desc = "Marks" },
+            -- {'<leader>b', require('telescope.builtin').buffers)
+            { "<leader>,",  function() Snacks.picker.buffers() end,               desc = "Buffers" },
+            { "<leader>t",  function() Snacks.picker.resume() end,                desc = "Resume" },
+
+            { "<leader>o",  function() Snacks.picker.lsp_symbols() end,           desc = "LSP Symbols" },
+            { "<leader>O",  function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+
+            { "<C-\\>",     function() Snacks.explorer.reveal() end,              desc = "File Explorer" },
+
+            { "<leader>gd", function() Snacks.picker.git_diff() end,              desc = "Git Diff (Hunks)" },
+            { "<leader>gf", function() Snacks.picker.git_log_file() end,          desc = "Git Log File" },
+            { "<leader>gl", function() Snacks.picker.git_log_line() end,          desc = "Git Log Line" },
+
+            { "gd",         function() Snacks.picker.lsp_definitions() end,       desc = "Goto Definition" },
+            { "gi",         function() Snacks.picker.lsp_implementations() end,   desc = "Goto Implementation" },
+            { "gr",         function() Snacks.picker.lsp_references() end,        nowait = true,                 desc = "References" },
+            { "<leader>x",  function() Snacks.picker.diagnostics_buffer() end },
+            { "<leader>X",  function() Snacks.picker.diagnostics() end },
+
+            { "<leader>n",  function() Snacks.notifier.show_history() end },
+
+        },
+    },
+
+
+    {
+        "olimorris/codecompanion.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            {
+                'MeanderingProgrammer/render-markdown.nvim',
+                opts = {
+                    file_types = { "codecompanion" },
+                },
+                ft = { "codecompanion" },
+            },
+        },
+        cmd = {
+            'CodeCompanion',
+            'CodeCompanionActions',
+            'CodeCompanionChat',
+            'CodeCompanionCmd',
+        },
+        keys = {
+            { mode = {'n', 'v'}, '<leader>cc', '<Cmd>CodeCompanionActions<cr>' },
+
+        },
+        opts = {
+            strategies = {
+                chat = {
+                    adapter = "openrouter",
+                    keymaps = {
+                        close = { modes = { n = "<Esc>", i = "<Esc>" } },
+                        stop = { modes = { n = "<C-c>" } },
+                    },
+                },
+                inline = {
+                    adapter = "openrouter",
+                },
+            },
+            adapters = {
+                openrouter = function()
+                    return require("codecompanion.adapters").extend("openai_compatible", {
+                        name = "openrouter",
+                        schema = {
+                            model = {
+                                default = "anthropic/claude-3.5-sonnet",
+                            },
+                        },
+                        env = {
+                            url = "https://openrouter.ai/api",
+                            api_key = "OPENROUTER_API_KEY",
+                        },
+                    })
+                end,
+            },
+        },
+    },
+
     -- {
-    --     'nvim-neo-tree/neo-tree.nvim',
-    --     branch = 'v3.x',
-    --     dependencies = {
-    --         'nvim-lua/plenary.nvim',
-    --         'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-    --         'MunifTanjim/nui.nvim',
+    --     "yetone/avante.nvim",
+    --     event = "VeryLazy",
+    --     lazy = false,
+    --     version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
+    --     opts = {
+    --         provider = "openai",
+    --         openai = {
+    --             endpoint = "https://openrouter.ai/api/v1",
+    --             model = "anthropic/claude-3.5-sonnet",
+    --             -- endpoint = "https://api.openai.com/v1",
+    --             -- model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
+    --             timeout = 30000, -- timeout in milliseconds
+    --             temperature = 0, -- adjust if needed
+    --             max_tokens = 4096,
+    --         },
     --     },
-    --     config = function()
-    --         vim.g.neo_tree_remove_legacy_commands = true
-    --         require('neo-tree').setup({
-    --             close_if_last_window = true,
-    --             enable_diagnostics = false,
-    --             enable_git_status = false,
-    --             use_default_mappings = false,
-    --             open_files_in_last_windows = false, -- false = open files in top left window
-    --             window = {
-    --                 width = 30,
-    --                 mappings = {
-    --                     ['<cr>'] = 'open',
-    --                     ['r'] = 'refresh',
-    --                     ['a'] = {
-    --                         'add',
-    --                         config = { show_path = 'absolute' } -- 'none', 'relative', 'absolute'
-    --                     },
-    --                     ['d'] = 'delete',
-    --                     ['R'] = 'rename',
-    --                     ['y'] = 'copy_to_clipboard',
-    --                     ['x'] = 'cut_to_clipboard',
-    --                     ['p'] = 'paste_from_clipboard',
-    --                     ['q'] = 'close_window',
-    --                     ['?'] = 'show_help',
-    --                     ['u'] = function(state)
-    --                         local node = state.tree:get_node()
-    --                         if node.level == 0 then
-    --                             require('neo-tree.sources.filesystem.commands').navigate_up(state)
-    --                         else
-    --                             require('neo-tree.sources.manager').focus('filesystem', node:get_parent_id(), nil)
-    --                         end
-    --                     end,
-    --                     ['.'] = 'set_root',
-    --                     ['cd'] = function(state)
-    --                         local node = state.tree:get_node()
-    --                         if node.type == 'directory' then
-    --                             vim.cmd('cd ' .. node.path)
-    --                             print('working directory changed to ' .. node.path)
-    --                         end
-    --                     end,
-    --                 },
+    --     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    --     build = "make",
+    --     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+    --     dependencies = {
+    --         -- "stevearc/dressing.nvim",
+    --         "nvim-lua/plenary.nvim",
+    --         "MunifTanjim/nui.nvim",
+    --         --- The below dependencies are optional,
+    --         -- "echasnovski/mini.pick", -- for file_selector provider mini.pick
+    --         -- "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+    --         -- "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+    --         -- "ibhagwan/fzf-lua", -- for file_selector provider fzf
+    --         -- "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+    --         "zbirenbaum/copilot.lua", -- for providers='copilot'
+    --         {
+    --             -- Make sure to set this up properly if you have lazy=true
+    --             'MeanderingProgrammer/render-markdown.nvim',
+    --             opts = {
+    --                 file_types = { "Avante" },
     --             },
-    --             filesystem = {
-    --                 window = {
-    --                     mappings = {
-    --                         ['H'] = 'toggle_hidden',
-    --                         ['f'] = 'filter_on_submit',
-    --                         ['<C-x>'] = 'clear_filter',
-    --                     }
-    --                 },
-    --                 bind_to_cwd = false, -- true creates a 2-way binding between vim's cwd and neo-tree's root
-    --                 filtered_items = {
-    --                     visible = false, -- when true, they will just be displayed differently than normal items
-    --                     force_visible_in_empty_folder = true, -- when true, hidden files will be shown if the root folder is otherwise empty
-    --                     show_hidden_count = true, -- when true, the number of hidden items in each folder will be shown as the last entry
-    --                     hide_dotfiles = true,
-    --                     hide_gitignored = false,
-    --                 },
-    --             },
-    --         })
-    --     end
-    -- }
+    --             ft = {  "Avante" },
+    --         },
+    --     },
+    -- },
 }, {
     ui = {
         border = 'rounded',
