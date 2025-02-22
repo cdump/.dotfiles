@@ -1,0 +1,17 @@
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "8945e54"
+hash = "ae9e1d0c6bfd68cdebc98cc684c22b45"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-enter"
+rev = "8945e54"
+hash = "aef2b1a805b80cce573bb766f1459d88"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:mime-ext"
+rev = "beb586a"
+hash = "b03f3d80d26b6d7bb490b1380e9cb754"
+
+[flavor]
+deps = []

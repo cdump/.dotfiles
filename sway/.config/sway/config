@@ -1,5 +1,6 @@
 
 xwayland disable
+#xwayland enable
 
 set $mod Mod4
 
@@ -10,7 +11,7 @@ set $up k
 set $right l
 
 # Your preferred terminal emulator
-set $term alacritty
+set $term foot
 
 exec_always ~/.config/sway/scripts/focus-last.py
 exec mako
@@ -75,7 +76,9 @@ bindsym --to-code {
     $mod+q exec ~/.local/bin/chromium
     $mod+F2 exec MOZ_ENABLE_WAYLAND=1 ~/.local/bin/thunderbird
     $mod+p exec swaymsg '[app_id="org.keepassxc.KeePassXC"] scratchpad show' || ~/.local/bin/keepassxc
-    $mod+e exec $term --class ranger -e ranger
+    $mod+e exec $term --app-id=ranger yazi
+    # tmp:
+    $mod+E exec $term --app-id=ranger ranger
     $mod+r exec rofi -show run
     $mod+n exec l3afpad
     $mod+c exec qalculate-gtk
@@ -260,7 +263,7 @@ for_window {
 
     [app_id="org.telegram.desktop"] floating enable, move container to workspace $ws4; workspace $ws4;
 
-    [app_id="Alacritty"] move container to workspace $ws5; workspace $ws5;
+    [app_id="Alacritty|foot"] move container to workspace $ws5; workspace $ws5;
 
     [app_id="gimp|audacity|obsidian"] move container to workspace $ws6; workspace $ws6;
 

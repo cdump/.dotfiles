@@ -1,0 +1,44 @@
+# A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
+# If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
+"$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
+
+[manager]
+prepend_keymap = [
+    { on = "q",     run = "escape",               desc = "Quit the process" },
+
+	{ on = "<Enter>", run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
+    { on = "<Right>", run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
+    { on = "l",       run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
+	{ on = "H",       run = "hidden toggle",               desc = "Toggle the visibility of hidden files" },
+
+	{ on = "/", run = "plugin inc-search",      desc = "Find next file" },
+	{ on = "?", run = "find --smart",      desc = "Find next file" },
+	# { on = "/", run = "find --smart",            desc = "Find next file" },
+	# { on = "?", run = "find --previous --smart", desc = "Find previous file" },
+
+	# Sorting
+	{ on = [ "o", "m" ], run = [ "sort mtime --reverse=no", "linemode mtime" ], desc = "Sort by modified time" },
+	{ on = [ "o", "M" ], run = [ "sort mtime --reverse", "linemode mtime" ],    desc = "Sort by modified time (reverse)" },
+
+    { on = "*",   run = "toggle_all",            desc = "Invert selection of all files" },
+
+	{ on = "<A-1>", run = "plugin tab-smart-switch 0", desc = "Switch to the first tab" },
+	{ on = "<A-2>", run = "plugin tab-smart-switch 1", desc = "Switch to the second tab" },
+	{ on = "<A-3>", run = "plugin tab-smart-switch 2", desc = "Switch to the third tab" },
+	{ on = "<A-4>", run = "plugin tab-smart-switch 3", desc = "Switch to the fourth tab" },
+	{ on = "<A-5>", run = "plugin tab-smart-switch 4", desc = "Switch to the fifth tab" },
+	{ on = "<A-6>", run = "plugin tab-smart-switch 5", desc = "Switch to the sixth tab" },
+	{ on = "<A-7>", run = "plugin tab-smart-switch 6", desc = "Switch to the seventh tab" },
+	{ on = "<A-8>", run = "plugin tab-smart-switch 7", desc = "Switch to the eighth tab" },
+	{ on = "<A-9>", run = "plugin tab-smart-switch 8", desc = "Switch to the ninth tab" },
+]
+
+[tasks]
+append_keymap = [
+	{ on = "q",     run = "close", desc = "Close task manager" },
+]
+
+[input]
+append_keymap = [
+	{ on = "<Esc>",   run = "close",          desc = "Cancel pick" },
+]

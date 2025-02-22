@@ -11,6 +11,7 @@ TARGETS=(
     mc
     mpv
     ranger
+    yazi
     tmux
     vim
     zsh
@@ -27,6 +28,7 @@ Linux)
         zathura
 
         alacritty
+        foot
         ssh-agent
         sway
     )
@@ -59,6 +61,7 @@ for X in ${TARGETS[@]}; do
     if [[ "$X" == "ssh-agent" ]]; then
         # systemd needs a real directory, not a symlink
         mkdir -p ~/.config/systemd/user/ssh-agent.service.d/
+        mkdir -p ~/.local/bin/
     fi;
 
     stow -D $X
