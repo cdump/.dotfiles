@@ -78,7 +78,7 @@ bindsym --to-code {
     $mod+p exec swaymsg '[app_id="org.keepassxc.KeePassXC"] scratchpad show' || ~/.local/bin/keepassxc
     $mod+e exec $term --app-id=ranger yazi
     # tmp:
-    $mod+E exec $term --app-id=ranger ranger
+    $mod+Shift+e exec $term --app-id=ranger ranger
     $mod+r exec rofi -show run
     $mod+n exec l3afpad
     $mod+c exec qalculate-gtk
