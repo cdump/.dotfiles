@@ -67,6 +67,10 @@ for X in ${TARGETS[@]}; do
     stow -D $X
     stow $X
 
+    if [[ "$X" == "yazi" ]]; then
+        ya pack -i
+    fi;
+
     if [[ "$X" == "fonts" ]]; then
         ~/.local/share/fonts/nerd-fonts/install.sh
     fi;
