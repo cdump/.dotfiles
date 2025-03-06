@@ -462,6 +462,7 @@ return require('lazy').setup({
             snippets = { preset = 'luasnip' },
             keymap = {
                 preset = 'none',
+                ['<C-n>'] = { 'show' },
                 ['<C-k>'] = { 'select_prev', 'fallback' },
                 ['<C-j>'] = { 'select_next', 'fallback' },
                 ['<Up>'] = { 'select_prev', 'fallback' },
@@ -501,17 +502,13 @@ return require('lazy').setup({
                     },
                 },
                 menu = {
-                    auto_show = function(ctx)
-                        return ctx.mode ~= 'cmdline' and not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
-                    end,
+                    -- auto_show = function(ctx)
+                    --     return ctx.mode ~= 'cmdline' and not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
+                    -- end,
                     border = 'rounded',
                     draw = {
                         columns = { { 'label' }, { 'kind' }, { 'source_name' } },
                     },
-                },
-
-                ghost_text = {
-                    enabled = true,
                 },
             },
 
@@ -521,17 +518,54 @@ return require('lazy').setup({
             },
             cmdline = {
                 keymap = {
-                    ['<Tab>'] = { 'show_and_insert', 'select_next' },
+                    preset = 'none',
+                    ['<Tab>'] = {
+                        function(cmp)
+                            if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then return cmp.accept() end
+                        end,
+                        'show_and_insert',
+                        'select_next'
+                    },
                     ['<C-k>'] = { 'select_prev', 'fallback' },
-                    ['<C-j>'] = { 'select_next', 'fallback' },
+                    ['<C-j>'] = { 'show', 'select_next', 'fallback' },
                     ['<Up>'] = { 'select_prev', 'fallback' },
                     ['<Down>'] = { 'select_next', 'fallback' },
                     ['<C-c>'] = { 'cancel', 'fallback' },
                 },
+                sources = function()
+                    local type = vim.fn.getcmdtype()
+                    if type == "/" or type == "?" then return { "buffer" } end
+                    if type == ":" then
+                        local c = vim.fn.getcmdline():sub(1, 1)
+                        if c == 'e' or c == 'w' then
+                            return { "path" }
+                        end
+                        return { "cmdline" }
+                    end
+                    return {}
+                end,
             },
+
+            -- fuzzy = {
+            --     sorts = {
+            --         function(a, b)
+            --             print(vim.inspect(a))
+            --             return true
+            --         end,
+            --         'score', 'sort_text',
+            --     },
+            -- },
 
             sources = {
                 default = { 'lsp', 'path', 'snippets', 'buffer' },
+                providers = {
+                    path = {
+                        opts = {
+                            trailing_slash = false,
+                            show_hidden_files_by_default = true,
+                        },
+                    },
+                },
             },
         },
         opts_extend = { "sources.default" }

@@ -77,10 +77,13 @@ vim.diagnostic.config({
         border = 'rounded',
     }
 })
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = 'rounded',
-    silent = true,
-})
+local hover = vim.lsp.buf.hover
+vim.lsp.buf.hover = function()
+    return hover {
+        border = 'rounded',
+        focusable = false,
+    }
+end
 
 vim.keymap.set('n', '<C-k>', function()
     vim.diagnostic.goto_prev({ severity = { min = vim.diagnostic.severity.WARN } })
