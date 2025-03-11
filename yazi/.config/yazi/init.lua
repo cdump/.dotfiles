@@ -3,3 +3,10 @@ require("full-border"):setup {
 }
 
 require("inc-search")
+
+require("mime-ext"):setup {
+    with_exts = {
+        heic = "image/heic",
+    },
+    fallback_file1 = true,
+}
