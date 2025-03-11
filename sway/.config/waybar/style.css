@@ -2,7 +2,7 @@
     border: none;
     border-radius: 0;
     font-family: Dejavu Sans;
-    font-size: 9pt;
+    font-size: 8.5pt;
     min-height: 0;
 }
 
@@ -22,7 +22,6 @@ tooltip {
 }
 tooltip label {
     font-family: DejaVuSansM Nerd Font Mono;
-    font-size: 10pt;
     background-color: #111111;
     color: #aaaaaa;
     margin: 0;
@@ -31,7 +30,6 @@ tooltip label {
 
 #custom-arrow {
     font-family: DejaVuSansM Nerd Font Mono;
-    font-size: 11pt;
     padding: 0;
 }
 
@@ -67,7 +65,7 @@ tooltip label {
 }
 
 .modules-right > widget > label {
-    padding: 0 8px;
+    padding: 0 4px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -83,11 +81,11 @@ tooltip label {
 
 .modules-right > widget:nth-child(2) > label {
     /* first arrow */
-    background-color: #000000;
-    color: #282828;
+    color: #000000;
+    background-color: #282828;
 }
 
-.modules-right > widget:nth-last-child(4n) {
+.modules-right > widget:nth-last-child(4n - 2) {
     /* arrow */
     background-color: #282828;
     color: #111111;
@@ -98,7 +96,7 @@ tooltip label {
     color: #aaaaaa;
 }
 
-.modules-right > widget:nth-last-child(4n-2) {
+.modules-right > widget:nth-last-child(4n) {
     /* arrow */
     background-color: #111111;
     color: #282828;

@@ -20,7 +20,7 @@
   ],
 
   "custom/arrow": {
-    "format": "",
+    "format": "",
     "tooltip": false
   },
   "custom/stonks": {
@@ -32,7 +32,7 @@
 
   // Modules configuration
   "custom/weather": {
-    "exec": "(curl --max-time 2 -s 'https://wttr.in/Moscow?format=%c%t' || echo '?') | awk '{print \"<span font=\\\"Noto Color Emoji\\\">\"$1\"</span> \"$2}'",
+    "exec": "(curl --max-time 2 -s 'https://wttr.in/Tbilisi?format=%c%t' || echo '?') | awk '{print \"<span font=\\\"Noto Color Emoji\\\">\"$1\"</span> \"$2}'",
   },
   "sway/workspaces": {
     "all-outputs": true,
@@ -116,7 +116,7 @@
     "format": "<span style=\"italic\">{}</span>"
   },
   "tray": {
-    "icon-size": 14,
+    "icon-size": 12,
     "spacing": 3,
   },
 }
