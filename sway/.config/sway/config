@@ -74,7 +74,7 @@ bindsym --to-code {
     $mod+Return exec $term --title term
     # $mod+q exec MOZ_ENABLE_WAYLAND=1 firefox
     $mod+q exec ~/.local/bin/chromium
-    $mod+F2 exec MOZ_ENABLE_WAYLAND=1 ~/.local/bin/thunderbird
+    $mod+F2 exec firejail --profile=/etc/firejail/thunderbird.profile -- betterbird
     $mod+p exec swaymsg '[app_id="org.keepassxc.KeePassXC"] scratchpad show' || ~/.local/bin/keepassxc
     $mod+e exec $term --app-id=ranger yazi
     # tmp:
@@ -252,14 +252,14 @@ bar {
 for_window {
     [app_id="org.keepassxc.KeePassXC"] floating enable, move to scratchpad; workspace $ws1; [app_id="org.keepassxc.KeePassXC"] scratchpad show;
 
-    [app_id="firefox|chromium|google-chrome.*"] move container to workspace $ws1; workspace $ws1; layout tabbed;
+    [app_id="firefox|brave|chromium|google-chrome.*"] move container to workspace $ws1; workspace $ws1; layout tabbed;
 
     [title="Save File"] floating enable
     [app_id="nwg-look|nwg-displays|l3afpad|pavucontrol-qt|qalculate-gtk|iwgtk"] floating enable
 
     [app_id="ranger"] move container to workspace $ws2; workspace $ws2;
 
-    [app_id="thunderbird"] move container to workspace $ws3;
+    [app_id="thunderbird|betterbird"] move container to workspace $ws3;
 
     [app_id="org.telegram.desktop"] floating enable, move container to workspace $ws4; workspace $ws4;
 
