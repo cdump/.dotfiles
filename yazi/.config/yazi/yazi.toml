@@ -33,6 +33,7 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 edit = [
 	{ run = 'nvim "$@"',    desc = "nvim", block = true, for = "unix" },
 	{ run = 'l3afpad "$@"', desc = "l3afpad", block = true, for = "unix" },
+	{ run = 'gimp "$@"',    desc = "gimp", block = true, for = "unix" },
 ]
 open = [
 	{ run = 'xdg-open "$1"',                desc = "Open", for = "linux" },
@@ -65,7 +66,7 @@ rules = [
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
 	{ name = "*.txt", use = [ "edit", "reveal" ] },
 	# Image
-	{ mime = "image/*", use = [ "open", "reveal" ] },
+	{ mime = "image/*", use = [ "open", "edit", "reveal" ] },
 	# Media
 	{ mime = "{audio,video}/*", use = [ "play", "reveal" ] },
 	# Archive

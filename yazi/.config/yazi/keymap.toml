@@ -16,6 +16,8 @@ prepend_keymap = [
 	# { on = "/", run = "find --smart",            desc = "Find next file" },
 	# { on = "?", run = "find --previous --smart", desc = "Find previous file" },
 
+	{ on = "d",         run = "remove --permanently",        desc = "Permanently delete selected files" },
+
 	# Sorting
 	{ on = [ "o", "m" ], run = [ "sort mtime --reverse=no", "linemode mtime" ], desc = "Sort by modified time" },
 	{ on = [ "o", "M" ], run = [ "sort mtime --reverse", "linemode mtime" ],    desc = "Sort by modified time (reverse)" },
