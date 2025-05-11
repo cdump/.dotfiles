@@ -424,7 +424,7 @@ return require('lazy').setup({
     },
 
     { -- easily install and manage LSP servers, DAP servers, linters, and formatters
-        'williamboman/mason.nvim',
+        'mason-org/mason.nvim',
         build = ':MasonUpdate',
         opts = {
             ui = {
@@ -517,12 +517,15 @@ return require('lazy').setup({
                 use_nvim_cmp_as_default = true,
             },
             cmdline = {
+                completion = {
+                    ghost_text = { enabled = false },
+                },
                 keymap = {
                     preset = 'none',
                     ['<Tab>'] = {
-                        function(cmp)
-                            if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then return cmp.accept() end
-                        end,
+                        -- function(cmp)
+                        --     if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then return cmp.accept() end
+                        -- end,
                         'show_and_insert',
                         'select_next'
                     },
@@ -659,7 +662,10 @@ return require('lazy').setup({
             notifier = {
                 enabled = true,
             },
-            bigfile = { enabled = true },
+            bigfile = {
+                enabled = true,
+                -- line_length = math.huge,
+            },
             explorer = { enabled = true },
             quickfile = { enabled = true },
             indent = {
