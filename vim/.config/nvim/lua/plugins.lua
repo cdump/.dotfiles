@@ -132,9 +132,9 @@ return require('lazy').setup({
         "folke/which-key.nvim",
         event = "VeryLazy",
         opts = {
-            delay = 1000,
+            delay = 500,
             win = {
-                border = 'rounded',
+                border = 'single',
             },
         },
     },
@@ -202,49 +202,47 @@ return require('lazy').setup({
             'nvim-treesitter/nvim-treesitter-textobjects',
             'JoosepAlviste/nvim-ts-context-commentstring',
         },
-        -- build = ':TSUpdate',
-        config = function()
-            require('nvim-treesitter.configs').setup {
-                ensure_installed = {
-                    'bash',
-                    'c',
-                    'cpp',
-                    'css',
-                    'go',
-                    'html',
-                    'javascript',
-                    'json',
-                    'lua',
-                    'make',
-                    'markdown',
-                    'markdown_inline',
-                    'python',
-                    'regex',
-                    'rust',
-                    'typescript',
-                    'vim',
-                    'vimdoc',
-                    'vue',
-                    'yaml',
-                },
+        opts = {
+            ensure_installed = {
+                'bash',
+                'c',
+                'cpp',
+                'css',
+                'go',
+                'html',
+                'javascript',
+                'json',
+                'lua',
+                'make',
+                'markdown',
+                'markdown_inline',
+                'python',
+                'regex',
+                'rust',
+                'typescript',
+                'vim',
+                'vimdoc',
+                'vue',
+                'yaml',
+            },
+            auto_install = true,
 
-                highlight = {
-                    enable = true,
-                    disable = { 'c', 'cpp' }, -- bfrg/vim-cpp-modern is better (#if 0 support, auto type support, ...)
-                },
-                indent = {
-                    enable = true,
-                },
-                incremental_selection = {
-                    enable = true,
-                    keymaps = {
-                        init_selection = '<C-space>',
-                        node_incremental = '<C-space>',
-                        node_decremental = '<C-A-space>',
-                    },
+            highlight = {
+                enable = true,
+                disable = { 'c', 'cpp' }, -- bfrg/vim-cpp-modern is better (#if 0 support, auto type support, ...)
+            },
+            indent = {
+                enable = true,
+            },
+            incremental_selection = {
+                enable = true,
+                keymaps = {
+                    init_selection = '<C-space>',
+                    node_incremental = '<C-space>',
+                    node_decremental = '<C-A-space>',
                 },
             }
-        end
+        }
     },
 
     { -- a Git wrapper so awesome, it should be illegal
@@ -323,83 +321,30 @@ return require('lazy').setup({
         end
     },
 
-    -- {
-    --     'nvim-tree/nvim-tree.lua',
-    --     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    --     keys = {
-    --         -- { '<C-\\>', function() require('nvim-tree.api').tree.open({find_file=true, update_root=true}) end },
-    --         -- { '<C-\\>', function() require('nvim-tree.api').tree.toggle({find_file=true, update_root=true}) end },
-    --         { '<C-h>', function() require('nvim-tree.api').tree.toggle({find_file=true, update_root=true}) end },
-    --     },
-    --     config = function()
-    --         require('nvim-tree').setup({
-    --             sort_by = 'case_sensitive',
-    --             on_attach = function(bufnr)
-    --                 local api = require "nvim-tree.api"
-    --                 local function opts(desc)
-    --                     return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-    --                 end
-    --                 api.config.mappings.default_on_attach(bufnr)
-    --
-    --                 vim.keymap.set('n', 'u', api.tree.change_root_to_parent,        opts('Up'))
-    --
-    --                 vim.keymap.set('n', 'cd', function()
-    --                     local node = api.tree.get_node_under_cursor()
-    --                     local path = node.type == 'directory' and node.absolute_path or
-    --                     node.parent.absolute_path
-    --                     vim.cmd('cd ' .. path)
-    --                     print('directory changed to ' .. path)
-    --                 end, opts('cd'))
-    --
-    --                 vim.keymap.set('n', '.', function()
-    --                     local node = api.tree.get_node_under_cursor()
-    --                     local cnode = node.type == 'directory' and node.parent or
-    --                     (node.parent.parent or node.parent)
-    --                     api.tree.change_root_to_node(cnode)
-    --                     api.tree.find_file(node.absolute_path)
-    --                     print('root set to ' .. cnode.absolute_path)
-    --                 end, opts('set root'))
-    --             end,
-    --             view = {
-    --                 float = {
-    --                     enable = true,
-    --                 },
-    --                 signcolumn = 'no',
-    --                 width = {
-    --                     min = 25,
-    --                     max = 60,
-    --                 },
-    --             },
-    --             renderer = {
-    --                 group_empty = true,
-    --                 indent_width = 1,
-    --                 icons = {
-    --                     show = {
-    --                         folder_arrow = false,
-    --                     },
-    --                 },
-    --             },
-    --             filters = {
-    --                 dotfiles = true,
-    --             },
-    --             git = {
-    --                 enable = false,
-    --             },
-    --             live_filter = {
-    --                 always_show_folders = false, -- Turn into false from true by default
-    --             },
-    --         })
-    --         vim.api.nvim_create_autocmd('BufEnter', {
-    --             nested = true,
-    --             callback = function()
-    --                 if #vim.api.nvim_list_wins() == 1 and require('nvim-tree.utils').is_nvim_tree_buf() then
-    --                     vim.cmd 'quit'
-    --                 end
-    --             end
-    --         })
-    --     end
-    -- },
-
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+        },
+        keys = {
+            { '<C-\\>', '<Cmd>Neotree reveal_force_cwd toggle<CR>' },
+        },
+        lazy = false, -- neo-tree will lazily load itself
+        opts = {
+            close_if_last_window = true,
+            enable_diagnostics = false,
+            open_files_in_last_windows = false, -- false = open files in top left window
+            default_component_configs = {
+                indent = {
+                    indent_size = 1,
+                    padding = 1
+                },
+            },
+        },
+    },
     {
         'nvimtools/none-ls.nvim',
         dependencies = {
@@ -428,7 +373,7 @@ return require('lazy').setup({
         build = ':MasonUpdate',
         opts = {
             ui = {
-                border = 'rounded',
+                border = 'single',
             },
         },
     },
@@ -438,7 +383,7 @@ return require('lazy').setup({
     {
         'neovim/nvim-lspconfig',
         config = function()
-            require('lspconfig.ui.windows').default_options.border = 'rounded'
+            require('lspconfig.ui.windows').default_options.border = 'single'
         end
     },
 
@@ -471,8 +416,8 @@ return require('lazy').setup({
                 ['<CR>'] = { 'accept', 'fallback' },
                 ['<C-e>'] = { 'cancel', 'fallback' },
 
-                ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-                ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+                ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
+                ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
 
                 ['<Tab>'] = { 'snippet_forward', 'fallback' },
                 ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
@@ -480,7 +425,7 @@ return require('lazy').setup({
             signature = {
                 enabled = true,
                 window = {
-                    border = 'rounded',
+                    border = 'single',
                 },
             },
             completion = {
@@ -498,14 +443,11 @@ return require('lazy').setup({
                 documentation = {
                     auto_show = true,
                     window = {
-                        border = 'rounded',
+                        border = 'single',
                     },
                 },
                 menu = {
-                    -- auto_show = function(ctx)
-                    --     return ctx.mode ~= 'cmdline' and not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
-                    -- end,
-                    border = 'rounded',
+                    border = 'single',
                     draw = {
                         columns = { { 'label' }, { 'kind' }, { 'source_name' } },
                     },
@@ -523,26 +465,23 @@ return require('lazy').setup({
                 keymap = {
                     preset = 'none',
                     ['<Tab>'] = {
-                        -- function(cmp)
-                        --     if cmp.is_ghost_text_visible() and not cmp.is_menu_visible() then return cmp.accept() end
-                        -- end,
                         'show_and_insert',
                         'select_next'
                     },
-                    ['<C-k>'] = { 'select_prev', 'fallback' },
                     ['<C-j>'] = { 'show', 'select_next', 'fallback' },
-                    ['<Up>'] = { 'select_prev', 'fallback' },
                     ['<Down>'] = { 'select_next', 'fallback' },
+                    ['<C-k>'] = { 'select_prev', 'fallback' },
+                    ['<Up>'] = { 'select_prev', 'fallback' },
                     ['<C-c>'] = { 'cancel', 'fallback' },
                 },
                 sources = function()
                     local type = vim.fn.getcmdtype()
                     if type == "/" or type == "?" then return { "buffer" } end
                     if type == ":" then
-                        local c = vim.fn.getcmdline():sub(1, 1)
-                        if c == 'e' or c == 'w' then
-                            return { "path" }
-                        end
+                        -- local c = vim.fn.getcmdline():sub(1, 1)
+                        -- if c == 'e' or c == 'w' then
+                        --     return { "path" }
+                        -- end
                         return { "cmdline" }
                     end
                     return {}
@@ -622,7 +561,7 @@ return require('lazy').setup({
                 mini = {
                     timeout = 8000,
                     border = {
-                        style = 'rounded',
+                        style = 'single',
                     },
                     position = {
                         row = -2,
@@ -760,14 +699,13 @@ return require('lazy').setup({
             { '<C-p>',      function() Snacks.picker.files() end },
             { "<leader>a",  function() Snacks.picker.grep() end },
             { "<leader>\'", function() Snacks.picker.marks() end,                 desc = "Marks" },
-            -- {'<leader>b', require('telescope.builtin').buffers)
             { "<leader>,",  function() Snacks.picker.buffers() end,               desc = "Buffers" },
             { "<leader>t",  function() Snacks.picker.resume() end,                desc = "Resume" },
 
             { "<leader>o",  function() Snacks.picker.lsp_symbols() end,           desc = "LSP Symbols" },
             { "<leader>O",  function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
 
-            { "<C-\\>",     function() Snacks.explorer.reveal() end,              desc = "File Explorer" },
+            -- { "<C-\\>",     function() Snacks.explorer.reveal() end,              desc = "File Explorer" },
 
             { "<leader>gd", function() Snacks.picker.git_diff() end,              desc = "Git Diff (Hunks)" },
             { "<leader>gf", function() Snacks.picker.git_log_file() end,          desc = "Git Log File" },
@@ -883,6 +821,6 @@ return require('lazy').setup({
     -- },
 }, {
     ui = {
-        border = 'rounded',
+        border = 'single',
     },
 })
