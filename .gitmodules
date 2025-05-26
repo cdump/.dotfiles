@@ -1,6 +1,3 @@
-[submodule "awesome/.config/awesome/calendar"]
-	path = awesome/.config/awesome/calendar
-	url = https://github.com/cdump/awesome-calendar
 [submodule "gdb/.gdb-colour-filter"]
 	path = gdb/.gdb-colour-filter
 	url = https://github.com/daskol/gdb-colour-filter
@@ -16,12 +13,6 @@
 [submodule "zsh/.zsh_plugins/zsh-syntax-highlighting"]
 	path = zsh/.zsh_plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
-[submodule "ranger/.config/ranger/plugins/devicons2"]
-	path = ranger/.config/ranger/plugins/devicons2
-	url = https://github.com/cdump/ranger-devicons2
 [submodule "hammerspoon/.hammerspoon/Spoons/SkyRocket.spoon"]
 	path = hammerspoon/.hammerspoon/Spoons/SkyRocket.spoon
 	url = https://github.com/dbalatero/SkyRocket.spoon
-[submodule "awesome/.config/awesome/stonks"]
-	path = awesome/.config/awesome/stonks
-	url = https://github.com/cdump/stonks
