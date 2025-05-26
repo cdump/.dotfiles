@@ -10,7 +10,6 @@ TARGETS=(
     htop
     mc
     mpv
-    ranger
     yazi
     tmux
     vim
