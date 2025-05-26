@@ -21,7 +21,6 @@ Linux)
     TARGETS+=(
         firejail
         rofi
-        xorg
         zathura
 
         foot
@@ -43,10 +42,6 @@ for X in ${TARGETS[@]}; do
         mkdir -p ~/.config/htop/
         cp htop/.config/htop/htoprc ~/.config/htop/htoprc
         continue
-    fi;
-
-    if [[ "$X" == "xorg" ]]; then
-        touch ~/.Xresources.local
     fi;
 
     if [[ "$X" == "ssh-agent" ]]; then
