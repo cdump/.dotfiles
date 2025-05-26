@@ -22,7 +22,6 @@ Linux)
     TARGETS+=(
         awesome
         firejail
-        picom
         rofi
         xorg
         zathura
