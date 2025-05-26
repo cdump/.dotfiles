@@ -1,5 +1,10 @@
-#!/bin/sh
-"exec" "`dirname $0`/.venv/bin/python" "-u" "$0" "$@"
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "i3ipc",
+# ]
+# ///
 
 import asyncio
 import os
