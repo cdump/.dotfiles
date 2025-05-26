@@ -1,5 +1,7 @@
 vim/.config/nvim/plugin/
 mc/.local/share/mc/history
+yazi/.config/yazi/plugins/*
+!yazi/.config/yazi/plugins/tab-smart-switch.yazi
 xorg/.fonts/.uuid
 xorg/.icons/default
 __pycache__
