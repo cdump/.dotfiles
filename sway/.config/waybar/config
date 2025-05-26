@@ -24,15 +24,15 @@
     "tooltip": false
   },
   "custom/stonks": {
-    "exec": "~/.config/awesome/stonks/stonks.py --format waybar --ticker 'cbr:EUR:€' --ticker 'cbr:USD:$' --ticker 'binance:BTCUSDT:₿' --ticker 'binance:ETHUSDT:Ξ'",
-    "on-click": "~/.config/awesome/stonks/stonks.py --cmd update-now",
-    "on-click-right": "~/.config/awesome/stonks/stonks.py --cmd toggle-mode",
+    "exec": "~/.config/sway/scripts/stonks.py --ticker 'cbr:EUR:€' --ticker 'cbr:USD:$' --ticker 'binance:BTCUSDT:₿' --ticker 'binance:ETHUSDT:Ξ'",
+    "on-click": "~/.config/sway/scripts/stonks.py --cmd update-now",
+    "on-click-right": "~/.config/sway/scripts/stonks.py --cmd toggle-mode",
     "return-type": "json",
   },
 
   // Modules configuration
   "custom/weather": {
-    "exec": "(curl --max-time 2 -s 'https://wttr.in/Tbilisi?format=%c%t' || echo '?') | awk '{print \"<span font=\\\"Noto Color Emoji\\\">\"$1\"</span> \"$2}'",
+    "exec": "~/.config/sway/scripts/weather.sh"
   },
   "sway/workspaces": {
     "all-outputs": true,

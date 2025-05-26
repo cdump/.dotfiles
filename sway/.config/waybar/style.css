@@ -30,6 +30,7 @@ tooltip label {
 
 #custom-arrow {
     font-family: DejaVuSansM Nerd Font Mono;
+    font-size: 10pt;
     padding: 0;
 }
 
@@ -79,12 +80,6 @@ tooltip label {
     padding-right: 0;
 }
 
-.modules-right > widget:nth-child(2) > label {
-    /* first arrow */
-    color: #000000;
-    background-color: #282828;
-}
-
 .modules-right > widget:nth-last-child(4n - 2) {
     /* arrow */
     background-color: #282828;
@@ -107,8 +102,14 @@ tooltip label {
     color: #aaaaaa;
 }
 
+/* first arrow */
+.modules-right > widget:nth-child(1) > label {
+    color: #000000;
+    background-color: #000000;
+}
+
 #battery.warning {
-    background-color: #b5a32d;
+    background-color: #cc0;
     color: #000;
 }
 #battery.critical {
