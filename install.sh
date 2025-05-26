@@ -19,7 +19,6 @@ TARGETS=(
 case $(uname) in
 Linux)
     TARGETS+=(
-        awesome
         firejail
         rofi
         xorg
@@ -44,10 +43,6 @@ for X in ${TARGETS[@]}; do
         mkdir -p ~/.config/htop/
         cp htop/.config/htop/htoprc ~/.config/htop/htoprc
         continue
-    fi;
-
-    if [[ "$X" == "awesome" ]]; then
-        touch ~/.awesome.local.lua
     fi;
 
     if [[ "$X" == "xorg" ]]; then
