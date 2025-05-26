@@ -27,7 +27,6 @@ Linux)
         xorg
         zathura
 
-        alacritty
         foot
         ssh-agent
         sway
@@ -35,7 +34,6 @@ Linux)
 ;;
 Darwin)
     TARGETS+=(
-        alacritty
         hammerspoon
     )
 ;;
