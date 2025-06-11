@@ -83,7 +83,7 @@ bindsym --to-code {
     $mod+n exec l3afpad
     $mod+c exec qalculate-gtk
     $mod+F4 exec OBSIDIAN_USE_WAYLAND=1 obsidian -enable-features=UseOzonePlatform -ozone-platform=wayland
-    $mod+F5 exec ~/.local/bin/telegram-desktop -scale 75
+    $mod+F5 exec ~/.local/bin/Telegram -scale 75
 
     # add user to 'video' group
     XF86MonBrightnessUp exec brightnessctl set +5%
