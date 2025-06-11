@@ -41,8 +41,7 @@ return require('lazy').setup({
                 },
                 options = {
                     custom_commentstring = function()
-                        return require("ts_context_commentstring.internal").calculate_commentstring() or
-                        vim.bo.commentstring
+                        return require("ts_context_commentstring").calculate_commentstring() or vim.bo.commentstring
                     end,
                 },
             })
@@ -200,7 +199,6 @@ return require('lazy').setup({
         -- version = nil,
         dependencies = {
             'nvim-treesitter/nvim-treesitter-textobjects',
-            'JoosepAlviste/nvim-ts-context-commentstring',
         },
         opts = {
             ensure_installed = {
@@ -401,7 +399,6 @@ return require('lazy').setup({
     {
         'saghen/blink.cmp',
         dependencies = 'rafamadriz/friendly-snippets',
-        version = '*',
         build = 'cargo build --release',
         opts = {
             snippets = { preset = 'luasnip' },
@@ -477,13 +474,7 @@ return require('lazy').setup({
                 sources = function()
                     local type = vim.fn.getcmdtype()
                     if type == "/" or type == "?" then return { "buffer" } end
-                    if type == ":" then
-                        -- local c = vim.fn.getcmdline():sub(1, 1)
-                        -- if c == 'e' or c == 'w' then
-                        --     return { "path" }
-                        -- end
-                        return { "cmdline" }
-                    end
+                    if type == ":" then return { "cmdline" } end
                     return {}
                 end,
             },
