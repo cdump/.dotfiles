@@ -1,5 +1,5 @@
 vim.diagnostic.config({
-  underline = true,
+  underline = false,
   virtual_text = false,
   -- virtual_text = {
   --     spacing = 3,
