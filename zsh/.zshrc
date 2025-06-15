@@ -93,6 +93,9 @@ zstyle ':completion:*:match:*' original only
 # zstyle ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # match uppercase from lowercase
 
+eval $(dircolors --sh)
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
 # Mc
 export MC_SKIN=xoria256_patched
 
@@ -121,10 +124,6 @@ vag() {
     line=`ag --nocolor "$1" | fzf --select-1 --exit-0 --delimiter ':' --query "$1" \
         --preview='bat --style "plain,numbers" --paging=never --pager=cat --color=always --line-range $( x=$(( $(echo {2}) - $FZF_PREVIEW_LINES/2 )); [[ $x -lt 0 ]] && echo 0 || echo $x):$(( $(echo {2}) + $FZF_PREVIEW_LINES/2 - 1 )) --highlight-line {2} {1} '` \
         && vim -R $(cut -d':' -f1 <<< "$line") +$(cut -d':' -f2 <<< "$line")
-}
-
-copy_terminfo() {
-    infocmp | ssh $1 tic -x -
 }
 
 source_if_exists() {
