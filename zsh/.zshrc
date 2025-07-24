@@ -130,6 +130,10 @@ source_if_exists() {
     [ -f $1 ] && source $1
 }
 
+long_line_break() {
+    fold -s -w 120 $1 | less -X
+}
+
 alias hex_escaped='od -An -tx1 | sed -E "s/([0-9a-f]{2})/\\\x\1/g"|tr -d " \n"'
 alias hex_0x='od -An -tx1 | sed -E "s/([0-9a-f]{2})/0x\1,/g"|tr -d " \n"'
 
