@@ -28,13 +28,20 @@ return {
       },
     })
 
-    local treesitter = require('mini.ai').gen_spec.treesitter
+    local treesitter = function(args)
+      -- https://github.com/echasnovski/mini.nvim/issues/1864
+      return require('mini.ai').gen_spec.treesitter(args, {use_nvim_treesitter = true})
+    end
     require('mini.ai').setup {
       n_lines = 500,
       custom_textobjects = {
         f = treesitter { a = '@function.outer', i = '@function.inner' },
         k = treesitter { a = '@block.outer', i = '@block.inner' },
-        o = treesitter { a = { '@conditional.outer', '@loop.outer' }, i = { '@conditional.inner', '@loop.inner' } },
+        c = treesitter { a = '@class.outer', i = '@class.inner' },
+        o = treesitter { -- code block
+          a = { '@block.outer', '@conditional.outer', '@loop.outer' },
+          i = { '@block.inner', '@conditional.inner', '@loop.inner' },
+        },
       },
     }
 
