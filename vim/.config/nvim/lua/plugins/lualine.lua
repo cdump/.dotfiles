@@ -10,7 +10,21 @@ return {
         section_separators = { left = '', right = '' },
       },
       sections = {
-        lualine_b = { { 'filename', path = 1 } },         -- relative path
+        lualine_a = { 'mode' },
+        lualine_b = {
+          {
+            function() return '󰰣MAVEN' end,
+            cond = function()
+              local supermaven_config = require('lazy.core.config').plugins['supermaven-nvim']
+              if not supermaven_config or not supermaven_config._.loaded then return false end
+              return require('supermaven-nvim.api').is_running()
+            end,
+            separator = { left = '', right = '' },
+            color = { bg = '#cf4d3a' },
+          },
+          { 'filename', path = 1 }, -- relative path
+          'diagnostics',
+        },
         lualine_c = {
           {
             require('noice').api.status.search.get,
@@ -23,6 +37,9 @@ return {
             color = { fg = "#ff9e64" },
           },
         },
+        lualine_x = { 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' },
       }
     }
   end
