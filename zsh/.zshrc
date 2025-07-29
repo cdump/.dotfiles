@@ -96,6 +96,11 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # match uppercase from lower
 eval $(dircolors --sh)
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
+# <Ctrl-x><Ctrl-e> to edit command-line in EDITOR
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey "\C-x\C-e" edit-command-line
+
 # Mc
 export MC_SKIN=xoria256_patched
 
@@ -132,6 +137,10 @@ source_if_exists() {
 
 long_line_break() {
     fold -s -w 120 $1 | less -X
+}
+
+jc() {
+    jq --color-output . $* | less --RAW-CONTROL-CHARS
 }
 
 alias hex_escaped='od -An -tx1 | sed -E "s/([0-9a-f]{2})/\\\x\1/g"|tr -d " \n"'
