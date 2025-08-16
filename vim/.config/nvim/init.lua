@@ -1,4 +1,4 @@
-vim.cmd([[language C]]) -- Show VIM messages in English
+vim.cmd.language('C') -- Show VIM messages in English
 
 --[[ Space = leader key ]]
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -18,6 +18,7 @@ require('config.splits')
 require('config.autocmds')
 
 --[[ general options ]]
+vim.opt.shortmess:append('I') -- do not show :intro on start
 vim.opt.number = true     -- show line numbers
 vim.opt.showmode = false  -- already have mode in lualine plugin
 vim.opt.confirm = true    -- raise a dialogue asking if you wish to save changed files
@@ -30,7 +31,6 @@ vim.opt.wildmode = 'longest:full,full'
 vim.opt.langmap =
 'ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz'
 vim.keymap.set('n', 'Ж', ':')
-vim.cmd([[ autocmd FileType * setlocal formatoptions-=cro ]]) -- Disable comments on Enter press
 vim.keymap.set('i', '<C-c>', '<Esc>')
 vim.keymap.set('n', '<leader>q',
   '<cmd>if len(filter(range(1, bufnr("$")), "buflisted(v:val)")) == 1|:quit|else|:bprevious|bdelete #|endif<cr>') -- close buffer or vim
@@ -40,7 +40,6 @@ vim.keymap.set({ 'n', 'i' }, '<C-s>', '<cmd>w<cr>')
 vim.keymap.set('n', '<C-d>', '<C-d>zz')
 vim.keymap.set('n', '<C-u>', '<C-u>zz')
 vim.keymap.set('n', "'", '`') -- use ' for mark jumps to row+column
-vim.cmd([[set shortmess+=I]]) -- do not show :intro on start
 
 --[[ Indentation ]]
 vim.opt.expandtab = true -- Change tabs to spaces

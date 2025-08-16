@@ -1,3 +1,11 @@
+-- Disable comments on Enter press
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = '*',
+  callback = function()
+    vim.opt_local.formatoptions:remove({ 'c', 'r', 'o' })
+  end,
+})
+
 -- autoformat go
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { '*.go' },
