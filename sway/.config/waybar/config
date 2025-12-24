@@ -2,14 +2,15 @@
   "layer": "top",
   "position": "bottom",
   "modules-left": [
-    "sway/workspaces",
-    "sway/mode",
+    //"hyprland/workspaces"
+    "sway/workspaces", "sway/mode",
   ],
   "modules-center": [],
   "modules-right": [
     "tray",
     "custom/arrow", "network",
     "custom/arrow", "sway/language",
+    //"custom/arrow", "hyprland/language",
     "custom/arrow", "custom/stonks",
     "custom/arrow", "custom/weather",
     "custom/arrow", "temperature",
@@ -37,6 +38,13 @@
   "sway/workspaces": {
     "all-outputs": true,
     "format": "{name}",
+  },
+  "hyprland/workspaces": {
+    "on-scroll-up": "hyprctl dispatch workspace e-1",
+    "on-scroll-down": "hyprctl dispatch workspace e+1"
+  },
+  "hyprland/language": {
+   "format": "{short}",
   },
   "clock": {
     "interval": 1,

@@ -50,7 +50,7 @@ tooltip label {
     background: inherit;
 }
 
-#workspaces button.focused {
+#workspaces button.active, #workspaces button.focused {
     background-color: #2f2f2f;
     color: #F0DFAF;
 }
