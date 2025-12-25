@@ -1,13 +1,13 @@
 -- highlight, edit, and navigate code using a fast incremental parsing library
 return {
   'nvim-treesitter/nvim-treesitter',
-  version = false,
+  lazy = false,
   build = ':TSUpdate',
   dependencies = {
-    'nvim-treesitter/nvim-treesitter-textobjects',
+    { 'nvim-treesitter/nvim-treesitter-textobjects', branch = "main" },
   },
   config = function(_, opts)
-    require('nvim-treesitter.configs').setup(opts)
+    require('nvim-treesitter').setup(opts)
   end,
   opts = {
     ensure_installed = {
