@@ -40,7 +40,6 @@
   },
   "clock": {
     "interval": 1,
-    "timezone": "Europe/Moscow",
     "locale": "ru_RU.UTF-8",
     "tooltip-format": "<tt>{calendar}</tt>",
     "format-alt": "{:L%H:%M:%OS}",
@@ -116,7 +115,7 @@
     "format": "<span style=\"italic\">{}</span>"
   },
   "tray": {
-    "icon-size": 12,
+    "icon-size": 24,
     "spacing": 3,
   },
 }

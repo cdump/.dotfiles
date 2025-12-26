@@ -18,12 +18,12 @@ exec mako
 
 output * bg ~/.wall.jpg fill
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-output eDP-1 resolution 1920x1200@60Hz scale 2
-output DP-2 resolution 3840x2160@144Hz scale 2
+output eDP-1 resolution 1920x1200@60Hz scale 1
+#output DP-2 resolution 3840x2160@144Hz scale 2
 
-bindswitch --reload --locked lid:on output eDP-1 disable; exec gsettings set org.gnome.desktop.interface text-scaling-factor 1;
+#bindswitch --reload --locked lid:on output eDP-1 disable; exec gsettings set org.gnome.desktop.interface text-scaling-factor 1;
 
-bindswitch --reload --locked lid:off output eDP-1 enable; exec gsettings set org.gnome.desktop.interface text-scaling-factor 0.8;
+#bindswitch --reload --locked lid:off output eDP-1 enable; exec gsettings set org.gnome.desktop.interface text-scaling-factor 0.8;
 
 ### Idle configuration
 #
@@ -56,7 +56,7 @@ input "type:keyboard" {
 #
 # Basics:
 #
-    font pango:Dejavu Sans 9
+    font pango:Noto Sans 17
     hide_edge_borders both
     focus_follows_mouse no
     default_border pixel 1
@@ -83,7 +83,7 @@ bindsym --to-code {
     $mod+n exec l3afpad
     $mod+c exec qalculate-gtk
     $mod+F4 exec OBSIDIAN_USE_WAYLAND=1 obsidian -enable-features=UseOzonePlatform -ozone-platform=wayland
-    $mod+F5 exec ~/.local/bin/Telegram -scale 75
+    $mod+F5 exec ~/.local/bin/Telegram -scale 150
 
     # add user to 'video' group
     XF86MonBrightnessUp exec brightnessctl set +5%

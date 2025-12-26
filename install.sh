@@ -54,7 +54,7 @@ for X in ${TARGETS[@]}; do
     stow $X
 
     if [[ "$X" == "yazi" ]]; then
-        ya pack -i
+        ya pkg install
     fi;
 
     if [[ "$X" == "fonts" ]]; then
