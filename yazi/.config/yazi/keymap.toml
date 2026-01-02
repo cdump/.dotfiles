@@ -13,8 +13,6 @@ prepend_keymap = [
 
 	{ on = "/", run = "plugin inc-search",      desc = "Find next file" },
 	{ on = "?", run = "find --smart",      desc = "Find next file" },
-	# { on = "/", run = "find --smart",            desc = "Find next file" },
-	# { on = "?", run = "find --previous --smart", desc = "Find previous file" },
 
 	{ on = "d",         run = "remove --permanently",        desc = "Permanently delete selected files" },
 
