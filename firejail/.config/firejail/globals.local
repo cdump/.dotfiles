@@ -1,0 +1,8 @@
+# https://github.com/netblue30/firejail/issues/6906#issuecomment-3627004976
+whitelist /usr/share/glycin-loaders
+noblacklist /usr/bin/bwrap
+noblacklist /proc/sys/kernel/overflowuid
+noblacklist /proc/sys/kernel/overflowgid
+
+ignore seccomp !chroot
+seccomp !chroot,!mount,!pivot_root,!umount2
