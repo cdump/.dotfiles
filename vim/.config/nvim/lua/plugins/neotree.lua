@@ -11,6 +11,9 @@ return {
   },
   lazy = false,   -- neo-tree will lazily load itself
   opts = {
+    filesystem = {
+      hijack_netrw_behavior = "open_current",
+    },
     close_if_last_window = true,
     enable_diagnostics = false,
     open_files_in_last_windows = false,     -- false = open files in top left window
@@ -21,6 +24,11 @@ return {
       },
       name = {
         use_git_status_colors = false,
+      },
+    },
+    window = {
+      mappings = {
+        ['<leader>q'] = 'close_window',
       },
     },
   },

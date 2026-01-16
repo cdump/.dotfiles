@@ -1,5 +1,9 @@
 vim.cmd.language('C') -- Show VIM messages in English
 
+--[[ Disable netrw ]]
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 --[[ Space = leader key ]]
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.g.mapleader = ' '

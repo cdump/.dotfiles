@@ -25,7 +25,7 @@ return {
       enabled = true,
       -- line_length = math.huge,
     },
-    explorer = { enabled = true },
+    explorer = { enabled = false },
     quickfile = { enabled = true },
     indent = {
       enabled = true,
