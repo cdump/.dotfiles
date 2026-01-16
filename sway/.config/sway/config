@@ -76,13 +76,11 @@ bindsym --to-code {
     $mod+q exec ~/.local/bin/chromium
     $mod+F2 exec firejail --profile=/etc/firejail/thunderbird.profile -- betterbird
     $mod+p exec swaymsg '[app_id="org.keepassxc.KeePassXC"] scratchpad show' || ~/.local/bin/keepassxc
-    $mod+e exec $term --app-id=ranger yazi
-    # tmp:
-    $mod+Shift+e exec $term --app-id=ranger ranger
+    $mod+e exec $term --app-id=yazi yazi
     $mod+r exec rofi -show run
     $mod+n exec l3afpad
     $mod+c exec qalculate-gtk
-    $mod+F4 exec OBSIDIAN_USE_WAYLAND=1 obsidian -enable-features=UseOzonePlatform -ozone-platform=wayland
+    $mod+F4 exec $term --app-id=obsidian nvim ~/data/obsidian/
     $mod+F5 exec ~/.local/bin/Telegram -scale 150
 
     # add user to 'video' group
@@ -258,7 +256,7 @@ for_window {
     [title="Save File"] floating enable
     [app_id="nwg-look|nwg-displays|l3afpad|pavucontrol-qt|qalculate-gtk|iwgtk"] floating enable
 
-    [app_id="ranger"] move container to workspace $ws2; workspace $ws2;
+    [app_id="yazi"] move container to workspace $ws2; workspace $ws2;
 
     [app_id="thunderbird|betterbird"] move container to workspace $ws3;
 
