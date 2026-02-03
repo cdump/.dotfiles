@@ -71,3 +71,26 @@ rules = [
 ]
 
 # : }}}
+
+# : Icons {{{
+[icon]
+dirs  = [
+	{ name = ".config", text = "", fg = "blue" },
+	{ name = ".git", text = "", fg = "blue" },
+	{ name = ".github", text = "", fg = "blue" },
+	{ name = ".npm", text = "", fg = "blue" },
+	{ name = "Desktop", text = "", fg = "blue" },
+	{ name = "Development", text = "", fg = "blue" },
+	{ name = "Documents", text = "", fg = "blue" },
+	{ name = "Downloads", text = "", fg = "blue" },
+	{ name = "Library", text = "", fg = "blue" },
+	{ name = "Movies", text = "", fg = "blue" },
+	{ name = "Music", text = "", fg = "blue" },
+	{ name = "Pictures", text = "", fg = "blue" },
+	{ name = "Public", text = "", fg = "blue" },
+	{ name = "Videos", text = "", fg = "blue" },
+]
+conds = [
+	{ if = "dir", text = "", fg = "blue" },
+]
+# : }}}
