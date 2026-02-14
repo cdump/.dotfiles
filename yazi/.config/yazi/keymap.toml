@@ -4,21 +4,23 @@
 
 [mgr]
 prepend_keymap = [
-    { on = "q",     run = "escape",               desc = "Quit the process" },
+    { on = "q",     run = "escape",               desc = "Do not quit" },
 
 	{ on = "<Enter>", run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
+    { on = "<S-Enter>", run = "open --interactive",          desc = "Open selected files interactively" },
+
     { on = "<Right>", run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
     { on = "l",       run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
 	{ on = "H",       run = "hidden toggle",               desc = "Toggle the visibility of hidden files" },
 
 	{ on = "/", run = "plugin inc-search",      desc = "Find next file" },
-	{ on = "?", run = "find --smart",      desc = "Find next file" },
+
+    { on = "?", run = "help", desc = "Open help" },
 
 	{ on = "d",         run = "remove --permanently",        desc = "Permanently delete selected files" },
 
 	# Sorting
-	{ on = [ "o", "m" ], run = [ "sort mtime --reverse=no", "linemode mtime" ], desc = "Sort by modified time" },
-	{ on = [ "o", "M" ], run = [ "sort mtime --reverse", "linemode mtime" ],    desc = "Sort by modified time (reverse)" },
+	{ on = [ "o" ], run = [ "noop" ], desc = "Use , for sorting" },
 
     { on = "*",   run = "toggle_all",            desc = "Invert selection of all files" },
 
@@ -41,4 +43,14 @@ append_keymap = [
 [input]
 append_keymap = [
 	{ on = "<Esc>",   run = "close",          desc = "Cancel pick" },
+]
+
+[help]
+append_keymap = [
+	{ on = "q", run = "escape", desc = "Clear the filter, or hide the help" },
+    { on = "/", run = "filter", desc = "Filter help items" },
+    { on = "<C-u>", run = "arrow -50%",  desc = "Move cursor up half page" },
+	{ on = "<C-d>", run = "arrow 50%",   desc = "Move cursor down half page" },
+    { on = "<PageUp>",     run = "arrow -100%", desc = "Move cursor up one page" },
+	{ on = "<PageDown>",   run = "arrow 100%",  desc = "Move cursor down one page" },
 ]

@@ -10,6 +10,9 @@ linemode       = "size"
 edit = [
 	{ run = "nvim %s",      desc = "nvim",      for = "unix", block = true },
 	{ run = "l3afpad %s",   desc = "l3afpad",   for = "unix", block = true },
+]
+
+edit_image = [
 	{ run = "gimp %s",      desc = "gimp",      for = "unix", block = true },
 ]
 
@@ -20,7 +23,7 @@ rules = [
 	# Text
 	{ mime = "text/*", use = [ "edit", "reveal" ] },
 	# Image
-	{ mime = "image/*", use = [ "open", "reveal" ] },
+	{ mime = "image/*", use = [ "open", "edit_image", "reveal" ] },
 	# Media
 	{ mime = "{audio,video}/*", use = [ "play", "reveal" ] },
 	# Archive
