@@ -30,6 +30,7 @@ vim.opt.cursorline = true -- higlight current line
 vim.opt.scrolloff = 5     -- minimal number of screen lines to keep above and below the cursor
 vim.opt.linebreak = true  -- do not break the words
 vim.opt.mouse = ''        -- disable mouse
+vim.opt.timeoutlen = 300
 vim.opt.swapfile = false
 vim.opt.wildmode = 'longest:full,full'
 vim.opt.langmap =
