@@ -10,7 +10,7 @@ return {
         enabled = false,
       },
       search = {
-        enabled = true,
+        enabled = false,
       },
     }
   },
