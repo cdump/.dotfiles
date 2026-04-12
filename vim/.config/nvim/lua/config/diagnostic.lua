@@ -7,6 +7,23 @@ vim.diagnostic.config({
   --     prefix = '·',
   -- },
   severity_sort = true,
+  float = {
+    focusable = false, -- Prevent jumping into the floating window
+  },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.WARN] = '',
+      [vim.diagnostic.severity.INFO] = '',
+      [vim.diagnostic.severity.HINT] = '',
+    },
+    numhl = {
+      [vim.diagnostic.severity.ERROR] = 'DiagnosticLineNrError',
+      [vim.diagnostic.severity.WARN] = 'DiagnosticLineNrWarn',
+      [vim.diagnostic.severity.INFO] = 'DiagnosticLineNrInfo',
+      [vim.diagnostic.severity.HINT] = 'DiagnosticLineNrHint',
+    },
+  },
 })
 
 vim.keymap.set('n', '<C-k>', function()

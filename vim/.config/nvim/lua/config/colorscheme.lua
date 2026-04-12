@@ -48,20 +48,3 @@ vim.cmd [[
     hi! link Pmenu NormalFloat
 
 ]]
-
-vim.diagnostic.config({
-  signs = {
-    text = {
-      [vim.diagnostic.severity.ERROR] = '',
-      [vim.diagnostic.severity.WARN] = '',
-      [vim.diagnostic.severity.INFO] = '',
-      [vim.diagnostic.severity.HINT] = '',
-    },
-    numhl = {
-      [vim.diagnostic.severity.ERROR] = 'DiagnosticLineNrError',
-      [vim.diagnostic.severity.WARN] = 'DiagnosticLineNrWarn',
-      [vim.diagnostic.severity.INFO] = 'DiagnosticLineNrInfo',
-      [vim.diagnostic.severity.HINT] = 'DiagnosticLineNrHint',
-    },
-  },
-})
