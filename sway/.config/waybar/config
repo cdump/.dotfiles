@@ -24,9 +24,9 @@
     "tooltip": false
   },
   "custom/stonks": {
-    "exec": "~/.config/sway/scripts/stonks.py --ticker 'cbr:EUR:€' --ticker 'cbr:USD:$' --ticker 'binance:BTCUSDT:₿' --ticker 'binance:ETHUSDT:Ξ'",
-    "on-click": "~/.config/sway/scripts/stonks.py --cmd update-now",
-    "on-click-right": "~/.config/sway/scripts/stonks.py --cmd toggle-mode",
+    "exec": "~/.config/waybar/scripts/stonks.py --ticker 'cbr:EUR:€' --ticker 'cbr:USD:$' --ticker 'binance:BTCUSDT:₿' --ticker 'binance:ETHUSDT:Ξ'",
+    "on-click": "~/.config/waybar/scripts/stonks.py --cmd update-now",
+    "on-click-right": "~/.config/waybar/scripts/stonks.py --cmd toggle-mode",
     "return-type": "json",
   },
 
