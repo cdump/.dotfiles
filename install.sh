@@ -26,6 +26,9 @@ Linux)
         foot
         ssh-agent
         sway
+        mako
+        waybar
+        mimeapps
     )
 ;;
 Darwin)
