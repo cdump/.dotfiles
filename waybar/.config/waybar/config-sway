@@ -2,13 +2,14 @@
   "layer": "top",
   "position": "bottom",
   "modules-left": [
-    "hyprland/workspaces"
+    "sway/workspaces",
+    "sway/mode",
   ],
   "modules-center": [],
   "modules-right": [
     "tray",
     "custom/arrow", "network",
-    "custom/arrow", "hyprland/language",
+    "custom/arrow", "sway/language",
     "custom/arrow", "custom/stonks",
     "custom/arrow", "custom/weather",
     "custom/arrow", "temperature",
@@ -31,12 +32,11 @@
 
   // Modules configuration
   "custom/weather": {
-    "exec": "~/.config/waybar/scripts/weather.sh"
+    "exec": "~/.config/sway/scripts/weather.sh"
   },
-  "hyprland/workspaces" : {
+  "sway/workspaces": {
+    "all-outputs": true,
     "format": "{name}",
-    "on-scroll-up": "hyprctl dispatch \"hl.dsp.focus({ workspace = 'e-1' })\"",
-    "on-scroll-down": "hyprctl dispatch \"hl.dsp.focus({ workspace = 'e+1' })\"",
   },
   "clock": {
     "interval": 1,
@@ -101,7 +101,7 @@
     "format": "{icon} {temperatureC}°C",
     "format-icons": ["", "", ""]
   },
-  "hyprland/language": {
+  "sway/language": {
     "format": "{short}",
   },
   "network": {
@@ -111,6 +111,9 @@
     "tooltip-format": "󰓅  {ifname} ({ipaddr}/{cidr}): ⇩{bandwidthDownBits} ⇧{bandwidthUpBits}",
   },
 
+  "sway/mode": {
+    "format": "<span style=\"italic\">{}</span>"
+  },
   "tray": {
     "icon-size": 24,
     "spacing": 3,

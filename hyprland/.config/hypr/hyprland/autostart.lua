@@ -1,6 +1,6 @@
 hl.on("hyprland.start", function()
   local e = hl.exec_cmd
-  e("waybar --config ~/.config/waybar/config-hyprland")
+  e("waybar")
   e("swaybg --image ~/.wall.jpg --mode fill")
   e("mako")
   e("hypridle")

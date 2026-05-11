@@ -245,7 +245,7 @@ mode "resize" {
 bindsym --to-code $mod+Ctrl+r mode "resize"
 
 bar {
-    swaybar_command waybar
+    swaybar_command waybar --config ~/.config/waybar/config-sway
 }
 
 for_window {
