@@ -4,7 +4,7 @@ require("full-border"):setup {
 
 require("inc-search")
 
-require("mime-ext"):setup {
+require("mime-ext.local"):setup {
     with_exts = {
         heic = "image/heic",
     },
