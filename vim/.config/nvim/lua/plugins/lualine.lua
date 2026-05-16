@@ -12,16 +12,6 @@ return {
       sections = {
         lualine_a = { 'mode' },
         lualine_b = {
-          {
-            function() return '󰰣MAVEN' end,
-            cond = function()
-              local supermaven_config = require('lazy.core.config').plugins['supermaven-nvim']
-              if not supermaven_config or not supermaven_config._.loaded then return false end
-              return require('supermaven-nvim.api').is_running()
-            end,
-            separator = { left = '', right = '' },
-            color = { bg = '#cf4d3a' },
-          },
           { 'filename', path = 1 }, -- relative path
           'diagnostics',
         },
