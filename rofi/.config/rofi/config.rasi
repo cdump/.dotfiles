@@ -1,7 +1,11 @@
 configuration {
+    modes: "run";
+    display-run: "";
+
     matching: "fuzzy";
     sort: true;
     sorting-method: "fzf";
+
     kb-cancel: "Escape,Control+c";
     kb-remove-to-eol: "";
     kb-secondary-copy: "";
@@ -10,4 +14,5 @@ configuration {
     kb-row-up: "Up,Control+k";
 }
 
-@theme "/usr/share/rofi/themes/fancy.rasi"
+// @theme "/usr/share/rofi/themes/fancy.rasi"
+@theme "./theme.rasi"

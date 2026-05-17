@@ -28,6 +28,7 @@ local binds = {
   { { "SUPER", "Return" },         exec("foot") },
 
   { { "SUPER", "Q" },              exec("~/.local/bin/chromium") },
+  { { "SUPER", "SHIFT", "Q" },     exec("rofi -modes 'chrome:~/.config/rofi/chrome-profile-mode' -show chrome") },
   { { "SUPER", "E" },              exec("foot --app-id=yazi yazi") },
   { { "SUPER", "R" },              exec("rofi -show run") },
   { { "SUPER", "N" },              exec("l3afpad") },

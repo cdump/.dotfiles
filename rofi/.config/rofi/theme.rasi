@@ -1,0 +1,123 @@
+* {
+    background:     #323D43FF;
+    background-alt: #3C474DFF;
+    foreground:     #DAD1BEFF;
+    selected:       #7FBBB3FF;
+    active:         #A7C080FF;
+    urgent:         #E67E80FF;
+
+    background-color: transparent;
+    text-color:       @foreground;
+    border-color:     @selected;
+}
+
+window {
+    transparency:     "real";
+    location:         center;
+    anchor:           center;
+    border-radius:    10px;
+    background-color: @background;
+}
+
+mainbox {
+    spacing:  10px;
+    padding:  30px;
+    children: [ "inputbar", "message", "listview" ];
+}
+
+inputbar {
+    spacing:  10px;
+    children: [ "textbox-prompt-colon", "entry" ];
+}
+
+textbox-prompt-colon {
+    expand:  false;
+    padding: 5px 0px;
+    str:     "";
+}
+
+entry {
+    padding:           5px 0px;
+    placeholder:       "Run...";
+    placeholder-color: @foreground;
+    cursor:            text;
+}
+
+listview {
+    columns:       1;
+    lines:         8;
+    cycle:         true;
+    dynamic:       true;
+    scrollbar:     true;
+    layout:        vertical;
+    fixed-height:  true;
+    fixed-columns: true;
+    spacing:       5px;
+}
+
+scrollbar {
+    handle-width:     5px;
+    handle-color:     @selected;
+    border-radius:    10px;
+    background-color: @background-alt;
+}
+
+element {
+    spacing:       10px;
+    padding:       5px 10px;
+    border-radius: 10px;
+    cursor:        pointer;
+}
+
+element selected {
+    background-color: @selected;
+    text-color:       @background;
+}
+
+element normal.urgent {
+    background-color: @urgent;
+    text-color:       @background;
+}
+
+element normal.active {
+    background-color: @active;
+    text-color:       @background;
+}
+
+element-icon {
+    size:   24px;
+    cursor: inherit;
+}
+
+element-text {
+    highlight:        inherit;
+    cursor:           inherit;
+    vertical-align:   0.5;
+    horizontal-align: 0.0;
+}
+
+message {
+    margin:  0px;
+    padding: 0px;
+}
+
+textbox {
+    padding:           8px 10px;
+    border-radius:     10px;
+    background-color:  @background-alt;
+    text-color:        @foreground;
+    vertical-align:    0.5;
+    horizontal-align:  0.0;
+    highlight:         none;
+    placeholder-color: @foreground;
+    blink:             true;
+    markup:            true;
+}
+
+error-message {
+    padding:           10px;
+    border:            2px solid;
+    border-radius:     10px;
+    background-color:  @background;
+    text-color:        @foreground;
+}
