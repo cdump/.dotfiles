@@ -18,7 +18,9 @@ prepend_keymap = [
 
     { on = "?", run = "help", desc = "Open help" },
 
-	{ on = "d",         run = "remove --permanently",        desc = "Permanently delete selected files" },
+    { on = "d",         run = "remove --permanently",        desc = "Permanently delete selected files" },
+
+    { on = ";", run = "shell --orphan foot", desc = "Open terminal" },
 
 	# Sorting
 	{ on = [ "o" ], run = [ "noop" ], desc = "Use , for sorting" },
