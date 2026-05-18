@@ -22,7 +22,6 @@
   "rainbow-delimiters.nvim": { "branch": "master", "commit": "aab6caaffd79b8def22ec4320a5344f7c42f58d2" },
   "snacks.nvim": { "branch": "main", "commit": "ad9ede6a9cddf16cedbd31b8932d6dcdee9b716e" },
   "sonokai": { "branch": "master", "commit": "b023c5280b16fe2366f5e779d8d2756b3e5ee9c3" },
-  "vim-better-whitespace": { "branch": "master", "commit": "de99b55a6fe8c96a69f9376f16b1d5d627a56e81" },
   "vim-cpp-modern": { "branch": "master", "commit": "b194a25209ed99ae73175cc5cbc94b2d5684f657" },
   "vim-fugitive": { "branch": "master", "commit": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" }
