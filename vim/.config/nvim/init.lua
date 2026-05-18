@@ -12,6 +12,7 @@ vim.g.maplocalleader = ' '
 vim.opt.termguicolors = true
 vim.opt.winborder = 'single'
 
+require('config.messages')
 require('config.lazy')
 require('config.command_mode')
 require('config.colorscheme')
