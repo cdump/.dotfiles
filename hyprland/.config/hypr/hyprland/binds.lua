@@ -2,17 +2,14 @@ local utils = require("hyprland.utils")
 local focus_prev_window = require("hyprland.focus_prev_window")
 local rename_workspace = require("hyprland.rename_workspace")
 
-local function run_or_toggle(window_class, cmd)
+local function run_or_toggle(window_class, cmd, opts)
   local window_selector = "class:" .. window_class
-  hl.window_rule {
-    match = {
-      class = window_class,
-    },
-    workspace = "special:" .. window_class,
-    float = true,
-    center = true,
-    size = "(monitor_w*0.55) (monitor_h*0.5)",
-  }
+  opts = opts or {}
+  opts.match = { class = window_class }
+  opts.workspace = "special:" .. window_class
+  opts.float = opts.float or true
+  hl.window_rule(opts)
+
   return function()
     if hl.get_window(window_selector) == nil then
       hl.dispatch(hl.dsp.exec_cmd(cmd))
@@ -52,10 +49,30 @@ local binds = {
   { "XF86MonBrightnessUp",         exec("brightnessctl -e4 -n2 set 5%+") },
   { "XF86MonBrightnessDown",       exec("brightnessctl -e4 -n2 set 5%-") },
 
-  { { "SUPER", "P" },              run_or_toggle("org.keepassxc.KeePassXC", "~/.local/bin/keepassxc") },
+  {
+    { "SUPER", "P" },
+    run_or_toggle(
+      "org.keepassxc.KeePassXC",
+      "~/.local/bin/keepassxc",
+      {
+        center = true,
+        size = "(monitor_w*0.55) (monitor_h*0.5)"
+      }
+    )
+  },
+  {
+    { "SUPER", "grave" },
+    run_or_toggle(
+      "grave",
+      "l3afpad --name=grave",
+      {
+        center = true
+      }
+    )
+  },
 
   -- grave = name of ` symbol
-  { { "SUPER", "grave" },          run_or_toggle("org.keepassxc.KeePassXC", "~/.local/bin/keepassxc") },
+  -- { { "SUPER", "grave" },          run_or_toggle("org.keepassxc.KeePassXC", "~/.local/bin/keepassxc") },
   -- { { "SUPER", "grave" },          hl.dsp.workspace.toggle_special("spec") },
   -- { { "SUPER", "SHIFT", "grave" }, hl.dsp.window.move({ workspace = "special:spec" }) },
 
