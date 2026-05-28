@@ -1,30 +1,10 @@
 return {
   'echasnovski/mini.nvim',
   version = false,
-  dependencies = {
-    {
-      'JoosepAlviste/nvim-ts-context-commentstring',
-      lazy = true,
-      opts = {
-        enable_autocmd = false,
-      },
-    },
-  },
   config = function()
     require('mini.diff').setup({
       view = {
         signs = { add = '┃', change = '┃', delete = '_' },
-      },
-    })
-
-    require('mini.comment').setup({
-      mappings = {
-        textobject = 'ic',
-      },
-      options = {
-        custom_commentstring = function()
-          return require('ts_context_commentstring').calculate_commentstring() or vim.bo.commentstring
-        end,
       },
     })
 
@@ -37,7 +17,7 @@ return {
       custom_textobjects = {
         f = treesitter { a = '@function.outer', i = '@function.inner' },
         k = treesitter { a = '@block.outer', i = '@block.inner' },
-        c = treesitter { a = '@class.outer', i = '@class.inner' },
+        c = treesitter { a = '@comment.outer', i = '@comment.outer' },
         o = treesitter { -- code block
           a = { '@block.outer', '@conditional.outer', '@loop.outer' },
           i = { '@block.inner', '@conditional.inner', '@loop.inner' },
