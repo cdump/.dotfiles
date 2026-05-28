@@ -17,7 +17,7 @@ return {
         focusable = false,
       },
     },
-    dim = { enabled = true, animate = { enabled = false } },
+    dim = { animate = { enabled = false } },
     notifier = {
       enabled = true,
     },
@@ -25,7 +25,6 @@ return {
       enabled = true,
       -- line_length = math.huge,
     },
-    explorer = { enabled = false },
     quickfile = { enabled = true },
     indent = {
       enabled = true,
@@ -72,41 +71,14 @@ return {
         },
         explorer = {
           auto_close = true,
-          replace_netrw = false,
           win = {
             list = {
               keys = {
                 ["<C-c>"] = "close",
                 ["<leader>w"] = "close",
-                ["<C-\\>"] = "close",
-                ["u"] = "explorer_up",
-                ["cd"] = "tcd",
+                ["<leader>e"] = "close",
                 ["z"] = "toggle_maximize",
-                ["c"] = "tcd",
-                -- ["l"] = "confirm",
-                -- ["h"] = "explorer_close", -- close directory
-                -- ["a"] = "explorer_add",
-                -- ["d"] = "explorer_del",
-                -- ["r"] = "explorer_rename",
-                -- ["m"] = "explorer_move",
-                -- ["o"] = "explorer_open", -- open with system application
-                -- ["P"] = "toggle_preview",
-                -- ["y"] = "explorer_yank",
-                -- ["u"] = "explorer_update",
-                -- ["<c-c>"] = "tcd",
-                -- ["<leader>/"] = "picker_grep",
-                -- ["<c-t>"] = "terminal",
-                -- ["I"] = "toggle_ignored",
-                -- ["H"] = "toggle_hidden",
-                -- ["Z"] = "explorer_close_all",
-                -- ["]g"] = "explorer_git_next",
-                -- ["[g"] = "explorer_git_prev",
-                -- ["]d"] = "explorer_diagnostic_next",
-                -- ["[d"] = "explorer_diagnostic_prev",
-                -- ["]w"] = "explorer_warn_next",
-                -- ["[w"] = "explorer_warn_prev",
-                -- ["]e"] = "explorer_error_next",
-                -- ["[e"] = "explorer_error_prev",
+                ["."] = "tcd",
               },
             },
           },
@@ -126,6 +98,7 @@ return {
     { "<leader>O",  function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
 
     -- { "<C-\\>",     function() Snacks.explorer.reveal() end,              desc = "File Explorer" },
+    { "<leader>e",     function() Snacks.explorer.reveal() end,              desc = "File Explorer" },
 
     { "<leader>gd", function() Snacks.picker.git_diff() end,              desc = "Git Diff (Hunks)" },
     { "<leader>gf", function() Snacks.picker.git_log_file() end,          desc = "Git Log File" },

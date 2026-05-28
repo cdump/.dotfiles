@@ -58,7 +58,7 @@ vim.opt.smartcase = true  -- ...unless we type a capital
 vim.keymap.set('n', '//', '<cmd>nohlsearch<cr>', { desc = 'clear current search highlight' })
 vim.keymap.set('n', '<leader>m', require('markword').toggle)
 
-vim.keymap.set('n', '<leader>ht', function() require('mini.diff').toggle_overlay() end)
+vim.keymap.set('n', '<leader>ht', require('mini.diff').toggle_overlay)
 
 --[[ Jumps ]]
 for i = 1, 9 do
