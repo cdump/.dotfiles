@@ -2,15 +2,17 @@
 return {
   'nvim-treesitter/nvim-treesitter',
   lazy = false,
+  branch = 'main',
   build = ':TSUpdate',
   dependencies = {
-    { 'nvim-treesitter/nvim-treesitter-textobjects', branch = "main" },
+    { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' },
   },
-  config = function(_, opts)
-    require('nvim-treesitter').setup(opts)
-  end,
-  opts = {
-    ensure_installed = {
+  config = function()
+    local ts = require('nvim-treesitter')
+    ts.setup()
+
+    -- Pre-warm the parsers I use most so first-open is instant.
+    ts.install({
       'bash',
       'c',
       'cpp',
@@ -32,22 +34,41 @@ return {
       'vimdoc',
       'vue',
       'yaml',
-    },
-    auto_install = true,
-    highlight = {
-      enable = true,
-      disable = { 'c', 'cpp' },       -- bfrg/vim-cpp-modern is better (#if 0 support, auto type support, ...)
-    },
-    indent = {
-      enable = true,
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = '<C-space>',
-        node_incremental = '<C-space>',
-        node_decremental = '<C-A-space>',
-      },
-    }
-  }
+    })
+
+    local function try_start(buf, lang)
+      if pcall(vim.treesitter.start, buf, lang) then
+        vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        return true
+      end
+      return false
+    end
+
+    vim.api.nvim_create_autocmd('FileType', {
+      callback = function(args)
+        local ft = args.match
+        -- bfrg/vim-cpp-modern is better for c/cpp (#if 0 support, auto type, ...)
+        if ft == 'c' or ft == 'cpp' then return end
+        local lang = vim.treesitter.language.get_lang(ft) or ft
+
+        if try_start(args.buf, lang) then return end
+
+        if vim.tbl_contains(ts.get_available(), lang) then
+          vim.notify('treesitter: installing ' .. lang .. '...', vim.log.levels.INFO)
+          ts.install(lang):await(function(err)
+            vim.schedule(function()
+              if err then
+                vim.notify('treesitter: failed to install ' .. lang .. ': ' .. tostring(err), vim.log.levels.ERROR)
+                return
+              end
+              vim.notify('treesitter: installed ' .. lang, vim.log.levels.INFO)
+              if vim.api.nvim_buf_is_valid(args.buf) then
+                try_start(args.buf, lang)
+              end
+            end)
+          end)
+        end
+      end,
+    })
+  end,
 }
