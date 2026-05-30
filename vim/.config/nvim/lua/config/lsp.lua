@@ -20,9 +20,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 local orig_hover = vim.lsp.buf.hover
-vim.lsp.buf.hover = function()
-  return orig_hover {
+vim.lsp.buf.hover = function(config)
+  return orig_hover(vim.tbl_extend('force', {
     border = 'rounded',
     focusable = false,
-  }
+  }, config or {}))
 end
