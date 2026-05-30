@@ -1,14 +1,3 @@
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-local has_blink, blink = pcall(require, 'blink.cmp')
-
-if has_blink then
-  capabilities = blink.get_lsp_capabilities(capabilities)
-end
-
-vim.lsp.config("*", {
-  capabilities = capabilities
-})
-
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
     local bufnr = ev.buf
