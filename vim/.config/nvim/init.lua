@@ -1,3 +1,5 @@
+vim.loader.enable() -- byte-compile cache for Lua modules; speeds up startup
+
 vim.cmd.language('C') -- Show VIM messages in English
 
 --[[ Disable netrw ]]
@@ -13,9 +15,7 @@ vim.opt.termguicolors = true
 vim.opt.winborder = 'single'
 
 require('config.messages')
-require('config.lazy')
 require('config.command_mode')
-require('config.colorscheme')
 require('config.lsp')
 require('config.fold')
 require('config.diagnostic')
@@ -37,7 +37,7 @@ vim.opt.wildmode = 'longest:full,full'
 vim.opt.langmap =
 'ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz'
 vim.keymap.set('n', 'Ж', ':')
-vim.keymap.set('i', '<C-c>', '<Esc>')
+vim.keymap.set({'n', 'i', 'v'}, '<C-c>', '<Esc>')
 vim.keymap.set('n', '<leader>q',
   '<cmd>if len(filter(range(1, bufnr("$")), "buflisted(v:val)")) == 1|:quit|else|:bprevious|bdelete #|endif<cr>') -- close buffer or vim
 vim.keymap.set('n', '<leader><leader>q', '<cmd>qall<cr>')
@@ -58,7 +58,7 @@ vim.opt.smartcase = true  -- ...unless we type a capital
 vim.keymap.set('n', '//', '<cmd>nohlsearch<cr>', { desc = 'clear current search highlight' })
 vim.keymap.set('n', '<leader>m', require('markword').toggle)
 
-vim.keymap.set('n', '<leader>ht', require('mini.diff').toggle_overlay)
+vim.keymap.set('n', '<leader>ht', function() require('mini.diff').toggle_overlay() end)
 
 --[[ Jumps ]]
 for i = 1, 9 do
