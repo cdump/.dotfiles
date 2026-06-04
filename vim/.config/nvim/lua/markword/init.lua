@@ -5,12 +5,23 @@ local highlight_prefix = 'WordMark'
 
 local active_matches = {}
 
-for i, c in ipairs(colors) do
-  vim.api.nvim_set_hl(0, highlight_prefix .. i, { bg = c, fg = 'Black' })
+local function set_highlights()
+  for i, c in ipairs(colors) do
+    vim.api.nvim_set_hl(0, highlight_prefix .. i, { bg = c, fg = 'Black' })
+  end
 end
 
+set_highlights()
+
+local augroup = vim.api.nvim_create_augroup('markword', { clear = true })
+
+vim.api.nvim_create_autocmd('ColorScheme', {
+  group = augroup,
+  callback = set_highlights,
+})
+
 vim.api.nvim_create_autocmd('WinClosed', {
-  group = vim.api.nvim_create_augroup('markword', { clear = true }),
+  group = augroup,
   callback = function(ev)
     local winid = tonumber(ev.match)
     if winid then
@@ -59,6 +70,8 @@ local function window_matches(winid)
 end
 
 function M.toggle()
+  set_highlights()
+
   local word = current_word()
   if not word then
     return
