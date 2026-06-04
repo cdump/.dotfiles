@@ -25,7 +25,6 @@ Linux)
 
         foot
         ssh-agent
-        sway
         hyprland
         mako
         waybar
