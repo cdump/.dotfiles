@@ -21,6 +21,15 @@ end
 
 local exec = hl.dsp.exec_cmd
 
+local show_keepass = run_or_toggle(
+  "org.keepassxc.KeePassXC",
+  "~/.local/bin/keepassxc",
+  {
+    center = true,
+    size = "(monitor_w*0.55) (monitor_h*0.5)"
+  }
+)
+
 local binds = {
   { { "SUPER", "Return" },         exec("foot") },
 
@@ -49,36 +58,15 @@ local binds = {
   { "XF86MonBrightnessUp",         exec("brightnessctl -e4 -n2 set 5%+") },
   { "XF86MonBrightnessDown",       exec("brightnessctl -e4 -n2 set 5%-") },
 
-  {
-    { "SUPER", "P" },
-    run_or_toggle(
-      "org.keepassxc.KeePassXC",
-      "~/.local/bin/keepassxc",
-      {
-        center = true,
-        size = "(monitor_w*0.55) (monitor_h*0.5)"
-      }
-    )
-  },
-  {
-    { "SUPER", "grave" },
-    run_or_toggle(
-      "grave",
-      "l3afpad --name=grave",
-      {
-        center = true
-      }
-    )
-  },
+  { { "SUPER", "P" },     show_keepass },
+  { { "SUPER", "grave" }, show_keepass }, -- grave = name of ` symbol
 
-  -- grave = name of ` symbol
-  -- { { "SUPER", "grave" },          run_or_toggle("org.keepassxc.KeePassXC", "~/.local/bin/keepassxc") },
-  -- { { "SUPER", "grave" },          hl.dsp.workspace.toggle_special("spec") },
-  -- { { "SUPER", "SHIFT", "grave" }, hl.dsp.window.move({ workspace = "special:spec" }) },
+  { { "SUPER", "SHIFT", "S" },     hl.dsp.workspace.toggle_special("spec") },
+  { { "SUPER", "S" },              hl.dsp.window.move({ workspace = "special:spec" }) },
 
   { { "SUPER", "SHIFT", "C" },     hl.dsp.window.close() },
   { { "SUPER", "SHIFT", "F" },     hl.dsp.window.float({ action = "toggle" }) },
-  { { "SUPER", "SHIFT", "S" },     hl.dsp.window.pin() },
+  { { "SUPER", "SHIFT", "P" },     hl.dsp.window.pin() },
   { { "SUPER", "F" },              hl.dsp.window.fullscreen() },
   { { "SUPER", "M" },              hl.dsp.window.fullscreen({ mode = "maximized" }) },
   { { "SUPER", "G" },              hl.dsp.group.toggle() },
