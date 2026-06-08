@@ -1,16 +1,3 @@
-vim.api.nvim_create_autocmd('PackChanged', {
-  callback = function(ev)
-    if ev.data.spec.name ~= 'blink.cmp' then return end
-    if ev.data.kind == 'install' or ev.data.kind == 'update' then
-      if not ev.data.active then
-        vim.cmd.packadd('blink.lib')
-        vim.cmd.packadd('blink.cmp')
-      end
-      require('blink.cmp').build():pwait()
-    end
-  end,
-})
-
 vim.pack.add({
   'https://github.com/saghen/blink.lib',
   'https://github.com/rafamadriz/friendly-snippets',
@@ -79,4 +66,5 @@ local opts = {
 }
 
 local cmp = require('blink.cmp')
+cmp.build():pwait()
 cmp.setup(opts)
