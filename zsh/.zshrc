@@ -25,7 +25,6 @@ source ~/.zsh_plugins/ohmyzsh/lib/spectrum.zsh # colors, spectrum_ls
 source ~/.zsh_plugins/ohmyzsh/plugins/encode64/encode64.plugin.zsh
 source ~/.zsh_plugins/ohmyzsh/plugins/tmux/tmux.plugin.zsh
 source ~/.zsh_plugins/ohmyzsh/plugins/command-not-found/command-not-found.plugin.zsh
-source ~/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # expand sudo aliases
 alias sudo='sudo '
@@ -155,5 +154,9 @@ source_if_exists /usr/share/fzf/key-bindings.zsh
 source_if_exists /usr/share/doc/fzf/examples/key-bindings.zsh
 source_if_exists /usr/share/doc/fzf/examples/completion.zsh
 
+source ~/.zsh_plugins/fzf-tab/fzf-tab.plugin.zsh
+
 source_if_exists ~/.p10k.zsh
 source_if_exists ~/.local.zsh
+
+source ~/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

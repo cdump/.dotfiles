@@ -16,3 +16,6 @@
 [submodule "hammerspoon/.hammerspoon/Spoons/SkyRocket.spoon"]
 	path = hammerspoon/.hammerspoon/Spoons/SkyRocket.spoon
 	url = https://github.com/dbalatero/SkyRocket.spoon
+[submodule "zsh/.zsh_plugins/fzf-tab"]
+	path = zsh/.zsh_plugins/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab

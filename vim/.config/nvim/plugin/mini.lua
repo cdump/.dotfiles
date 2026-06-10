@@ -49,8 +49,12 @@ require('mini.move').setup {}
 
 require('mini.trailspace').setup {}
 vim.api.nvim_create_autocmd('BufWritePre', {
-  callback = function()
-    require('mini.trailspace').trim()
+  callback = function(args)
+    if not vim.bo[args.buf].modifiable or vim.bo[args.buf].buftype ~= '' then
+      return
+    end
+
     require('mini.trailspace').trim_last_lines()
+    require('mini.trailspace').trim()
   end,
 })
