@@ -26,6 +26,8 @@ require('mini.ai').setup {
 
 require('mini.bracketed').setup {}
 
+require('mini.surround').setup {}
+
 require('mini.splitjoin').setup {
   mappings = {
     toggle = 'gs',
