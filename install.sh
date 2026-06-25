@@ -33,7 +33,6 @@ Linux)
 ;;
 Darwin)
     TARGETS+=(
-        hammerspoon
     )
 ;;
 esac
