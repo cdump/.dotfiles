@@ -1,0 +1,8 @@
+{
+    "diagnostics.globals": [
+        "vim",
+        "require",
+        "ya",
+        "hl"
+    ]
+}
