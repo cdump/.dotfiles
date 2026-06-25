@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROFILE_ROOT=${CHROME_PROFILE_ROOT:-"${HOME}/.chrome"}
+BROWSER=${CHROME_BROWSER:-google-chrome-stable}
+
+trim() {
+    local value=$1
+    value=${value#"${value%%[![:space:]]*}"}
+    value=${value%"${value##*[![:space:]]}"}
+    printf '%s' "$value"
+}
+
+list_profiles() {
+    mkdir -p -- "$PROFILE_ROOT"
+    find "$PROFILE_ROOT" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | sort
+}
+
+print_rows() {
+    printf '\0no-custom\x1ffalse\n'
+    list_profiles
+}
+
+launch_profile() {
+    local name profile_dir
+
+    name=$(trim "$1")
+    [[ -n "$name" ]] || exit 0
+
+    if [[ "$name" == "." || "$name" == ".." || "$name" == */* ]]; then
+        printf 'Invalid Chrome profile name: %s\n' "$name" >&2
+        exit 1
+    fi
+
+    profile_dir=$PROFILE_ROOT/$name
+    mkdir -p -- "$profile_dir"
+
+    firejail --whitelist="$profile_dir" -- \
+        "$BROWSER" \
+        --window-name="JAIL-$name" \
+        --no-first-run \
+        --user-data-dir="$profile_dir" \
+        >/dev/null 2>&1 &
+}
+
+case "${ROFI_RETV:-0}" in
+    0)
+        print_rows
+        ;;
+    1|2)
+        launch_profile "${1:-}"
+        ;;
+    *)
+        exit 0
+        ;;
+esac
