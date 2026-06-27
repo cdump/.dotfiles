@@ -4,7 +4,7 @@ vim.pack.add({ 'https://github.com/nvim-lualine/lualine.nvim' })
 require('lualine').setup({
   options = {
     globalstatus = true,
-    component_separators = { left = ' ', right = ' ' },
+    component_separators = '',
     section_separators = { left = '', right = '' },
     refresh = {
       events = {
@@ -24,9 +24,19 @@ require('lualine').setup({
     }
   },
   sections = {
-    lualine_a = { 'mode' },
+    lualine_a = {
+      {
+        'mode',
+        fmt = function(str) return str:sub(1,1) end
+      },
+      -- 'mode'
+    },
     lualine_b = {
-      { 'filename', path = 1 }, -- relative path
+      {
+        'filename',
+        path = 1, -- relative path
+        file_status = false,
+      },
       'diagnostics',
     },
     lualine_c = {
