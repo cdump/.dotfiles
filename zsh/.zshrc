@@ -44,6 +44,7 @@ alias vim='nvim'
 alias ll='ls -l'
 alias la='ls -la'
 alias grep='grep --color'
+alias rg='rg --smart-case'
 alias gclean='git clean -Xdi'
 
 alias gdb='gdb --quiet'
@@ -54,6 +55,16 @@ alias kuc='kubectl config use-context'
 alias kun='kubectl config set-context --current --namespace'
 alias kgn='kubectl get namespaces'
 alias klf='kubectl logs --tail=100 -f'
+
+ag() {
+    rg --json --smart-case "$@" |
+        delta \
+            --paging=never \
+            --grep-file-style='green bold' \
+            --grep-line-number-style=yellow \
+            --grep-match-line-style=syntax \
+            --grep-match-word-style='black yellow'
+}
 
 bindkey -e
 bindkey "${terminfo[kdch1]}" delete-char
@@ -124,10 +135,77 @@ sum() {
 }
 
 vag() {
-    local line
-    line=`ag --nocolor "$1" | fzf --select-1 --exit-0 --delimiter ':' --query "$1" \
-        --preview='bat --style "plain,numbers" --paging=never --pager=cat --color=always --line-range $( x=$(( $(echo {2}) - $FZF_PREVIEW_LINES/2 )); [[ $x -lt 0 ]] && echo 0 || echo $x):$(( $(echo {2}) + $FZF_PREVIEW_LINES/2 - 1 )) --highlight-line {2} {1} '` \
-        && vim -R $(cut -d':' -f1 <<< "$line") +$(cut -d':' -f2 <<< "$line")
+    local sep=$'\t'
+    local format_cmd preview_cmd line file row col
+
+    format_cmd='
+BEGIN {
+    FS = OFS = "\t"
+}
+
+{
+    text = $4
+    for (i = 5; i <= NF; i++) {
+        text = text OFS $i
+    }
+
+    display_text = text
+    gsub(/\t/, "    ", display_text)
+
+    display = "\033[1;32m" $1 "\033[0m" \
+        ":\033[33m" $2 "\033[0m" \
+        "  \033[90m" display_text "\033[0m"
+
+    print $1, $2, $3, display
+}
+'
+
+preview_cmd='
+line={2}
+col={3}
+start=$(( line - FZF_PREVIEW_LINES / 2 ))
+end=$(( line + FZF_PREVIEW_LINES / 2 ))
+
+if (( start < 1 )); then
+    start=1
+fi
+
+printf "\033[1;32m%s\033[0m:\033[33m%s\033[0m:\033[33m%s\033[0m\n\n" {1} "$line" "$col"
+
+bat \
+    --style "plain,numbers" \
+    --paging=never \
+    --pager=cat \
+    --color=always \
+    --line-range "${start}:${end}" \
+    --highlight-line "$line" \
+    -- {1}
+'
+
+    line=$(
+        rg \
+            --vimgrep \
+            --color=never \
+            --field-match-separator "$sep" \
+            "$@" |
+            awk "$format_cmd" |
+            fzf \
+                --ansi \
+                --select-1 \
+                --exit-0 \
+                --delimiter "$sep" \
+                --with-nth 4 \
+                --nth 1 \
+                --scheme=path \
+                --highlight-line \
+                --color='hl:yellow,hl+:black:yellow:bold,prompt:green,pointer:yellow,marker:yellow' \
+                --prompt='rg> ' \
+                --query "$1" \
+                --preview "$preview_cmd"
+    ) || return
+
+    IFS=$sep read -r file row col _ <<< "$line"
+    nvim -R "+call cursor($row, $col)" -- "$file"
 }
 
 source_if_exists() {
