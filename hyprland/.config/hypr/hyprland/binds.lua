@@ -61,8 +61,8 @@ local binds = {
   { { "SUPER", "P" },     show_keepass },
   { { "SUPER", "grave" }, show_keepass }, -- grave = name of ` symbol
 
-  { { "SUPER", "SHIFT", "S" },     hl.dsp.workspace.toggle_special("spec") },
-  { { "SUPER", "S" },              hl.dsp.window.move({ workspace = "special:spec" }) },
+  -- { { "SUPER", "SHIFT", "S" },     hl.dsp.workspace.toggle_special("spec") },
+  -- { { "SUPER", "S" },              hl.dsp.window.move({ workspace = "special:spec" }) },
 
   { { "SUPER", "SHIFT", "C" },     hl.dsp.window.close() },
   { { "SUPER", "SHIFT", "F" },     hl.dsp.window.float({ action = "toggle" }) },
