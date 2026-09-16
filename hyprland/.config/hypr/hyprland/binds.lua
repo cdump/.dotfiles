@@ -1,6 +1,7 @@
 local utils = require("hyprland.utils")
 local focus_prev_window = require("hyprland.focus_prev_window")
 local rename_workspace = require("hyprland.rename_workspace")
+local swap_workspace = require("hyprland.swap_workspace")
 
 local function run_or_toggle(window_class, cmd, opts)
   local window_selector = "class:" .. window_class
@@ -96,6 +97,8 @@ local binds = {
   { { "SUPER", "a" },              hl.dsp.window.move({ workspace = "emptyn" }) },
   { { "SUPER", "left" },           hl.dsp.focus({ workspace = "e-1" }) },
   { { "SUPER", "right" },          hl.dsp.focus({ workspace = "e+1" }) },
+  { { "SUPER", "CONTROL", "left" }, function() swap_workspace.swap_current_workspace(-1) end },
+  { { "SUPER", "CONTROL", "right" }, function() swap_workspace.swap_current_workspace(1) end },
   { { "SUPER", "escape" },         hl.dsp.focus({ workspace = "previous" }) },
 
   { { "SUPER", "Tab" },            focus_prev_window.focus_prev_window_on_current_workspace },
