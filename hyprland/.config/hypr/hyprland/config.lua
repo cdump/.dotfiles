@@ -48,6 +48,7 @@ hl.config {
       border_locked_inactive = "rgb(ff0000)",
     },
     groupbar = {
+      disable_when_only = true,
       middle_click_close = false,
       gradients = true,
       font_size = 15,
