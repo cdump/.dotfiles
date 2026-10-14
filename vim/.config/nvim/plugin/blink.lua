@@ -36,6 +36,8 @@ local opts = {
     keymap = {
       preset = 'inherit',
       ['<Tab>'] = { 'show_and_insert', 'select_next' },
+      -- Execute the current command/search instead of accepting a suggestion.
+      ['<CR>'] = false,
     },
     sources = {
       default = {
@@ -45,6 +47,9 @@ local opts = {
       }
     },
     completion = {
+      ghost_text = {
+        enabled = false,
+      },
       menu = {
         auto_show = false,
       },
